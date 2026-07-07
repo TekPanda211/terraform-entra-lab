@@ -3,10 +3,11 @@ resource "azuread_group" "department_groups" {
     for group in flatten([
       for dept in local.departments : [
         for type in local.group_types : {
+          key  = "${dept}-${type}"
           name = "${local.naming_prefix}-${dept}-${type}"
         }
       ]
-    ]) : group.name => group
+    ]) : group.key => group
   }
 
   display_name     = each.value.name
