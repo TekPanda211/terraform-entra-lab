@@ -1,0 +1,22 @@
+digraph IAMArchitecture {
+	fontsize=12 label="Terraform Entra Lab - Enterprise IAM Architecture" labelloc=t rankdir=TB
+	entra [label="Microsoft Entra ID" shape=box style=rounded]
+	groups [label="Department Groups" shape=box style=rounded]
+	rag [label="Role-Assignable Groups" shape=box style=rounded]
+	au [label="Administrative Units" shape=box style=rounded]
+	gov [label="Identity Governance
+(Access Packages / Reviews)" shape=box style=rounded]
+	apps [label="Enterprise Applications" shape=box style=rounded]
+	"graph" [label="Microsoft Graph API" shape=box style=rounded]
+	audit [label="PowerShell Audit Engine" shape=box style=rounded]
+	ai [label="AI Investigation Agent" shape=box style=rounded]
+	entra -> groups
+	entra -> rag
+	groups -> au
+	rag -> au
+	au -> gov
+	gov -> apps
+	apps -> "graph"
+	"graph" -> audit
+	audit -> ai
+}
