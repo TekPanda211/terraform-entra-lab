@@ -1,60 +1,51 @@
-\# Changelog
-
-
+# Changelog
 
 All notable changes to this project will be documented in this file.
 
+## [v0.2.0] - 2026-07-07
 
+### Added
 
-\## \[v0.1.0] - 2026-07-07
+- Environment-based naming model
+- `terraform.tfvars` support
+- Stable Terraform `for_each` keys
+- Role-assignable Microsoft Entra ID groups
+- Privileged group framework
 
+### Infrastructure
 
+- 3 role-assignable Microsoft Entra ID groups deployed
 
-\### Added
+### Updated
 
+- Group naming convention to support environment-based deployments
+- Terraform group resource design
 
+---
 
-\- Initial Terraform project structure
+## [v0.1.0] - 2026-07-07
 
-\- Microsoft Entra ID provider configuration
+### Added
 
-\- Azure CLI authentication
+- Initial Terraform project structure
+- Microsoft Entra ID provider configuration
+- Azure CLI authentication
+- Modular Terraform configuration
+- Department-based security groups
+- Dynamic resource creation using `for_each`
+- IAM engineering documentation
+- GitHub repository
+- Terraform deployment to Microsoft Entra ID
 
-\- Modular Terraform configuration
+### Infrastructure
 
-\- Department-based security groups
+- 27 Microsoft Entra ID security groups deployed
 
-\- Dynamic resource creation using `for\_each`
+### Documentation
 
-\- IAM engineering documentation
-
-\- GitHub repository
-
-\- Terraform deployment to Microsoft Entra ID
-
-
-
-\### Infrastructure
-
-
-
-\- 27 Microsoft Entra ID security groups deployed
-
-
-
-\### Documentation
-
-
-
-\- Terraform Workflow
-
-\- IAM Audit Strategy
-
-\- Conditional Access Design
-
-\- Access Packages Design
-
-\- Security Checks
-
-\- Project Roadmap
-
+- Terraform Workflow
+- IAM Audit Strategy
+- Conditional Access Design
+- Access Packages Design
+- Security Checks
+- Project Roadmap
