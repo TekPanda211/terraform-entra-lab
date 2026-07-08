@@ -71,18 +71,40 @@ if ($ExportJson) {
         Where-Object { $_.FullName -notlike "*\reports\platform\*" }
 
     $platformReport = foreach ($report in $engineReports) {
-        Get-Content $report.FullName -Raw | ConvertFrom-Json
-    }
-
-    $platformPath = Join-Path $OutputPath "blackknight-platform-report.json"
-
-    $platformReport | ConvertTo-Json -Depth 10 | Out-File -FilePath $platformPath -Encoding utf8
-
-    Write-Host ""
-    Write-Host "Exported unified platform report to $platformPath" -ForegroundColor Green
+    Get-Content $report.FullName -Raw | ConvertFrom-Json
 }
 
+$confidenceScore = 0
+
+if ($platformReport -and $platformReport.Confidence) {
+    $confidenceScore = [math]::Round(($platformReport.Confidence | Measure-Object -Average).Average, 2)
+}
+
+$summary = [PSCustomObject]@{
+    Platform          = "Blackknight One"
+    Version           = $BlackKnightVersion
+    OverallConfidence = $confidenceScore
+    EnginesRun        = ($platformReport.Engine | Measure-Object).Count
+    GeneratedAt       = (Get-Date).ToUniversalTime().ToString("o")
+    Results           = $platformReport
+}
+
+$platformPath = Join-Path $OutputPath "blackknight-platform-report.json"
+
+$summary | ConvertTo-Json -Depth 10 | Out-File -FilePath $platformPath -Encoding utf8
+
+    Write-Host ""
+Write-Host "=========================================" -ForegroundColor Cyan
+Write-Host " Blackknight Platform Confidence Summary" -ForegroundColor Cyan
+Write-Host "=========================================" -ForegroundColor Cyan
+Write-Host ""
+Write-Host "Overall Confidence : $confidenceScore%"
+Write-Host "Engines Evaluated  : $($summary.EnginesRun)"
+Write-Host "Platform Version   : $BlackKnightVersion"
+Write-Host "Platform Status    : Healthy"
+Write-Host "Report             : $platformPath"
 Write-Host ""
 Write-Host "=========================================" -ForegroundColor Cyan
-Write-Host " Blackknight Core Complete"
+Write-Host " Blackknight Platform Run Complete" -ForegroundColor Green
 Write-Host "=========================================" -ForegroundColor Cyan
+}

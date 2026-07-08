@@ -1,215 +1,222 @@
-[
-  {
-    "Engine": "Access Packages",
-    "Version": "0.4.0-alpha",
-    "Status": "Framework",
-    "Health": "Healthy",
-    "Confidence": 75,
-    "ChecksRun": 1,
-    "Passed": 1,
-    "Warnings": 0,
-    "Failed": 0,
-    "Timestamp": "2026-07-08T19:20:33.3379258Z",
-    "Evidence": [
-      "Access Package framework documented",
-      "Access Package standard created",
-      "Access Package Terraform model defined"
-    ],
-    "Recommendations": [
-      "Add Microsoft Graph discovery for catalogs and access packages",
-      "Validate assignment policies, approvals, expiration, and reviews"
-    ]
-  },
-  {
-    "Engine": "Entitlement Management",
-    "Version": "0.4.0-alpha",
-    "Status": "Framework",
-    "Health": "Healthy",
-    "Confidence": 75,
-    "ChecksRun": 1,
-    "Passed": 1,
-    "Warnings": 0,
-    "Failed": 0,
-    "Timestamp": "2026-07-08T19:20:33.3401785Z",
-    "Evidence": [
-      "Governance catalog defined",
-      "Governed access workflow documented",
-      "Request, approve, assign, validate, review, expire, report pattern established"
-    ],
-    "Recommendations": [
-      "Add catalog discovery",
-      "Add assignment policy validation"
-    ]
-  },
-  {
-    "Engine": "Administrative Units",
-    "Version": "0.4.0-alpha",
-    "Status": "Framework",
-    "Health": "Healthy",
-    "Confidence": 75,
-    "ChecksRun": 1,
-    "Passed": 1,
-    "Warnings": 0,
-    "Failed": 0,
-    "Timestamp": "2026-07-08T19:20:33.3420156Z",
-    "Evidence": [
-      "Administrative Units identified as governance capability",
-      "Scoped administration model documented"
-    ],
-    "Recommendations": [
-      "Add Terraform Administrative Unit model",
-      "Add Microsoft Graph Administrative Unit discovery"
-    ]
-  },
-  {
-    "Engine": "Dynamic Groups",
-    "Version": "0.4.0-alpha",
-    "Status": "Framework",
-    "Health": "Healthy",
-    "Confidence": 75,
-    "ChecksRun": 1,
-    "Passed": 1,
-    "Warnings": 0,
-    "Failed": 0,
-    "Timestamp": "2026-07-08T19:20:33.3437711Z",
-    "Evidence": [
-      "Dynamic Groups identified for attribute-based access",
-      "Department-based membership model planned"
-    ],
-    "Recommendations": [
-      "Add dynamic membership rule examples",
-      "Validate department, employee type, and location attributes"
-    ]
-  },
-  {
-    "Engine": "Access Reviews",
-    "Version": "0.4.0-alpha",
-    "Status": "Framework",
-    "Health": "Healthy",
-    "Confidence": 75,
-    "ChecksRun": 1,
-    "Passed": 1,
-    "Warnings": 0,
-    "Failed": 0,
-    "Timestamp": "2026-07-08T19:20:33.3456295Z",
-    "Evidence": [
-      "Access Reviews included in governance model",
-      "Privileged, guest, contractor, and application access review use cases documented"
-    ],
-    "Recommendations": [
-      "Add Access Review discovery",
-      "Add overdue review detection"
-    ]
-  },
-  {
-    "Engine": "GDAP-Inspired Governance",
-    "Version": "0.4.0-alpha",
-    "Status": "Framework",
-    "Health": "Healthy",
-    "Confidence": 75,
-    "ChecksRun": 1,
-    "Passed": 1,
-    "Warnings": 0,
-    "Failed": 0,
-    "Timestamp": "2026-07-08T19:20:33.3473497Z",
-    "Evidence": [
-      "Delegated access governance model documented",
-      "Group-based delegated access review pattern defined"
-    ],
-    "Recommendations": [
-      "Add delegated role inventory",
-      "Add stale delegated access detection",
-      "Add GDAP expiration reporting"
-    ]
-  },
-  {
-    "Engine": "Workforce Lifecycle",
-    "Version": "0.4.0-alpha",
-    "Status": "Framework",
-    "Health": "Healthy",
-    "Confidence": 75,
-    "ChecksRun": 1,
-    "Passed": 1,
-    "Warnings": 0,
-    "Failed": 0,
-    "Timestamp": "2026-07-08T19:20:33.4222013Z",
-    "Evidence": [
-      "Workforce lifecycle framework created"
-    ],
-    "Recommendations": [
-      "Add Microsoft Graph user lifecycle validation"
-    ]
-  },
-  {
-    "Engine": "Partner Operations",
-    "Version": "0.4.0-alpha",
-    "Status": "Framework",
-    "Health": "Healthy",
-    "Confidence": 75,
-    "ChecksRun": 1,
-    "Passed": 1,
-    "Warnings": 0,
-    "Failed": 0,
-    "Timestamp": "2026-07-08T19:20:33.4293682Z",
-    "Evidence": [
-      "Partner operations framework created"
-    ],
-    "Recommendations": [
-      "Add GDAP relationship inventory"
-    ]
-  },
-  {
-    "Engine": "License Operations",
-    "Version": "0.4.0-alpha",
-    "Status": "Framework",
-    "Health": "Healthy",
-    "Confidence": 75,
-    "ChecksRun": 1,
-    "Passed": 1,
-    "Warnings": 0,
-    "Failed": 0,
-    "Timestamp": "2026-07-08T19:20:33.4317861Z",
-    "Evidence": [
-      "License operations framework created"
-    ],
-    "Recommendations": [
-      "Add Microsoft Graph subscribed SKU inventory"
-    ]
-  },
-  {
-    "Engine": "Identity Requests",
-    "Version": "0.4.0-alpha",
-    "Status": "Framework",
-    "Health": "Healthy",
-    "Confidence": 75,
-    "ChecksRun": 1,
-    "Passed": 1,
-    "Warnings": 0,
-    "Failed": 0,
-    "Timestamp": "2026-07-08T19:20:33.4339188Z",
-    "Evidence": [
-      "Identity request framework created"
-    ],
-    "Recommendations": [
-      "Add access request evidence model"
-    ]
-  },
-  {
-    "Engine": "Incident Response",
-    "Version": "0.4.0-alpha",
-    "Status": "Framework",
-    "Health": "Healthy",
-    "Confidence": 75,
-    "ChecksRun": 1,
-    "Passed": 1,
-    "Warnings": 0,
-    "Failed": 0,
-    "Timestamp": "2026-07-08T19:20:33.4363897Z",
-    "Evidence": [
-      "Incident response framework created"
-    ],
-    "Recommendations": [
-      "Add emergency termination validation workflow"
-    ]
-  }
-]
+{
+  "Platform": "Blackknight One",
+  "Version": "0.4.0-alpha",
+  "OverallConfidence": 75.0,
+  "EnginesRun": 11,
+  "GeneratedAt": "2026-07-08T21:54:24.8845860Z",
+  "Results": [
+    {
+      "Engine": "Access Packages",
+      "Version": "0.4.0-alpha",
+      "Status": "Framework",
+      "Health": "Healthy",
+      "Confidence": 75,
+      "ChecksRun": 1,
+      "Passed": 1,
+      "Warnings": 0,
+      "Failed": 0,
+      "Timestamp": "2026-07-08T21:54:24.6873378Z",
+      "Evidence": [
+        "Access Package framework documented",
+        "Access Package standard created",
+        "Access Package Terraform model defined"
+      ],
+      "Recommendations": [
+        "Add Microsoft Graph discovery for catalogs and access packages",
+        "Validate assignment policies, approvals, expiration, and reviews"
+      ]
+    },
+    {
+      "Engine": "Entitlement Management",
+      "Version": "0.4.0-alpha",
+      "Status": "Framework",
+      "Health": "Healthy",
+      "Confidence": 75,
+      "ChecksRun": 1,
+      "Passed": 1,
+      "Warnings": 0,
+      "Failed": 0,
+      "Timestamp": "2026-07-08T21:54:24.6900476Z",
+      "Evidence": [
+        "Governance catalog defined",
+        "Governed access workflow documented",
+        "Request, approve, assign, validate, review, expire, report pattern established"
+      ],
+      "Recommendations": [
+        "Add catalog discovery",
+        "Add assignment policy validation"
+      ]
+    },
+    {
+      "Engine": "Administrative Units",
+      "Version": "0.4.0-alpha",
+      "Status": "Framework",
+      "Health": "Healthy",
+      "Confidence": 75,
+      "ChecksRun": 1,
+      "Passed": 1,
+      "Warnings": 0,
+      "Failed": 0,
+      "Timestamp": "2026-07-08T21:54:24.6930546Z",
+      "Evidence": [
+        "Administrative Units identified as governance capability",
+        "Scoped administration model documented"
+      ],
+      "Recommendations": [
+        "Add Terraform Administrative Unit model",
+        "Add Microsoft Graph Administrative Unit discovery"
+      ]
+    },
+    {
+      "Engine": "Dynamic Groups",
+      "Version": "0.4.0-alpha",
+      "Status": "Framework",
+      "Health": "Healthy",
+      "Confidence": 75,
+      "ChecksRun": 1,
+      "Passed": 1,
+      "Warnings": 0,
+      "Failed": 0,
+      "Timestamp": "2026-07-08T21:54:24.6956281Z",
+      "Evidence": [
+        "Dynamic Groups identified for attribute-based access",
+        "Department-based membership model planned"
+      ],
+      "Recommendations": [
+        "Add dynamic membership rule examples",
+        "Validate department, employee type, and location attributes"
+      ]
+    },
+    {
+      "Engine": "Access Reviews",
+      "Version": "0.4.0-alpha",
+      "Status": "Framework",
+      "Health": "Healthy",
+      "Confidence": 75,
+      "ChecksRun": 1,
+      "Passed": 1,
+      "Warnings": 0,
+      "Failed": 0,
+      "Timestamp": "2026-07-08T21:54:24.6980803Z",
+      "Evidence": [
+        "Access Reviews included in governance model",
+        "Privileged, guest, contractor, and application access review use cases documented"
+      ],
+      "Recommendations": [
+        "Add Access Review discovery",
+        "Add overdue review detection"
+      ]
+    },
+    {
+      "Engine": "GDAP-Inspired Governance",
+      "Version": "0.4.0-alpha",
+      "Status": "Framework",
+      "Health": "Healthy",
+      "Confidence": 75,
+      "ChecksRun": 1,
+      "Passed": 1,
+      "Warnings": 0,
+      "Failed": 0,
+      "Timestamp": "2026-07-08T21:54:24.700857Z",
+      "Evidence": [
+        "Delegated access governance model documented",
+        "Group-based delegated access review pattern defined"
+      ],
+      "Recommendations": [
+        "Add delegated role inventory",
+        "Add stale delegated access detection",
+        "Add GDAP expiration reporting"
+      ]
+    },
+    {
+      "Engine": "Workforce Lifecycle",
+      "Version": "0.4.0-alpha",
+      "Status": "Framework",
+      "Health": "Healthy",
+      "Confidence": 75,
+      "ChecksRun": 1,
+      "Passed": 1,
+      "Warnings": 0,
+      "Failed": 0,
+      "Timestamp": "2026-07-08T21:54:24.7928583Z",
+      "Evidence": [
+        "Workforce lifecycle framework created"
+      ],
+      "Recommendations": [
+        "Add Microsoft Graph user lifecycle validation"
+      ]
+    },
+    {
+      "Engine": "Partner Operations",
+      "Version": "0.4.0-alpha",
+      "Status": "Framework",
+      "Health": "Healthy",
+      "Confidence": 75,
+      "ChecksRun": 1,
+      "Passed": 1,
+      "Warnings": 0,
+      "Failed": 0,
+      "Timestamp": "2026-07-08T21:54:24.7957178Z",
+      "Evidence": [
+        "Partner operations framework created"
+      ],
+      "Recommendations": [
+        "Add GDAP relationship inventory"
+      ]
+    },
+    {
+      "Engine": "License Operations",
+      "Version": "0.4.0-alpha",
+      "Status": "Framework",
+      "Health": "Healthy",
+      "Confidence": 75,
+      "ChecksRun": 1,
+      "Passed": 1,
+      "Warnings": 0,
+      "Failed": 0,
+      "Timestamp": "2026-07-08T21:54:24.7979377Z",
+      "Evidence": [
+        "License operations framework created"
+      ],
+      "Recommendations": [
+        "Add Microsoft Graph subscribed SKU inventory"
+      ]
+    },
+    {
+      "Engine": "Identity Requests",
+      "Version": "0.4.0-alpha",
+      "Status": "Framework",
+      "Health": "Healthy",
+      "Confidence": 75,
+      "ChecksRun": 1,
+      "Passed": 1,
+      "Warnings": 0,
+      "Failed": 0,
+      "Timestamp": "2026-07-08T21:54:24.8005259Z",
+      "Evidence": [
+        "Identity request framework created"
+      ],
+      "Recommendations": [
+        "Add access request evidence model"
+      ]
+    },
+    {
+      "Engine": "Incident Response",
+      "Version": "0.4.0-alpha",
+      "Status": "Framework",
+      "Health": "Healthy",
+      "Confidence": 75,
+      "ChecksRun": 1,
+      "Passed": 1,
+      "Warnings": 0,
+      "Failed": 0,
+      "Timestamp": "2026-07-08T21:54:24.802955Z",
+      "Evidence": [
+        "Incident response framework created"
+      ],
+      "Recommendations": [
+        "Add emergency termination validation workflow"
+      ]
+    }
+  ]
+}
