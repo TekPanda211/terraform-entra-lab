@@ -8,9 +8,13 @@
 
 > **Build • Coach • Mentor**
 
-Blackknight One is an enterprise identity engineering platform focused on designing, deploying, governing, operating, and continuously validating Microsoft Entra ID and Microsoft 365 environments.
+---
 
-Built around Infrastructure as Code, Microsoft Graph, PowerShell, automation, and AI-assisted operational workflows, Blackknight One delivers repeatable engineering practices that improve security, governance, operational confidence, and enterprise trust.
+## What is Blackknight One?
+
+Blackknight One is an open-source enterprise identity engineering platform designed to help engineers build, govern, operate, and continuously validate Microsoft Entra ID and Microsoft 365 environments.
+
+Rather than focusing solely on deployment, Blackknight One combines Infrastructure as Code, Microsoft Graph, PowerShell, automation, governance, reporting, and AI into a single engineering platform that measures confidence in enterprise identity.
 
 ---
 
@@ -18,7 +22,7 @@ Built around Infrastructure as Code, Microsoft Graph, PowerShell, automation, an
 
 Identity engineering is more than provisioning users and groups.
 
-It is the discipline of designing, governing, operating, and continuously validating enterprise identity systems.
+It is the discipline of designing, governing, operating, securing, and continuously validating enterprise identity systems.
 
 Blackknight One exists to help engineers build trusted identity platforms while sharing practical knowledge with the identity engineering community.
 
@@ -52,25 +56,55 @@ Blackknight One brings these capabilities together into a single engineering pla
 
 ---
 
+# Community Principles
+
+Build.
+
+Create solutions that improve enterprise identity.
+
+Coach.
+
+Share knowledge so others become stronger engineers.
+
+Mentor.
+
+Leave the engineering community better than you found it.
+
+---
+
 # North Star
 
 Every engine inside Blackknight One answers one question:
 
 > **Can I trust the current state of my environment?**
 
-Everything...
-
 Every Terraform deployment.
 
 Every Microsoft Graph query.
 
-Every PowerShell script.
+Every PowerShell workflow.
 
 Every report.
 
-Every AI workflow.
+Every AI recommendation.
 
-Exists to increase confidence through continuous verification.
+Exists to build confidence through continuous verification.
+
+---
+
+# Engineering Philosophy
+
+Measure.
+
+Validate.
+
+Trust.
+
+Blackknight One follows a simple engineering philosophy:
+
+- Measure the current state.
+- Validate the desired state.
+- Build confidence through evidence.
 
 ---
 
@@ -82,229 +116,120 @@ Exists to increase confidence through continuous verification.
 
 # Platform Components
 
-## Identity Engine
-
-Designs and validates the identity foundation.
-
-Current capabilities
-
-- Microsoft Entra ID
-- Users
-- Groups
-- RBAC
-- PIM
-- Role Assignable Groups
-- Enterprise Applications
-- Administrative Units
+| Engine | Purpose |
+|----------|---------|
+| Identity | Discover and validate Microsoft Entra ID |
+| Trust | Evaluate Zero Trust posture |
+| Access & Governance | Identity Governance, Access Packages, Reviews |
+| Operations | Workforce lifecycle and daily identity operations |
+| Endpoint | Microsoft Intune and device compliance |
+| Security | Microsoft Sentinel and Microsoft Defender |
+| Compliance | Microsoft Purview and information governance |
+| Automation | Terraform, PowerShell, Microsoft Graph |
+| Reporting | Executive, engineering, and compliance reporting |
+| AI | Operational intelligence and assisted investigations |
 
 ---
 
-## Trust Engine
+# Current Repository Structure
 
-Validates identity trust.
-
-Planned capabilities
-
-- Conditional Access
-- Authentication Strengths
-- Identity Protection
-- Named Locations
-- Zero Trust
-- Break Glass Accounts
-- Continuous Access Evaluation
+```text
+blackknight-one
+│
+├── config/
+│
+├── docs/
+│   ├── Architecture/
+│   ├── Engines/
+│   ├── Governance/
+│   ├── Operations/
+│   ├── Platform/
+│   ├── Releases/
+│   └── Roadmaps/
+│
+├── images/
+│
+├── reports/
+│
+├── schemas/
+│
+├── scripts/
+│   └── PowerShell/
+│       ├── Core/
+│       ├── Platform/
+│       ├── Identity/
+│       ├── Trust/
+│       ├── Governance/
+│       ├── Operations/
+│       ├── Endpoint/
+│       ├── Security/
+│       ├── Compliance/
+│       ├── Reporting/
+│       └── AI/
+│
+├── terraform/
+│
+└── tests/
+```
 
 ---
 
-## Access & Governance Engine
+# Current Platform Status
 
-Defines how access is requested, approved, assigned, validated, reviewed, expired, and reported.
+## Core Platform
 
-Current capabilities
+- ✅ Engine Discovery
+- ✅ Platform Services
+- ✅ Unified JSON Reporting
+- ✅ Platform Confidence Summary
 
-- Identity Governance framework
-- Access Package framework
-- Entitlement Management model
-- Governance Catalog
-- Access Package standards
-- Governance maturity model
-- Administrative Unit planning
-- Dynamic Group planning
-- Access Review planning
-- Lifecycle Workflow planning
-- GDAP-inspired delegated access governance
+## Governance Engine
 
-Future capabilities
-
-- Microsoft Graph discovery
-- Access Package deployment
-- Governance validation
-- Assignment Policy validation
-- Confidence scoring
-
----
+- ✅ Access Packages
+- ✅ Entitlement Management
+- ✅ Governance Catalog
+- ✅ Administrative Units
+- ✅ Dynamic Groups
+- ✅ Access Reviews
+- ✅ Lifecycle Workflow Framework
+- ✅ GDAP-inspired Governance
 
 ## Operations Engine
 
-Supports day-to-day identity operations after the environment has been engineered.
-
-Current capabilities
-
-- Workforce Lifecycle
-- Partner Operations
-- License Operations
-- Identity Requests
-- Incident Response
-
-Operational philosophy
-
-1. Provision
-2. Validate
-3. Report
-
----
-
-## Endpoint Engine
-
-Microsoft Intune
-
-Windows Autopilot
-
-Configuration Profiles
-
-Compliance Policies
-
-Application Deployment
-
-Endpoint Analytics
-
----
-
-## Security Engine
-
-Microsoft Sentinel
-
-Microsoft Defender XDR
-
-Microsoft Defender for Endpoint
-
-Microsoft Defender for Office 365
-
-Threat Hunting
-
-Incident Investigation
-
----
-
-## Compliance Engine
-
-Microsoft Purview
-
-Audit
-
-Data Loss Prevention
-
-Retention
-
-eDiscovery
-
-Records Management
-
----
-
-## Automation Engine
-
-Terraform
-
-Microsoft Graph
-
-PowerShell
-
-Azure CLI
-
-GitHub Actions
-
-Azure Automation
-
-Logic Apps
-
-REST APIs
-
----
-
-## Reporting Engine
-
-Executive Reporting
-
-Identity Health
-
-Configuration Drift
-
-Governance Reporting
-
-Compliance Reporting
-
-Markdown
-
-HTML
-
-CSV
-
-Power BI
-
----
-
-## AI Engine
-
-Microsoft Copilot
-
-OpenAI
-
-Investigation Assistance
-
-Operational Recommendations
-
-Executive Summaries
-
-Knowledge Assistance
-
-Engineering Guidance
-
----
-
-# Current Release
-
-## v0.3.0-alpha
-
-Identity Governance Engine
-
-### Delivered
-
-- Governance Engine framework
-- Access Package model
-- Governance Catalog
-- Governance Standards
-- Governance Roadmap
-- Governance Maturity Model
-- Terraform Access Package framework
-- Governance JSON reporting
-- PowerShell Governance Engine
+- ✅ Workforce Lifecycle
+- ✅ Partner Operations
+- ✅ License Operations
+- ✅ Identity Requests
+- ✅ Incident Response
 
 ---
 
 # Roadmap
 
-| Version | Focus                      |
-| ------- | -------------------------- |
-| v0.1    | Foundation Engine ✅        |
-| v0.2    | Identity Architecture ✅    |
-| v0.3    | Identity Governance ✅      |
-| v0.4    | Identity Discovery & Trust |
-| v0.5    | Enterprise Applications    |
-| v0.6    | Endpoint Management        |
-| v0.7    | Security Operations        |
-| v0.8    | Compliance                 |
-| v0.9    | Automation Platform        |
-| v1.0    | Enterprise Trust Platform  |
+| Version | Status | Focus |
+|----------|--------|-------|
+| v0.1 | ✅ | Foundation |
+| v0.2 | ✅ | Identity Architecture |
+| v0.3 | ✅ | Identity Governance |
+| v0.4 | 🚧 | Platform Services |
+| v0.5 | Planned | Microsoft Graph Identity Discovery |
+| v0.6 | Planned | Trust Engine |
+| v0.7 | Planned | Endpoint Engine |
+| v0.8 | Planned | Security Engine |
+| v0.9 | Planned | Compliance Engine |
+| v1.0 | Planned | Enterprise Trust Platform |
+
+---
+
+# Design Philosophy
+
+Blackknight One follows five engineering principles.
+
+- **Discover before changing**
+- **Automate repetitive work**
+- **Validate continuously**
+- **Produce evidence**
+- **Build confidence**
 
 ---
 
@@ -322,14 +247,14 @@ Mentor.
 
 ---
 
-## License
+# License
 
 MIT License
 
 ---
 
-## Author
+# Author
 
-Created and maintained by Todd Crow.
+Created and maintained by **Todd Crow**.
 
-Inspired by the philosophy of building confidence through continuous verification.
+Inspired by the belief that enterprise identity should be measurable, governed, and trusted.
