@@ -1,178 +1,172 @@
-# Terraform Entra Lab
+# BlackKnight One
 
-Enterprise Infrastructure as Code (IaC) project focused on designing, deploying, and auditing Microsoft Entra ID environments using Terraform, Microsoft Graph, PowerShell, and AI-assisted automation.
+## Enterprise Identity Engineering Platform
 
-This project is being developed as a real-world Identity and Access Management (IAM) engineering portfolio demonstrating enterprise identity architecture, automation, governance, and security best practices.
+### One Source of Truth
 
----
+> **Build • Coach • Mentor**
 
-# Project Objectives
+BlackKnight One is an enterprise identity engineering platform focused on designing, automating, governing, and continuously validating Microsoft Entra ID and Microsoft 365 environments through Infrastructure as Code, Microsoft Graph, PowerShell, automation, and AI-assisted operational workflows.
 
-- Deploy Microsoft Entra ID infrastructure using Terraform
-- Implement enterprise IAM architecture and governance
-- Design scalable Role-Based Access Control (RBAC) models
-- Build Identity Governance solutions using Access Packages and Administrative Units
-- Develop Conditional Access and Zero Trust security configurations
-- Automate identity auditing with Microsoft Graph and PowerShell
-- Integrate AI-assisted investigation and reporting workflows
-- Demonstrate modern Infrastructure as Code engineering practices
+The platform is designed to help engineers build secure identity environments while providing practical learning resources for the identity engineering community.
 
 ---
 
-# Current Features
+# Mission
 
-## Identity Foundation
+BlackKnight One exists to advance the practice of Identity Engineering.
 
-- Microsoft Entra ID Provider
-- Azure CLI Authentication
+We build real solutions.
+
+We coach through documentation.
+
+We mentor by sharing knowledge.
+
+---
+
+# Guiding Principle
+
+> **Secure by Design. Verified by Automation. Trusted Through Evidence.**
+
+---
+
+# Platform Architecture
+
+![BlackKnight One Architecture](images/enterprise-iam-architecture.png)
+
+---
+
+# Current Capabilities
+
+## Identity Engine
+
+- Microsoft Entra ID
+- Security Groups
+- Role Assignable Groups
+- RBAC
 - Environment-aware Terraform deployments
-- Reusable Infrastructure as Code architecture
 
-## Identity Architecture
+## Governance Engine
 
-- Department-based Security Groups
-- Role-Assignable Groups
-- Environment-specific naming conventions
-- Stable Terraform state management
+- Access Package architecture
+- Identity Governance planning
+- Administrative Units (roadmap)
+- Dynamic Groups (roadmap)
 
-## Documentation
+## Automation Engine
 
-- IAM Design Documentation
-- Access Package Planning
-- Conditional Access Design
+- Terraform
+- Azure CLI
+- Git
+- GitHub
+- Infrastructure as Code
+
+## Documentation Engine
+
 - Terraform Workflow
-- Security Audit Strategy
-- Project Roadmap
-
----
-
-# Architecture
-
-![Enterprise IAM Architecture](images/terraform-entra-architecture.png)
-
----
-
-# Repository Structure
-
-```text
-terraform-entra-lab
-
-── docs/                # Design documentation
-── terraform/           # Infrastructure as Code
-── scripts/             # PowerShell & Microsoft Graph automation
-── modules/             # Reusable Terraform modules
-── examples/            # Example deployment scenarios
-── images/              # Architecture diagrams
-── releases/            # Release notes
-── CHANGELOG.md
-── README.md
-```
+- IAM Strategy
+- Conditional Access Design
+- Access Package Design
+- Security Audit Planning
 
 ---
 
 # Technology Stack
 
-## Identity Platforms
-
 - Microsoft Entra ID
 - Microsoft Graph
-- Azure Active Directory
-
-## Infrastructure as Code
-
 - Terraform
-- Azure CLI
-
-## Automation
-
 - PowerShell
-- Git
+- Azure CLI
 - GitHub
-
-## Security
-
-- Conditional Access
-- Identity Governance
-- Role-Based Access Control (RBAC)
-- Administrative Units
-- Access Packages
-
-## Future Integrations
-
-- Privileged Identity Management (PIM)
-- Microsoft Graph SDK
-- GitHub Actions
-- CI/CD Pipelines
-- AI Investigation Agent
-- Automated Security Auditing
+- GitHub Actions (planned)
+- Microsoft Sentinel (planned)
+- Microsoft Intune (planned)
+- Microsoft Purview (planned)
 
 ---
 
-# Project Roadmap
+# Roadmap
 
-## ✅ v0.1.0 — Foundation Release
+## v0.1.0 — Foundation Engine ✅
 
-- GitHub Repository
-- Terraform Project
+- Terraform Foundation
 - Microsoft Entra Provider
-- Department Security Groups
-- Documentation
+- Department Groups
 
-## ✅ v0.2.0 — Identity Architecture
+## v0.2.0 — Identity Architecture Engine ✅
 
 - Environment-aware Deployments
-- Role-Assignable Groups
+- Role Assignable Groups
 - Naming Standards
-- Stable Terraform State
 
-## 🚧 v0.3.0 — Identity Governance
+## v0.3.0 — Identity Governance Engine
 
 - Administrative Units
+- Access Packages
+- Entitlement Management
 - Dynamic Groups
-- Identity Relationships
-- User Lifecycle Management
+- Identity Lifecycle
+- Access Reviews
 
-## 🔜 v0.4.0 — Conditional Access Framework
+## v0.4.0 — Trust Engine
 
-- Named Locations
+- Conditional Access
 - Authentication Strengths
-- Session Controls
-- Zero Trust Policies
+- Identity Protection
+- Named Locations
 
-## 🔜 v0.5.0 — Enterprise Applications
+## v0.5.0 — Application Engine
 
 - Enterprise Applications
 - Service Principals
-- RBAC Assignments
-- Application Roles
+- OAuth
+- App Roles
 
-## 🔜 v0.6.0 — Microsoft Graph Automation
+## v0.6.0 — Endpoint Engine
 
-- Microsoft Graph SDK
-- Automated Security Audits
-- Identity Reporting
-- Compliance Validation
+- Microsoft Intune
+- Windows Autopilot
+- Compliance Policies
 
-## 🔜 v1.0.0 — Enterprise IAM Engineering Lab
+## v0.7.0 — Security Engine
 
-A fully automated Microsoft Entra ID engineering environment demonstrating enterprise identity architecture, governance, automation, security auditing, and AI-assisted investigation workflows.
+- Microsoft Sentinel
+- Microsoft Defender XDR
+- Secure Score
+
+## v0.8.0 — Compliance Engine
+
+- Microsoft Purview
+- Audit
+- DLP
+- eDiscovery
+
+## v0.9.0 — Automation Engine
+
+- Microsoft Graph
+- GitHub Actions
+- Reporting
+- PowerShell Modules
+
+## v1.0.0 — BlackKnight One
+
+Enterprise Trust Platform
 
 ---
 
-# Why This Project?
+# Why BlackKnight One?
 
-Modern Identity and Access Management extends beyond user and group administration. Enterprise IAM Engineers design secure, automated, and scalable identity platforms that integrate governance, least privilege, Zero Trust principles, and Infrastructure as Code.
+Identity Engineering is more than provisioning users and groups.
 
-This project serves as a continuously evolving engineering portfolio demonstrating those capabilities through real Microsoft Entra ID deployments and automation.
+It is the discipline of building secure, automated, governed, and continuously validated identity environments.
+
+BlackKnight One exists to make that discipline easier to learn, easier to implement, and easier to improve.
 
 ---
 
-# Author
+## Author
 
-**Todd Crow**
+Todd Crow
 
-Senior Microsoft 365 / Microsoft Entra Engineer
-
-Colorado Springs, Colorado
-
-GitHub: https://github.com/TekPanda211
+Microsoft 365 / Microsoft Entra Engineer
