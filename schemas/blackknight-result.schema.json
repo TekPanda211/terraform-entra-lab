@@ -1,0 +1,38 @@
+{
+  "title": "Blackknight Result Schema",
+  "type": "object",
+  "required": [
+    "Engine",
+    "Version",
+    "Status",
+    "Health",
+    "Confidence",
+    "ChecksRun",
+    "Passed",
+    "Warnings",
+    "Failed",
+    "Timestamp",
+    "Evidence",
+    "Recommendations"
+  ],
+  "properties": {
+    "Engine": { "type": "string" },
+    "Version": { "type": "string" },
+    "Status": { "type": "string" },
+    "Health": { "type": "string" },
+    "Confidence": { "type": "number" },
+    "ChecksRun": { "type": "number" },
+    "Passed": { "type": "number" },
+    "Warnings": { "type": "number" },
+    "Failed": { "type": "number" },
+    "Timestamp": { "type": "string" },
+    "Evidence": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "Recommendations": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

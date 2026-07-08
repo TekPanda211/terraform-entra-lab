@@ -1,0 +1,23 @@
+{
+  "Platform": {
+    "Name": "Blackknight One",
+    "Version": "0.4.0-alpha",
+    "Mission": "Build • Coach • Mentor",
+    "NorthStar": "One Source of Truth",
+    "Tagline": "Building confidence through continuous verification.",
+    "Environment": "Development",
+    "OutputFolder": "reports",
+    "ConfidenceThreshold": 80
+  },
+  "Features": {
+    "JsonReporting": true,
+    "MarkdownReporting": false,
+    "HtmlReporting": false,
+    "CsvReporting": false,
+    "AI": false
+  },
+  "MicrosoftGraph": {
+    "Enabled": false,
+    "Authentication": "Interactive"
+  }
+}
