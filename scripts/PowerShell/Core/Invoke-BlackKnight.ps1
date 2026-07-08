@@ -40,6 +40,18 @@ Write-Host ""
 
 $Root = Split-Path $PSScriptRoot -Parent
 
+$GovernanceEngine = Join-Path $Root "Governance\Invoke-BlackKnightGovernance.ps1"
+
+if (Test-Path $GovernanceEngine)
+{
+    Write-Host "[+] Loading Governance Engine..." -ForegroundColor Green
+    & $GovernanceEngine
+}
+else
+{
+    Write-Warning "Governance Engine not found."
+}
+
 $OperationsEngine = Join-Path $Root "Operations\Invoke-BlackKnightOperations.ps1"
 
 if (Test-Path $OperationsEngine)

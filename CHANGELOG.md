@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v0.3.0-alpha] - 2026-07-08
+
+### Added
+
+- Identity Governance Engine framework
+- Access Package framework
+- Entitlement Management model
+- Governance catalog documentation
+- Access Package standard
+- Governance maturity model
+- Governance roadmap
+- Governance Engine PowerShell runner
+- Governance JSON report output
+
+### Infrastructure
+
+- Added Terraform locals model for Access Package catalogs and templates
+
+### Documentation
+
+- Added Identity Governance Engine documentation
+- Added governance standards and roadmap
+
 ## [v0.2.0] - 2026-07-07
 
 ### Added

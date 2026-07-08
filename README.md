@@ -96,19 +96,19 @@ Break Glass
 
 ## Access & Governance Engine
 
-Access Packages
+The Access & Governance Engine defines how access is requested, approved, assigned, validated, reviewed, expired, and reported.
 
-Administrative Units
+Current capabilities:
 
-Dynamic Groups
-
-Access Reviews
-
-Lifecycle Workflows
-
-Entitlement Management
-
-Least Privilege
+- Access Package framework
+- Entitlement Management model
+- Governance catalog
+- Access Package standard
+- Governance maturity model
+- Administrative Unit planning
+- Dynamic Group planning
+- Access Review planning
+- GDAP-inspired delegated access governance
 
 ---
 

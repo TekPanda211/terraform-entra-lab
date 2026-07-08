@@ -58,17 +58,23 @@ Zero Trust
 
 ## Access & Governance Engine
 
-Access Packages
+The Access & Governance Engine governs how access is requested, approved, assigned, validated, reviewed, expired, and reported.
 
-Administrative Units
+Core capabilities:
 
-Dynamic Groups
+- Access Packages
+- Entitlement Management
+- Governance Catalogs
+- Assignment Policies
+- Administrative Units
+- Dynamic Groups
+- Access Reviews
+- Lifecycle Workflows
+- GDAP-inspired delegated access governance
 
-Access Reviews
+North Star:
 
-Lifecycle Workflows
-
-Least Privilege
+> Can I prove this access is appropriate, approved, time-bound, reviewable, and backed by evidence?
 
 ---
 
