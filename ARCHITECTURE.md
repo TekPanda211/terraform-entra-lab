@@ -1,202 +1,27 @@
-# BlackKnight One Architecture
+# ARCHITECTURE.md
 
-## North Star
+This should become the technical blueprint.
 
-BlackKnight One exists to answer one question.
+```markdown
+# Blackknight One Architecture
 
-> **Can I trust the current state of my environment?**
+## Platform Overview
 
-Every module.
+Blackknight One is organized into three layers.
 
-Every Terraform deployment.
-
-Every Microsoft Graph query.
-
-Every PowerShell script.
-
-Every report.
-
-Every AI workflow.
-
-Should help answer that question.
-
----
-
-# Platform Architecture
-
-BlackKnight One is composed of independent engineering engines working together to provide a single source of truth for enterprise identity.
-
-## Identity Engine
-
-Microsoft Entra ID
-
-Identity Foundation
-
-RBAC
-
-Groups
-
-PIM
-
-Enterprise Applications
-
----
-
-## Trust Engine
-
-Conditional Access
-
-Identity Protection
-
-Authentication
-
-Named Locations
-
-Zero Trust
-
----
-
-## Access & Governance Engine
-
-The Access & Governance Engine governs how access is requested, approved, assigned, validated, reviewed, expired, and reported.
-
-Core capabilities:
-
-- Access Packages
-- Entitlement Management
-- Governance Catalogs
-- Assignment Policies
-- Administrative Units
-- Dynamic Groups
-- Access Reviews
-- Lifecycle Workflows
-- GDAP-inspired delegated access governance
-
-North Star:
-
-> Can I prove this access is appropriate, approved, time-bound, reviewable, and backed by evidence?
-
----
-
-## Endpoint Engine
-
-Microsoft Intune
-
-Autopilot
-
-Device Compliance
-
-Configuration Profiles
-
-Endpoint Analytics
-
----
-
-## Security Engine
-
-Microsoft Sentinel
-
-Microsoft Defender XDR
-
-Threat Hunting
-
-Incident Investigation
-
----
-
-## Compliance Engine
-
-Microsoft Purview
-
-Audit
-
-DLP
-
-Retention
-
-Records
-
----
-
-## Automation Engine
-
-Terraform
-
-PowerShell
-
-Microsoft Graph
-
-GitHub Actions
-
-Azure Automation
-
-Logic Apps
-
----
-
-## Reporting Engine
-
-Executive Reporting
-
-Identity Health
-
-Compliance
-
-Configuration Drift
-
-Power BI
-
----
-
-## AI Engine
-
-Copilot
-
-OpenAI
-
-Operational Intelligence
-
-Executive Summaries
-
-Knowledge Assistance
-
----
-
-# Platform Workflow
-
-Terraform
+Configuration
 
 ↓
 
-Desired State
+Platform Services
 
 ↓
 
-Microsoft Graph
+Engines
 
 ↓
 
-Actual State
-
-↓
-
-Automation
-
-↓
-
-Validation
-
-↓
-
-Compliance Engine
-
-↓
-
-Reporting Engine
-
-↓
-
-AI Intelligence
+Reports
 
 ↓
 
@@ -204,6 +29,74 @@ Confidence
 
 ---
 
-## Outcome
+## Configuration
 
-BlackKnight One transforms configuration into confidence through continuous verification.
+Platform behavior is controlled through the configuration directory.
+
+Examples:
+
+- platform.json
+- engines.json
+- logging.json
+- reporting.json
+
+---
+
+## Platform Services
+
+Platform Services provide reusable capabilities.
+
+Current services:
+
+- Configuration
+- Logging
+- Reporting
+- Confidence
+
+Future services:
+
+- Microsoft Graph
+- Authentication
+- Plugin Management
+- HTML Reporting
+- Markdown Reporting
+
+---
+
+## Engine Model
+
+Each engine should:
+
+Discover
+
+↓
+
+Measure
+
+↓
+
+Validate
+
+↓
+
+Produce Evidence
+
+↓
+
+Return Standard Result Schema
+
+---
+
+## Platform Confidence
+
+Each engine returns its own confidence score.
+
+The Core Engine aggregates those results into a platform confidence score.
+
+---
+
+## North Star
+
+Every engine answers one question.
+
+> Can I trust the current state of my environment?

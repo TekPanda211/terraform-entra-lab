@@ -1,34 +1,16 @@
-# Contributing to BlackKnight One
+# Contributing to Blackknight One
 
-Thank you for your interest in contributing.
+Thank you for your interest in contributing to Blackknight One.
 
-Before opening a Pull Request, ask yourself five questions.
+Blackknight One is an open-source enterprise identity engineering platform built around one guiding principle:
 
-## Engineering
+> **Building confidence through continuous verification.**
 
-Does this solve a real engineering problem?
-
-## Operational Value
-
-Would an enterprise IAM team use this?
-
-## Educational Value
-
-Will another engineer learn something?
-
-## Maintainability
-
-Can someone else support this in the future?
-
-## Confidence
-
-Does this increase confidence in the environment?
-
-If the answer is yes, you're building BlackKnight One.
+Whether you contribute code, documentation, ideas, bug reports, or improvements, your contribution helps strengthen the engineering community.
 
 ---
 
-## Our Mission
+# Our Mission
 
 Build.
 
@@ -36,6 +18,42 @@ Coach.
 
 Mentor.
 
+Every contribution should leave the platform—and the people using it—better than before.
+
 ---
 
-Thank you for helping improve BlackKnight One.
+# Engineering Philosophy
+
+Every contribution should support one or more of these principles.
+
+- Measure
+- Validate
+- Trust
+
+Engineering decisions should be backed by evidence.
+
+---
+
+# Platform Principles
+
+Blackknight One follows five engineering principles.
+
+- Discover before changing.
+- Automate repetitive work.
+- Validate continuously.
+- Produce evidence.
+- Build confidence.
+
+---
+
+# Repository Structure
+
+```text
+config/
+docs/
+images/
+reports/
+schemas/
+scripts/
+terraform/
+tests/
