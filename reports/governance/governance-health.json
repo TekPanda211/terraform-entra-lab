@@ -1,0 +1,125 @@
+[
+  {
+    "Engine": "Access Packages",
+    "Version": "0.3.0-alpha",
+    "Status": "Framework",
+    "Health": "Healthy",
+    "Confidence": 75,
+    "ChecksRun": 1,
+    "Passed": 1,
+    "Warnings": 0,
+    "Failed": 0,
+    "Timestamp": "2026-07-08T15:04:34.2552969Z",
+    "Evidence": [
+      "Access Package framework documented",
+      "Access Package standard created",
+      "Access Package Terraform model defined"
+    ],
+    "Recommendations": [
+      "Add Microsoft Graph discovery for catalogs and access packages",
+      "Validate assignment policies, approvals, expiration, and reviews"
+    ]
+  },
+  {
+    "Engine": "Entitlement Management",
+    "Version": "0.3.0-alpha",
+    "Status": "Framework",
+    "Health": "Healthy",
+    "Confidence": 75,
+    "ChecksRun": 1,
+    "Passed": 1,
+    "Warnings": 0,
+    "Failed": 0,
+    "Timestamp": "2026-07-08T15:04:34.2654980Z",
+    "Evidence": [
+      "Governance catalog defined",
+      "Governed access workflow documented",
+      "Request, approve, assign, validate, review, expire, report pattern established"
+    ],
+    "Recommendations": [
+      "Add catalog discovery",
+      "Add assignment policy validation"
+    ]
+  },
+  {
+    "Engine": "Administrative Units",
+    "Version": "0.3.0-alpha",
+    "Status": "Framework",
+    "Health": "Healthy",
+    "Confidence": 75,
+    "ChecksRun": 1,
+    "Passed": 1,
+    "Warnings": 0,
+    "Failed": 0,
+    "Timestamp": "2026-07-08T15:04:34.2673527Z",
+    "Evidence": [
+      "Administrative Units identified as governance capability",
+      "Scoped administration model documented"
+    ],
+    "Recommendations": [
+      "Add Terraform Administrative Unit model",
+      "Add Microsoft Graph Administrative Unit discovery"
+    ]
+  },
+  {
+    "Engine": "Dynamic Groups",
+    "Version": "0.3.0-alpha",
+    "Status": "Framework",
+    "Health": "Healthy",
+    "Confidence": 75,
+    "ChecksRun": 1,
+    "Passed": 1,
+    "Warnings": 0,
+    "Failed": 0,
+    "Timestamp": "2026-07-08T15:04:34.2694185Z",
+    "Evidence": [
+      "Dynamic Groups identified for attribute-based access",
+      "Department-based membership model planned"
+    ],
+    "Recommendations": [
+      "Add dynamic membership rule examples",
+      "Validate department, employee type, and location attributes"
+    ]
+  },
+  {
+    "Engine": "Access Reviews",
+    "Version": "0.3.0-alpha",
+    "Status": "Framework",
+    "Health": "Healthy",
+    "Confidence": 75,
+    "ChecksRun": 1,
+    "Passed": 1,
+    "Warnings": 0,
+    "Failed": 0,
+    "Timestamp": "2026-07-08T15:04:34.2731499Z",
+    "Evidence": [
+      "Access Reviews included in governance model",
+      "Privileged, guest, contractor, and application access review use cases documented"
+    ],
+    "Recommendations": [
+      "Add Access Review discovery",
+      "Add overdue review detection"
+    ]
+  },
+  {
+    "Engine": "GDAP-Inspired Governance",
+    "Version": "0.3.0-alpha",
+    "Status": "Framework",
+    "Health": "Healthy",
+    "Confidence": 75,
+    "ChecksRun": 1,
+    "Passed": 1,
+    "Warnings": 0,
+    "Failed": 0,
+    "Timestamp": "2026-07-08T15:04:34.2765590Z",
+    "Evidence": [
+      "Delegated access governance model documented",
+      "Group-based delegated access review pattern defined"
+    ],
+    "Recommendations": [
+      "Add delegated role inventory",
+      "Add stale delegated access detection",
+      "Add GDAP expiration reporting"
+    ]
+  }
+]
