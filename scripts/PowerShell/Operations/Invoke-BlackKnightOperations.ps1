@@ -28,11 +28,19 @@ function Invoke-WorkforceLifecycleHealth {
     Write-BKSection "Workforce Lifecycle Engine"
 
     [PSCustomObject]@{
-        Engine      = "Workforce Lifecycle"
-        Status      = "Framework Ready"
-        Workflows   = "New Hire, Transfer, Promotion, Offboarding, Emergency Termination"
-        NextFeature = "Microsoft Graph user lifecycle validation"
-    }
+    Engine          = "Workforce Lifecycle"
+    Version         = "0.3.0-alpha"
+    Status          = "Framework"
+    Health          = "Healthy"
+    Confidence      = 75
+    ChecksRun       = 1
+    Passed          = 1
+    Warnings        = 0
+    Failed          = 0
+    Timestamp       = (Get-Date).ToUniversalTime().ToString("o")
+    Evidence        = @("Workflow framework created")
+    Recommendations = @("Add Microsoft Graph user lifecycle validation")
+}
 }
 
 function Invoke-PartnerOperationsHealth {

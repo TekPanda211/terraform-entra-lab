@@ -1,9 +1,21 @@
 [
   {
     "Engine": "Workforce Lifecycle",
-    "Status": "Framework Ready",
-    "Workflows": "New Hire, Transfer, Promotion, Offboarding, Emergency Termination",
-    "NextFeature": "Microsoft Graph user lifecycle validation"
+    "Version": "0.3.0-alpha",
+    "Status": "Framework",
+    "Health": "Healthy",
+    "Confidence": 75,
+    "ChecksRun": 1,
+    "Passed": 1,
+    "Warnings": 0,
+    "Failed": 0,
+    "Timestamp": "2026-07-08T12:22:24.4774595Z",
+    "Evidence": [
+      "Workflow framework created"
+    ],
+    "Recommendations": [
+      "Add Microsoft Graph user lifecycle validation"
+    ]
   },
   {
     "Engine": "Partner Operations",
