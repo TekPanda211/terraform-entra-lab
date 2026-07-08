@@ -1,0 +1,32 @@
+[
+  {
+    "Engine": "Workforce Lifecycle",
+    "Status": "Framework Ready",
+    "Workflows": "New Hire, Transfer, Promotion, Offboarding, Emergency Termination",
+    "NextFeature": "Microsoft Graph user lifecycle validation"
+  },
+  {
+    "Engine": "Partner Operations",
+    "Status": "Framework Ready",
+    "Workflows": "GDAP health, role auditing, expiration monitoring, customer inventory",
+    "NextFeature": "GDAP relationship inventory"
+  },
+  {
+    "Engine": "License Operations",
+    "Status": "Framework Ready",
+    "Workflows": "License optimization, orphaned licenses, group-based licensing validation",
+    "NextFeature": "Microsoft Graph subscribed SKU inventory"
+  },
+  {
+    "Engine": "Identity Requests",
+    "Status": "Framework Ready",
+    "Workflows": "Group requests, temporary access, guest access, shared mailbox access",
+    "NextFeature": "Access request evidence model"
+  },
+  {
+    "Engine": "Incident Response",
+    "Status": "Framework Ready",
+    "Workflows": "Emergency termination, compromised account response, privileged access removal",
+    "NextFeature": "Emergency termination validation workflow"
+  }
+]

@@ -112,6 +112,26 @@ Least Privilege
 
 ---
 
+## Operations Engine
+
+The Operations Engine supports day-to-day identity work that occurs after the tenant has been engineered.
+
+Capabilities include:
+
+- Workforce Lifecycle
+- Partner Operations
+- License Operations
+- Identity Requests
+- Incident Response
+
+The Operations Engine follows the BlackKnight One model:
+
+1. Provision
+2. Validate
+3. Report
+
+---
+
 ## Endpoint Engine
 
 Microsoft Intune
