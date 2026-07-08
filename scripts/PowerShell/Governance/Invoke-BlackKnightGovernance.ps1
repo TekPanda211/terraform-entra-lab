@@ -1,14 +1,14 @@
 <#
 .SYNOPSIS
-BlackKnight One Governance Engine
+Blackknight One Governance Engine
 
 .DESCRIPTION
 Runs Identity Governance framework checks for Access Packages,
 Entitlement Management, Administrative Units, Dynamic Groups,
 Access Reviews, Lifecycle Workflows, and GDAP-inspired governance.
 
-This initial version validates the framework model and produces
-standard BlackKnight One result schema output.
+This version uses shared Blackknight One Platform Services for
+standard result creation and JSON report export.
 #>
 
 param(
@@ -16,7 +16,14 @@ param(
     [switch]$ExportJson
 )
 
-$EngineVersion = "0.3.0-alpha"
+$PlatformServices = Join-Path (Split-Path $PSScriptRoot -Parent) "Platform\Blackknight-Platform.ps1"
+
+if (Test-Path $PlatformServices) {
+    . $PlatformServices
+}
+else {
+    throw "Blackknight Platform Services not found at $PlatformServices"
+}
 
 function Write-BKSection {
     param([string]$Title)
@@ -25,35 +32,6 @@ function Write-BKSection {
     Write-Host "========================================" -ForegroundColor Cyan
     Write-Host $Title -ForegroundColor Cyan
     Write-Host "========================================" -ForegroundColor Cyan
-}
-
-function New-BKResult {
-    param(
-        [string]$Engine,
-        [string]$Health = "Healthy",
-        [int]$Confidence = 75,
-        [int]$ChecksRun = 1,
-        [int]$Passed = 1,
-        [int]$Warnings = 0,
-        [int]$Failed = 0,
-        [string[]]$Evidence,
-        [string[]]$Recommendations
-    )
-
-    [PSCustomObject]@{
-        Engine          = $Engine
-        Version         = $EngineVersion
-        Status          = "Framework"
-        Health          = $Health
-        Confidence      = $Confidence
-        ChecksRun       = $ChecksRun
-        Passed          = $Passed
-        Warnings        = $Warnings
-        Failed          = $Failed
-        Timestamp       = (Get-Date).ToUniversalTime().ToString("o")
-        Evidence        = $Evidence
-        Recommendations = $Recommendations
-    }
 }
 
 function Invoke-AccessPackageFramework {
@@ -150,7 +128,7 @@ function Invoke-GDAPGovernanceFramework {
 }
 
 function Invoke-BlackKnightGovernance {
-    Write-BKSection "BlackKnight One Governance Engine"
+    Write-BKSection "Blackknight One Governance Engine"
 
     if (!(Test-Path $OutputPath)) {
         New-Item -Path $OutputPath -ItemType Directory -Force | Out-Null
@@ -168,8 +146,7 @@ function Invoke-BlackKnightGovernance {
 
     if ($ExportJson) {
         $jsonPath = Join-Path $OutputPath "governance-health.json"
-        $results | ConvertTo-Json -Depth 8 | Out-File -FilePath $jsonPath -Encoding utf8
-        Write-Host "Exported governance health report to $jsonPath" -ForegroundColor Green
+        Export-BKJsonReport -Data $results -Path $jsonPath
     }
 
     Write-BKSection "Governance Engine Complete"

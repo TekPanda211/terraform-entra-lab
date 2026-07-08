@@ -1,7 +1,7 @@
 [
   {
     "Engine": "Access Packages",
-    "Version": "0.3.0-alpha",
+    "Version": "0.4.0-alpha",
     "Status": "Framework",
     "Health": "Healthy",
     "Confidence": 75,
@@ -9,7 +9,7 @@
     "Passed": 1,
     "Warnings": 0,
     "Failed": 0,
-    "Timestamp": "2026-07-08T15:04:34.2552969Z",
+    "Timestamp": "2026-07-08T16:13:27.6878241Z",
     "Evidence": [
       "Access Package framework documented",
       "Access Package standard created",
@@ -22,7 +22,7 @@
   },
   {
     "Engine": "Entitlement Management",
-    "Version": "0.3.0-alpha",
+    "Version": "0.4.0-alpha",
     "Status": "Framework",
     "Health": "Healthy",
     "Confidence": 75,
@@ -30,7 +30,7 @@
     "Passed": 1,
     "Warnings": 0,
     "Failed": 0,
-    "Timestamp": "2026-07-08T15:04:34.2654980Z",
+    "Timestamp": "2026-07-08T16:13:27.6903921Z",
     "Evidence": [
       "Governance catalog defined",
       "Governed access workflow documented",
@@ -43,7 +43,7 @@
   },
   {
     "Engine": "Administrative Units",
-    "Version": "0.3.0-alpha",
+    "Version": "0.4.0-alpha",
     "Status": "Framework",
     "Health": "Healthy",
     "Confidence": 75,
@@ -51,7 +51,7 @@
     "Passed": 1,
     "Warnings": 0,
     "Failed": 0,
-    "Timestamp": "2026-07-08T15:04:34.2673527Z",
+    "Timestamp": "2026-07-08T16:13:27.6925229Z",
     "Evidence": [
       "Administrative Units identified as governance capability",
       "Scoped administration model documented"
@@ -63,7 +63,7 @@
   },
   {
     "Engine": "Dynamic Groups",
-    "Version": "0.3.0-alpha",
+    "Version": "0.4.0-alpha",
     "Status": "Framework",
     "Health": "Healthy",
     "Confidence": 75,
@@ -71,7 +71,7 @@
     "Passed": 1,
     "Warnings": 0,
     "Failed": 0,
-    "Timestamp": "2026-07-08T15:04:34.2694185Z",
+    "Timestamp": "2026-07-08T16:13:27.6946772Z",
     "Evidence": [
       "Dynamic Groups identified for attribute-based access",
       "Department-based membership model planned"
@@ -83,7 +83,7 @@
   },
   {
     "Engine": "Access Reviews",
-    "Version": "0.3.0-alpha",
+    "Version": "0.4.0-alpha",
     "Status": "Framework",
     "Health": "Healthy",
     "Confidence": 75,
@@ -91,7 +91,7 @@
     "Passed": 1,
     "Warnings": 0,
     "Failed": 0,
-    "Timestamp": "2026-07-08T15:04:34.2731499Z",
+    "Timestamp": "2026-07-08T16:13:27.6966255Z",
     "Evidence": [
       "Access Reviews included in governance model",
       "Privileged, guest, contractor, and application access review use cases documented"
@@ -103,7 +103,7 @@
   },
   {
     "Engine": "GDAP-Inspired Governance",
-    "Version": "0.3.0-alpha",
+    "Version": "0.4.0-alpha",
     "Status": "Framework",
     "Health": "Healthy",
     "Confidence": 75,
@@ -111,7 +111,7 @@
     "Passed": 1,
     "Warnings": 0,
     "Failed": 0,
-    "Timestamp": "2026-07-08T15:04:34.2765590Z",
+    "Timestamp": "2026-07-08T16:13:27.6983202Z",
     "Evidence": [
       "Delegated access governance model documented",
       "Group-based delegated access review pattern defined"
