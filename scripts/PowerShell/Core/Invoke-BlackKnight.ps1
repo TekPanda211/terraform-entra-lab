@@ -5,11 +5,14 @@ Blackknight One Core Engine
 .DESCRIPTION
 The Core Engine is the entry point for Blackknight One.
 
-It discovers enabled engines, executes them, and prepares the platform for unified reporting.
+It discovers enabled engines, executes them, and prepares unified platform reporting.
 #>
 
 [CmdletBinding()]
-param()
+param(
+    [switch]$ExportJson,
+    [string]$OutputPath = ".\reports\platform"
+)
 
 $BlackKnightVersion = "0.4.0-alpha"
 
@@ -45,7 +48,13 @@ else {
 
         if (Test-Path $EntryPoint) {
             Write-Host "[+] Loading $($Manifest.DisplayName)..." -ForegroundColor Green
-            & $EntryPoint
+
+            if ($ExportJson) {
+                & $EntryPoint -ExportJson
+            }
+            else {
+                & $EntryPoint
+            }
         }
         else {
             Write-Warning "Entry point not found for $($Manifest.DisplayName): $EntryPoint"
@@ -53,7 +62,27 @@ else {
     }
 }
 
+if ($ExportJson) {
+    if (!(Test-Path $OutputPath)) {
+        New-Item -Path $OutputPath -ItemType Directory -Force | Out-Null
+    }
+
+    $engineReports = Get-ChildItem -Path ".\reports" -Filter "*.json" -Recurse -ErrorAction SilentlyContinue |
+        Where-Object { $_.FullName -notlike "*\reports\platform\*" }
+
+    $platformReport = foreach ($report in $engineReports) {
+        Get-Content $report.FullName -Raw | ConvertFrom-Json
+    }
+
+    $platformPath = Join-Path $OutputPath "blackknight-platform-report.json"
+
+    $platformReport | ConvertTo-Json -Depth 10 | Out-File -FilePath $platformPath -Encoding utf8
+
+    Write-Host ""
+    Write-Host "Exported unified platform report to $platformPath" -ForegroundColor Green
+}
+
 Write-Host ""
 Write-Host "=========================================" -ForegroundColor Cyan
-Write-Host " Blackknight Core Complete" -ForegroundColor Cyan
+Write-Host " Blackknight Core Complete"
 Write-Host "=========================================" -ForegroundColor Cyan
