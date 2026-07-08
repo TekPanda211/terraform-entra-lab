@@ -25,7 +25,7 @@ Future Engines:
 [CmdletBinding()]
 param()
 
-$BlackKnightVersion = "0.3.0-alpha"
+$BlackKnightVersion = "0.4.0-alpha"
 
 Write-Host ""
 Write-Host "=========================================" -ForegroundColor Cyan
@@ -42,25 +42,21 @@ $Root = Split-Path $PSScriptRoot -Parent
 
 $GovernanceEngine = Join-Path $Root "Governance\Invoke-BlackKnightGovernance.ps1"
 
-if (Test-Path $GovernanceEngine)
-{
+if (Test-Path $GovernanceEngine) {
     Write-Host "[+] Loading Governance Engine..." -ForegroundColor Green
     & $GovernanceEngine
 }
-else
-{
+else {
     Write-Warning "Governance Engine not found."
 }
 
 $OperationsEngine = Join-Path $Root "Operations\Invoke-BlackKnightOperations.ps1"
 
-if (Test-Path $OperationsEngine)
-{
+if (Test-Path $OperationsEngine) {
     Write-Host "[+] Loading Operations Engine..." -ForegroundColor Green
     & $OperationsEngine
 }
-else
-{
+else {
     Write-Warning "Operations Engine not found."
 }
 
