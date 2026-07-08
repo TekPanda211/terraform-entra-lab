@@ -1,110 +1,63 @@
-\# BlackKnight Principles
+# BlackKnight Principles
 
-
-
-\## One Source of Truth
-
-
+## One Source of Truth
 
 Configuration is defined once.
 
-
-
 Everything else validates against it.
 
+---
 
-
-\---
-
-
-
-\## Build
-
-
+## Build
 
 Build systems that solve real engineering problems.
 
+---
 
-
-\---
-
-
-
-\## Coach
-
-
+## Coach
 
 Explain not only how something works, but why it was designed that way.
 
+---
 
-
-\---
-
-
-
-\## Mentor
-
-
+## Mentor
 
 Leave engineers better than you found them.
 
+---
 
+## Secure by Design
 
-\---
+Security should never be an afterthought.
 
+---
 
+## Verified by Automation
 
-\## Secure by Design
+Trust should be continuously measured through automation.
 
+---
 
-
-Security is part of the architecture—not an afterthought.
-
-
-
-\---
-
-
-
-\## Verified by Automation
-
-
-
-Trust is earned through continuous validation.
-
-
-
-\---
-
-
-
-\## Trusted Through Evidence
-
-
+## Trusted Through Evidence
 
 Every recommendation should be backed by telemetry, configuration, or audit evidence.
 
+---
 
+## Engineering Before Convenience
 
-\---
+Choose maintainable engineering over quick fixes.
 
+---
 
+## Learn Relentlessly
 
-\## Engineering Before Convenience
+Technology changes.
 
+Engineers who continue learning become the engineers others depend on.
 
+---
 
-Prefer maintainable, repeatable engineering over quick fixes.
+## Community First
 
-
-
-\---
-
-
-
-\## Community First
-
-
-
-BlackKnight One exists to advance the identity engineering community through shared knowledge and practical implementation.
-
+BlackKnight One exists to advance Identity Engineering through shared knowledge, practical implementation, and mentorship.

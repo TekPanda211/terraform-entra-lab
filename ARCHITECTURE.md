@@ -1,250 +1,203 @@
-\# BlackKnight One Architecture
+# BlackKnight One Architecture
 
+## North Star
 
+BlackKnight One exists to answer one question.
 
-\## Platform Vision
+> **Can I trust the current state of my environment?**
 
+Every module.
 
+Every Terraform deployment.
 
-BlackKnight One is organized into independent engines that work together to create a single source of truth for enterprise identity operations.
+Every Microsoft Graph query.
 
+Every PowerShell script.
 
+Every report.
 
-\## Engines
+Every AI workflow.
 
+Should help answer that question.
 
+---
 
-\### Identity Engine
+# Platform Architecture
 
+BlackKnight One is composed of independent engineering engines working together to provide a single source of truth for enterprise identity.
 
+## Identity Engine
 
 Microsoft Entra ID
 
-
-
-\### Governance Engine
-
-
-
-Access Packages
-
-
-
-Administrative Units
-
-
-
-Lifecycle
-
-
+Identity Foundation
 
 RBAC
 
+Groups
 
+PIM
 
-\### Trust Engine
+Enterprise Applications
 
+---
 
+## Trust Engine
 
 Conditional Access
 
-
-
 Identity Protection
-
-
 
 Authentication
 
+Named Locations
 
+Zero Trust
 
-\### Endpoint Engine
+---
 
+## Access & Governance Engine
 
+Access Packages
+
+Administrative Units
+
+Dynamic Groups
+
+Access Reviews
+
+Lifecycle Workflows
+
+Least Privilege
+
+---
+
+## Endpoint Engine
 
 Microsoft Intune
 
-
-
 Autopilot
 
+Device Compliance
 
+Configuration Profiles
 
-Compliance
+Endpoint Analytics
 
+---
 
-
-\### Security Engine
-
-
+## Security Engine
 
 Microsoft Sentinel
 
-
-
-Defender XDR
-
-
+Microsoft Defender XDR
 
 Threat Hunting
 
+Incident Investigation
 
+---
 
-\### Compliance Engine
-
-
+## Compliance Engine
 
 Microsoft Purview
 
-
-
 Audit
-
-
 
 DLP
 
-
+Retention
 
 Records
 
+---
 
-
-\### Automation Engine
-
-
+## Automation Engine
 
 Terraform
 
+PowerShell
 
+Microsoft Graph
 
 GitHub Actions
 
-
-
-PowerShell
-
-
-
 Azure Automation
 
+Logic Apps
 
+---
 
-\### Intelligence Engine
-
-
-
-Microsoft Graph
-
-
-
-REST APIs
-
-
-
-Reporting
-
-
-
-\### AI Engine
-
-
-
-Investigation
-
-
-
-Risk Analysis
-
-
+## Reporting Engine
 
 Executive Reporting
 
+Identity Health
 
+Compliance
+
+Configuration Drift
+
+Power BI
+
+---
+
+## AI Engine
+
+Copilot
+
+OpenAI
+
+Operational Intelligence
+
+Executive Summaries
 
 Knowledge Assistance
 
+---
 
-
-\---
-
-
-
-\## Platform Workflow
-
-
+# Platform Workflow
 
 Terraform
 
-
-
 ↓
 
-
-
-Deploy Infrastructure
-
-
+Desired State
 
 ↓
-
-
 
 Microsoft Graph
 
+↓
 
+Actual State
 
 ↓
 
-
-
-Collect Configuration
-
-
+Automation
 
 ↓
 
-
-
-PowerShell
-
-
+Validation
 
 ↓
-
-
-
-Validate Configuration
-
-
-
-↓
-
-
 
 Compliance Engine
 
+↓
 
+Reporting Engine
 
 ↓
 
-
-
-Risk Engine
-
-
+AI Intelligence
 
 ↓
 
+Confidence
 
+---
 
-AI Reporting
+## Outcome
 
-
-
-↓
-
-
-
-Executive Dashboard
-
+BlackKnight One transforms configuration into confidence through continuous verification.

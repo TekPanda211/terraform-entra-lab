@@ -4,29 +4,51 @@
 
 ### One Source of Truth
 
+### Building confidence through continuous verification.
+
 > **Build • Coach • Mentor**
 
-BlackKnight One is an enterprise identity engineering platform focused on designing, automating, governing, and continuously validating Microsoft Entra ID and Microsoft 365 environments through Infrastructure as Code, Microsoft Graph, PowerShell, automation, and AI-assisted operational workflows.
+BlackKnight One is an enterprise identity engineering platform that helps engineers design, automate, govern, and continuously validate Microsoft Entra ID and Microsoft 365 environments.
 
-The platform is designed to help engineers build secure identity environments while providing practical learning resources for the identity engineering community.
+Built around Infrastructure as Code, Microsoft Graph, PowerShell, automation, and AI-assisted operational workflows, BlackKnight One focuses on delivering repeatable engineering practices that improve security, governance, and operational confidence.
+
+---
+
+# Why BlackKnight One Exists
+
+Identity engineering is more than provisioning users and groups.
+
+It is the discipline of building secure, automated, governed, and continuously validated identity environments.
+
+BlackKnight One exists to help engineers build those environments while sharing practical knowledge with the identity engineering community.
 
 ---
 
 # Mission
 
-BlackKnight One exists to advance the practice of Identity Engineering.
+Build.
 
-We build real solutions.
+Coach.
 
-We coach through documentation.
+Mentor.
 
-We mentor by sharing knowledge.
+BlackKnight One exists to advance enterprise identity engineering through automation, documentation, and community-driven learning.
 
 ---
 
-# Guiding Principle
+# Vision
 
-> **Secure by Design. Verified by Automation. Trusted Through Evidence.**
+Terraform defines the desired state.
+
+Microsoft Graph discovers the actual state.
+
+Automation validates the difference.
+
+AI explains the results.
+
+BlackKnight One brings these capabilities together into a single engineering platform.
+
+**One Source of Truth.**
 
 ---
 
@@ -36,137 +58,296 @@ We mentor by sharing knowledge.
 
 ---
 
-# Current Capabilities
+# Platform Components
 
 ## Identity Engine
 
-- Microsoft Entra ID
-- Security Groups
-- Role Assignable Groups
-- RBAC
-- Environment-aware Terraform deployments
+Microsoft Entra ID
 
-## Governance Engine
+Users
 
-- Access Package architecture
-- Identity Governance planning
-- Administrative Units (roadmap)
-- Dynamic Groups (roadmap)
+Groups
 
-## Automation Engine
+RBAC
 
-- Terraform
-- Azure CLI
-- Git
-- GitHub
-- Infrastructure as Code
+PIM
 
-## Documentation Engine
+Role Assignable Groups
 
-- Terraform Workflow
-- IAM Strategy
-- Conditional Access Design
-- Access Package Design
-- Security Audit Planning
+Enterprise Applications
 
 ---
 
-# Technology Stack
+## Trust Engine
 
-- Microsoft Entra ID
-- Microsoft Graph
-- Terraform
-- PowerShell
-- Azure CLI
-- GitHub
-- GitHub Actions (planned)
-- Microsoft Sentinel (planned)
-- Microsoft Intune (planned)
-- Microsoft Purview (planned)
+Conditional Access
+
+Authentication Strengths
+
+Identity Protection
+
+Named Locations
+
+Zero Trust
+
+Break Glass
+
+---
+
+## Access & Governance Engine
+
+Access Packages
+
+Administrative Units
+
+Dynamic Groups
+
+Access Reviews
+
+Lifecycle Workflows
+
+Entitlement Management
+
+Least Privilege
+
+---
+
+## Endpoint Engine
+
+Microsoft Intune
+
+Windows Autopilot
+
+Compliance Policies
+
+Configuration Profiles
+
+Application Deployment
+
+Endpoint Analytics
+
+---
+
+## Security Engine
+
+Microsoft Sentinel
+
+Microsoft Defender XDR
+
+Defender for Endpoint
+
+Defender for Office
+
+Threat Hunting
+
+Incident Investigation
+
+---
+
+## Compliance Engine
+
+Microsoft Purview
+
+Audit
+
+DLP
+
+Retention
+
+eDiscovery
+
+Records Management
+
+---
+
+## Automation Engine
+
+Terraform
+
+PowerShell
+
+Microsoft Graph
+
+Azure CLI
+
+GitHub Actions
+
+Azure Automation
+
+Logic Apps
+
+REST APIs
+
+---
+
+## Reporting Engine
+
+Executive Reporting
+
+Identity Health
+
+Configuration Drift
+
+Compliance Reporting
+
+Markdown
+
+HTML
+
+CSV
+
+Power BI
+
+---
+
+## AI Engine
+
+Copilot
+
+OpenAI
+
+Investigation Assistance
+
+Executive Summaries
+
+Knowledge Assistance
+
+Operational Recommendations
 
 ---
 
 # Roadmap
 
-## v0.1.0 — Foundation Engine ✅
+## v0.1.0
 
-- Terraform Foundation
-- Microsoft Entra Provider
-- Department Groups
+Foundation Engine ✅
 
-## v0.2.0 — Identity Architecture Engine ✅
+---
 
-- Environment-aware Deployments
-- Role Assignable Groups
-- Naming Standards
+## v0.2.0
 
-## v0.3.0 — Identity Governance Engine
+Identity Architecture Engine ✅
 
-- Administrative Units
-- Access Packages
-- Entitlement Management
-- Dynamic Groups
-- Identity Lifecycle
-- Access Reviews
+---
 
-## v0.4.0 — Trust Engine
+## v0.3.0
 
-- Conditional Access
-- Authentication Strengths
-- Identity Protection
-- Named Locations
+Identity Governance Engine
 
-## v0.5.0 — Application Engine
+Administrative Units
 
-- Enterprise Applications
-- Service Principals
-- OAuth
-- App Roles
+Access Packages
 
-## v0.6.0 — Endpoint Engine
+Entitlement Management
 
-- Microsoft Intune
-- Windows Autopilot
-- Compliance Policies
+Access Reviews
 
-## v0.7.0 — Security Engine
+Dynamic Groups
 
-- Microsoft Sentinel
-- Microsoft Defender XDR
-- Secure Score
+Lifecycle Workflows
 
-## v0.8.0 — Compliance Engine
+GDAP-inspired governance
 
-- Microsoft Purview
-- Audit
-- DLP
-- eDiscovery
+---
 
-## v0.9.0 — Automation Engine
+## v0.4.0
 
-- Microsoft Graph
-- GitHub Actions
-- Reporting
-- PowerShell Modules
+Trust Engine
 
-## v1.0.0 — BlackKnight One
+Conditional Access
+
+Authentication Strengths
+
+Identity Protection
+
+Zero Trust
+
+---
+
+## v0.5.0
+
+Application Engine
+
+Enterprise Applications
+
+Service Principals
+
+OAuth
+
+App Roles
+
+---
+
+## v0.6.0
+
+Endpoint Engine
+
+Microsoft Intune
+
+Autopilot
+
+Compliance
+
+---
+
+## v0.7.0
+
+Security Engine
+
+Microsoft Sentinel
+
+Microsoft Defender XDR
+
+Threat Hunting
+
+Incident Automation
+
+---
+
+## v0.8.0
+
+Compliance Engine
+
+Microsoft Purview
+
+Audit
+
+DLP
+
+eDiscovery
+
+---
+
+## v0.9.0
+
+Automation Engine
+
+Microsoft Graph
+
+GitHub Actions
+
+PowerShell Modules
+
+Automation Framework
+
+---
+
+## v1.0.0
+
+BlackKnight One
 
 Enterprise Trust Platform
 
 ---
 
-# Why BlackKnight One?
+# Community
 
-Identity Engineering is more than provisioning users and groups.
+BlackKnight One is built to help engineers learn, automate, and continuously improve enterprise identity environments.
 
-It is the discipline of building secure, automated, governed, and continuously validated identity environments.
+Whether you're deploying your first Microsoft Entra tenant or designing automation at enterprise scale, you're welcome here.
 
-BlackKnight One exists to make that discipline easier to learn, easier to implement, and easier to improve.
+Build.
 
----
+Coach.
 
-## Author
-
-Todd Crow
-
-Microsoft 365 / Microsoft Entra Engineer
+Mentor.

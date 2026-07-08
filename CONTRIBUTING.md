@@ -1,54 +1,41 @@
-\# Contributing
+# Contributing to BlackKnight One
 
+Thank you for your interest in contributing.
 
+Before opening a Pull Request, ask yourself five questions.
 
-Thank you for your interest in BlackKnight One.
-
-
-
-Every contribution should support one or more of the platform principles.
-
-
-
-\## Ask Yourself
-
-
+## Engineering
 
 Does this solve a real engineering problem?
 
+## Operational Value
 
+Would an enterprise IAM team use this?
 
-Will another engineer learn from it?
+## Educational Value
 
+Will another engineer learn something?
 
+## Maintainability
 
-Does it improve automation?
+Can someone else support this in the future?
 
+## Confidence
 
+Does this increase confidence in the environment?
 
-Is it maintainable?
+If the answer is yes, you're building BlackKnight One.
 
+---
 
-
-Does it increase confidence in the environment?
-
-
-
-If the answer is yes, it probably belongs here.
-
-
-
-\## Core Values
-
-
+## Our Mission
 
 Build.
 
-
-
 Coach.
-
-
 
 Mentor.
 
+---
+
+Thank you for helping improve BlackKnight One.
