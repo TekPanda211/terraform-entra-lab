@@ -137,6 +137,14 @@
       "RequiresGraph": false,
       "RequiredScopes": [],
       "Description": "Returns platform capabilities advertised by registered engine manifests."
+    },
+    {
+      "Name": "Get-BKPlatform",
+      "Category": "Platform",
+      "Status": "Integrated",
+      "RequiresGraph": false,
+      "RequiredScopes": [],
+      "Description": "Returns the complete Blackknight platform object."
  }
   ]
 }

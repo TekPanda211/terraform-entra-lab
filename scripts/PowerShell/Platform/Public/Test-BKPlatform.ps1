@@ -34,24 +34,7 @@ function Test-BKPlatform {
     $results += New-TestResult -Check "Config Folder" -Passed (Test-Path $configFolder) -Details $configFolder
     $results += New-TestResult -Check "Reports Folder" -Passed (Test-Path $reportsFolder) -Details $reportsFolder
 
-    $requiredFunctions = @(
-        "Connect-BKGraph",
-        "Get-BKCapabilities",
-        "Get-BKOrganization",
-        "Get-BKDomains",
-        "Get-BKUsers",
-        "Get-BKGroups",
-        "Get-BKLicensing",
-        "Get-BKTenant",
-        "New-BKResult",
-        "Export-BKJsonReport",
-        "Get-BKConfidenceScore",
-        "Write-BKLog",
-        "Get-BKServiceManifest",
-        "Get-BKPlatformConfiguration",
-        "Get-BKPlatformInventory",
-        "Test-BKPlatform"
-    )
+    $requiredFunctions = (Get-BKServiceManifest).Services.Name
 
     foreach ($functionName in $requiredFunctions) {
         $command = Get-Command $functionName -ErrorAction SilentlyContinue
