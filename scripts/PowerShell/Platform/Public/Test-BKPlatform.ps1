@@ -4,17 +4,21 @@ function Test-BKPlatform {
 
     Write-Host ""
     Write-Host "========================================" -ForegroundColor Cyan
-    Write-Host "Blackknight Platform Validation"
+    Write-Host "Blackknight Platform Validation" -ForegroundColor Cyan
     Write-Host "========================================" -ForegroundColor Cyan
 
     $results = @()
     $repoRoot = (Get-Location).Path
 
-    function New-TestResult {
+    function New-BKValidationResult {
         param(
+            [Parameter(Mandatory)]
             [string]$Check,
+
+            [Parameter(Mandatory)]
             [bool]$Passed,
-            [string]$Details
+
+            [string]$Details = ""
         )
 
         [PSCustomObject]@{
@@ -29,76 +33,70 @@ function Test-BKPlatform {
     $configFolder   = Join-Path $repoRoot "config"
     $reportsFolder  = Join-Path $repoRoot "reports"
 
-    $results += New-TestResult -Check "Platform Module" -Passed (Test-Path $platformModule) -Details $platformModule
-    $results += New-TestResult -Check "Core Engine" -Passed (Test-Path $coreEngine) -Details $coreEngine
-    $results += New-TestResult -Check "Config Folder" -Passed (Test-Path $configFolder) -Details $configFolder
-    $results += New-TestResult -Check "Reports Folder" -Passed (Test-Path $reportsFolder) -Details $reportsFolder
+    $results += New-BKValidationResult -Check "Platform Module" -Passed (Test-Path $platformModule) -Details $platformModule
+    $results += New-BKValidationResult -Check "Core Engine" -Passed (Test-Path $coreEngine) -Details $coreEngine
+    $results += New-BKValidationResult -Check "Config Folder" -Passed (Test-Path $configFolder) -Details $configFolder
+    $results += New-BKValidationResult -Check "Reports Folder" -Passed (Test-Path $reportsFolder) -Details $reportsFolder
 
-    $requiredFunctions = (Get-BKServiceManifest).Services.Name
+    $serviceManifestPath = Join-Path $repoRoot "scripts\PowerShell\Platform\Services\services.json"
 
-    foreach ($functionName in $requiredFunctions) {
-        $command = Get-Command $functionName -ErrorAction SilentlyContinue
-        $results += New-TestResult -Check "Function: $functionName" -Passed ($null -ne $command) -Details "Required platform function"
-    }
+    $results += New-BKValidationResult -Check "Service Manifest" -Passed (Test-Path $serviceManifestPath) -Details $serviceManifestPath
 
-    $serviceManifest = Join-Path $repoRoot "scripts\PowerShell\Platform\Services\services.json"
-
-    $results += New-TestResult -Check "Service Manifest" -Passed (Test-Path $serviceManifest) -Details $serviceManifest
-
-    if (Test-Path $serviceManifest) {
+    if (Test-Path $serviceManifestPath) {
         try {
-            $manifest = Get-Content $serviceManifest -Raw | ConvertFrom-Json
+            $serviceManifest = Get-Content $serviceManifestPath -Raw | ConvertFrom-Json
 
-            foreach ($service in $manifest.Services) {
+            foreach ($service in $serviceManifest.Services) {
                 $command = Get-Command $service.Name -ErrorAction SilentlyContinue
 
-                $results += New-TestResult `
+                $results += New-BKValidationResult `
                     -Check "Service: $($service.Name)" `
                     -Passed ($null -ne $command) `
                     -Details "$($service.Category) | $($service.Status)"
             }
         }
         catch {
-            $results += New-TestResult `
+            $results += New-BKValidationResult `
                 -Check "Service Manifest Parse" `
                 -Passed $false `
                 -Details $_.Exception.Message
         }
     }
 
-    $engineManifests = Get-ChildItem -Path (Join-Path $repoRoot "scripts\PowerShell") -Filter "engine.json" -Recurse -ErrorAction SilentlyContinue
+    $engineRoot = Join-Path $repoRoot "scripts\PowerShell"
 
-    $results += New-TestResult `
-        -Check "Engine Manifests" `
-        -Passed ($engineManifests.Count -gt 0) `
-        -Details "$($engineManifests.Count) manifest(s) found"
+    try {
+        $engines = Get-BKEngineManifest
 
-    foreach ($manifestFile in $engineManifests) {
-        try {
-            $manifest = Get-Content $manifestFile.FullName -Raw | ConvertFrom-Json
-            $engineFolder = Split-Path $manifestFile.FullName -Parent
-            $entryPoint = Join-Path $engineFolder $manifest.EntryPoint
+        $results += New-BKValidationResult `
+            -Check "Engine Registry" `
+            -Passed ($engines.Count -gt 0) `
+            -Details "$($engines.Count) engine(s) registered"
 
-            $results += New-TestResult `
-                -Check "Engine: $($manifest.DisplayName)" `
-                -Passed (Test-Path $entryPoint) `
-                -Details $entryPoint
-        }
-        catch {
-            $results += New-TestResult `
-                -Check "Engine Manifest Parse" `
-                -Passed $false `
-                -Details $manifestFile.FullName
+        foreach ($engine in $engines) {
+            $results += New-BKValidationResult `
+                -Check "Engine: $($engine.DisplayName)" `
+                -Passed (Test-Path $engine.EntryPoint) `
+                -Details $engine.EntryPoint
         }
     }
+    catch {
+        $results += New-BKValidationResult `
+            -Check "Engine Registry" `
+            -Passed $false `
+            -Details $_.Exception.Message
+    }
 
-    $psFiles = Get-ChildItem -Path (Join-Path $repoRoot "scripts\PowerShell") -Filter "*.ps1" -Recurse -ErrorAction SilentlyContinue
+    $psFiles = Get-ChildItem -Path $engineRoot -Filter "*.ps1" -Recurse -ErrorAction SilentlyContinue
 
     foreach ($file in $psFiles) {
         $parseErrors = $null
-        [System.Management.Automation.PSParser]::Tokenize((Get-Content $file.FullName -Raw), [ref]$parseErrors) | Out-Null
+        [System.Management.Automation.PSParser]::Tokenize(
+            (Get-Content $file.FullName -Raw),
+            [ref]$parseErrors
+        ) | Out-Null
 
-        $results += New-TestResult `
+        $results += New-BKValidationResult `
             -Check "Syntax: $($file.Name)" `
             -Passed ($parseErrors.Count -eq 0) `
             -Details $file.FullName
