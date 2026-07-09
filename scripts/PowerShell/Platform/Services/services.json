@@ -161,6 +161,14 @@
       "RequiresGraph": true,
       "RequiredScopes": ["Policy.Read.All", "Directory.Read.All"],
       "Description": "Collects Microsoft Entra Conditional Access named locations."
+    },
+    {
+      "Name": "Get-BKAuthenticationMethodsSummary",
+      "Category": "Trust",
+      "Status": "Integrated",
+      "RequiresGraph": true,
+      "RequiredScopes": ["AuditLog.Read.All", "Directory.Read.All"],
+      "Description": "Collects Microsoft Entra authentication method registration, MFA, SSPR, and passwordless readiness summary."
   }
   ]
 }
