@@ -54,6 +54,36 @@ function Test-BKPlatform {
         Add-TestResult -Check "Function: $functionName" -Passed ($null -ne $command) -Details "Required platform function"
     }
 
+     $serviceManifest = Join-Path $repoRoot "scripts\PowerShell\Platform\Services\services.json"
+
+    Add-TestResult `
+        -Check "Service Manifest" `
+        -Passed (Test-Path $serviceManifest) `
+        -Details $serviceManifest
+
+    if (Test-Path $serviceManifest) {
+        try {
+            $manifest = Get-Content $serviceManifest -Raw | ConvertFrom-Json
+
+            foreach ($category in $manifest.Services.PSObject.Properties) {
+                foreach ($serviceName in $category.Value) {
+                    $command = Get-Command $serviceName -ErrorAction SilentlyContinue
+
+                    Add-TestResult `
+                        -Check "Service Manifest: $serviceName" `
+                        -Passed ($null -ne $command) `
+                        -Details "Category: $($category.Name)"
+                }
+            }
+        }
+        catch {
+            Add-TestResult `
+                -Check "Service Manifest Parse" `
+                -Passed $false `
+                -Details $_.Exception.Message
+        }
+    }
+
     $engineManifests = Get-ChildItem -Path (Join-Path $repoRoot "scripts\PowerShell") -Filter "engine.json" -Recurse -ErrorAction SilentlyContinue
 
     Add-TestResult -Check "Engine Manifests" -Passed ($engineManifests.Count -gt 0) -Details "$($engineManifests.Count) manifest(s) found"

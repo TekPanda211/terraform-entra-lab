@@ -1,0 +1,16 @@
+{
+  "Platform": {
+    "Name": "Blackknight One",
+    "Version": "0.4.0-alpha",
+    "NorthStar": "One Source of Truth",
+    "Mission": "Build • Coach • Mentor"
+  },
+
+  "ServicesManifest": "scripts/PowerShell/Platform/Services/services.json",
+
+  "EngineRoot": "scripts/PowerShell",
+
+  "ReportRoot": "reports",
+
+  "ConfigurationRoot": "config"
+}
