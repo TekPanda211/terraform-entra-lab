@@ -37,29 +37,36 @@ function Invoke-BKIdentityDiscovery {
     $score = 0
     $evidence = @()
     $recommendations = @()
+    $checksRun = 10
+    $passed = 0
 
     if ($tenant.TenantId) {
         $score += 10
+        $passed++
         $evidence += "Tenant discovered"
     }
 
     if ($tenant.VerifiedDomains -gt 0) {
         $score += 10
+        $passed++
         $evidence += "Verified domain exists"
     }
 
     if ($tenant.TotalUsers -gt 0) {
         $score += 10
+        $passed++
         $evidence += "Users discovered"
     }
 
     if ($tenant.TotalGroups -gt 0) {
         $score += 10
+        $passed++
         $evidence += "Groups discovered"
     }
 
     if ($tenant.DisabledUsers -eq 0) {
         $score += 10
+        $passed++
         $evidence += "No disabled users detected"
     }
     else {
@@ -73,6 +80,7 @@ function Invoke-BKIdentityDiscovery {
 
     if ($guestRatio -le 20) {
         $score += 10
+        $passed++
         $evidence += "Guest user ratio is within threshold"
     }
     else {
@@ -81,6 +89,7 @@ function Invoke-BKIdentityDiscovery {
 
     if ($tenant.SubscribedSkus -gt 0) {
         $score += 10
+        $passed++
         $evidence += "License inventory available"
     }
     else {
@@ -89,24 +98,40 @@ function Invoke-BKIdentityDiscovery {
 
     if ($tenant.SecurityGroups -gt 0) {
         $score += 10
+        $passed++
         $evidence += "Security groups discovered"
     }
 
-    $score += 10
-    $evidence += "Role-assignable groups reviewed"
+    if ($tenant.RoleAssignableGroups -gt 0) {
+        $score += 10
+        $passed++
+        $evidence += "Role-assignable groups discovered"
+    }
+    else {
+        $recommendations += "No role-assignable groups detected. Validate privileged access design and PIM readiness."
+    }
 
-    $recommendations += "Evaluate Privileged Identity Management readiness."
-    $recommendations += "Validate privileged groups have owners and access reviews."
-    $score += 10
+    if ($recommendations.Count -gt 0) {
+        $score += 5
+        $passed += 0.5
+        $evidence += "Recommendations generated"
+    }
+    else {
+        $score += 10
+        $passed++
+        $evidence += "No recommendations generated"
+    }
+
+    $warnings = $checksRun - [math]::Floor($passed)
 
     $result = New-BKResult `
         -Engine "Identity Discovery" `
         -Status "Integrated" `
         -Health "Healthy" `
         -Confidence $score `
-        -ChecksRun 10 `
-        -Passed ($score / 10) `
-        -Warnings (10 - ($score / 10)) `
+        -ChecksRun $checksRun `
+        -Passed ([math]::Floor($passed)) `
+        -Warnings $warnings `
         -Failed 0 `
         -Evidence $evidence `
         -Recommendations $recommendations
@@ -141,18 +166,10 @@ function Invoke-BKIdentityDiscovery {
 
     if ($ExportJson) {
         $jsonPath = Join-Path $OutputPath "identity-discovery.json"
-
-        [PSCustomObject]@{
-            Tenant = $tenant
-            Result = $result
-        } | ConvertTo-Json -Depth 10 | Out-File -FilePath $jsonPath -Encoding utf8
-
-        Write-BKLog -Message "Exported identity discovery report to $jsonPath" -Level Success
+        Export-BKJsonReport -Data $result -Path $jsonPath
     }
 
     Write-BKSection "Identity Discovery Complete"
-
-    return $result
 }
 
 Invoke-BKIdentityDiscovery
