@@ -1,0 +1,25 @@
+{
+  "Name": "Trust",
+  "DisplayName": "Trust Engine",
+  "Version": "0.5.0-alpha",
+  "Status": "Planned",
+  "Enabled": true,
+  "EntryPoint": "Invoke-BKTrustDiscovery.ps1",
+  "Category": "Trust",
+  "ConfidenceModel": true,
+  "ProducesReport": true,
+  "ReportName": "trust-discovery.json",
+  "Dependencies": [
+    "Connect-BKGraph",
+    "New-BKResult",
+    "Export-BKJsonReport"
+  ],
+  "Capabilities": [
+    "Conditional Access Discovery",
+    "Authentication Methods Discovery",
+    "Authentication Strengths Discovery",
+    "Named Locations Discovery",
+    "Zero Trust Confidence Scoring"
+  ],
+  "Description": "Zero Trust discovery and confidence scoring for authentication, access control, and conditional access posture."
+}
