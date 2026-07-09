@@ -1,32 +1,126 @@
 {
   "Platform": "Blackknight One",
   "Version": "0.4.0-alpha",
-  "Services": {
-    "Authentication": [
-      "Connect-BKGraph"
-    ],
-    "Discovery": [
-      "Get-BKOrganization",
-      "Get-BKDomains",
-      "Get-BKUsers",
-      "Get-BKGroups",
-      "Get-BKLicensing",
-      "Get-BKTenant"
-    ],
-    "Reporting": [
-      "Export-BKJsonReport"
-    ],
-    "Confidence": [
-      "Get-BKConfidenceScore"
-    ],
-    "Results": [
-      "New-BKResult"
-    ],
-    "Logging": [
-      "Write-BKLog"
-    ],
-    "Validation": [
-      "Test-BKPlatform"
-    ]
-  }
+  "Services": [
+    {
+      "Name": "Connect-BKGraph",
+      "Category": "Authentication",
+      "Status": "Integrated",
+      "RequiresGraph": true,
+      "RequiredScopes": ["Directory.Read.All"],
+      "Description": "Connects Blackknight One to Microsoft Graph."
+    },
+    {
+      "Name": "Get-BKOrganization",
+      "Category": "Discovery",
+      "Status": "Integrated",
+      "RequiresGraph": true,
+      "RequiredScopes": ["Organization.Read.All", "Directory.Read.All"],
+      "Description": "Collects Microsoft Entra organization information."
+    },
+    {
+      "Name": "Get-BKDomains",
+      "Category": "Discovery",
+      "Status": "Integrated",
+      "RequiresGraph": true,
+      "RequiredScopes": ["Domain.Read.All", "Directory.Read.All"],
+      "Description": "Collects Microsoft Entra domain information."
+    },
+    {
+      "Name": "Get-BKUsers",
+      "Category": "Discovery",
+      "Status": "Integrated",
+      "RequiresGraph": true,
+      "RequiredScopes": ["User.Read.All", "Directory.Read.All"],
+      "Description": "Collects Microsoft Entra user inventory."
+    },
+    {
+      "Name": "Get-BKGroups",
+      "Category": "Discovery",
+      "Status": "Integrated",
+      "RequiresGraph": true,
+      "RequiredScopes": ["Group.Read.All", "Directory.Read.All"],
+      "Description": "Collects Microsoft Entra group inventory."
+    },
+    {
+      "Name": "Get-BKLicensing",
+      "Category": "Discovery",
+      "Status": "Integrated",
+      "RequiresGraph": true,
+      "RequiredScopes": ["Organization.Read.All", "Directory.Read.All"],
+      "Description": "Collects Microsoft 365 subscribed SKU information."
+    },
+    {
+      "Name": "Get-BKTenant",
+      "Category": "Discovery",
+      "Status": "Integrated",
+      "RequiresGraph": true,
+      "RequiredScopes": ["Organization.Read.All", "Directory.Read.All", "Domain.Read.All", "User.Read.All", "Group.Read.All"],
+      "Description": "Builds a tenant summary from reusable discovery services."
+    },
+    {
+      "Name": "New-BKResult",
+      "Category": "Results",
+      "Status": "Integrated",
+      "RequiresGraph": false,
+      "RequiredScopes": [],
+      "Description": "Creates standardized Blackknight result objects."
+    },
+    {
+      "Name": "Export-BKJsonReport",
+      "Category": "Reporting",
+      "Status": "Integrated",
+      "RequiresGraph": false,
+      "RequiredScopes": [],
+      "Description": "Exports Blackknight result data to JSON."
+    },
+    {
+      "Name": "Get-BKConfidenceScore",
+      "Category": "Confidence",
+      "Status": "Integrated",
+      "RequiresGraph": false,
+      "RequiredScopes": [],
+      "Description": "Calculates confidence scores from engine results."
+    },
+    {
+      "Name": "Write-BKLog",
+      "Category": "Logging",
+      "Status": "Integrated",
+      "RequiresGraph": false,
+      "RequiredScopes": [],
+      "Description": "Writes standardized Blackknight log messages."
+    },
+    {
+      "Name": "Test-BKPlatform",
+      "Category": "Validation",
+      "Status": "Integrated",
+      "RequiresGraph": false,
+      "RequiredScopes": [],
+      "Description": "Runs platform validation quality checks."
+    },
+    {
+      "Name": "Get-BKServiceManifest",
+      "Category": "Registry",
+      "Status": "Integrated",
+      "RequiresGraph": false,
+      "RequiredScopes": [],
+      "Description": "Reads the Blackknight service manifest."
+    },
+    {
+      "Name": "Get-BKPlatformConfiguration",
+      "Category": "Registry",
+      "Status": "Integrated",
+      "RequiresGraph": false,
+      "RequiredScopes": [],
+      "Description": "Reads the Blackknight platform registry configuration."
+    },
+    {
+      "Name": "Get-BKPlatformInventory",
+      "Category": "Registry",
+      "Status": "Integrated",
+      "RequiresGraph": false,
+      "RequiredScopes": [],
+      "Description": "Inventories installed platform components."
+    }
+  ]
 }

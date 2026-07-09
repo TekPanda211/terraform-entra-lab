@@ -21,14 +21,16 @@ function Get-BKPlatformInventory {
     $terraformFiles = Get-ChildItem -Path (Join-Path $repoRoot "terraform") -Filter "*.tf" -Recurse -ErrorAction SilentlyContinue
 
     $serviceCount = 0
+    $graphServiceCount = 0
+    $integratedServiceCount = 0
 
     if (Test-Path $servicesManifestPath) {
-        $serviceManifest = Get-Content $servicesManifestPath -Raw | ConvertFrom-Json
+    $serviceManifest = Get-Content $servicesManifestPath -Raw | ConvertFrom-Json
 
-        foreach ($category in $serviceManifest.Services.PSObject.Properties) {
-            $serviceCount += $category.Value.Count
-        }
-    }
+    $serviceCount = $serviceManifest.Services.Count
+    $graphServiceCount = ($serviceManifest.Services | Where-Object { $_.RequiresGraph -eq $true }).Count
+    $integratedServiceCount = ($serviceManifest.Services | Where-Object { $_.Status -eq "Integrated" }).Count
+}
 
     [PSCustomObject]@{
         PlatformName       = $config.Platform.Name
@@ -36,6 +38,8 @@ function Get-BKPlatformInventory {
         Mission            = $config.Platform.Mission
         NorthStar          = $config.Platform.NorthStar
         Engines            = $engineManifests.Count
+        GraphServices      = $graphServiceCount
+        IntegratedServices = $integratedServiceCount
         Services           = $serviceCount
         PowerShellFiles    = $psFiles.Count
         Reports            = $reports.Count
