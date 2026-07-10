@@ -1,18 +1,253 @@
 {
-  "Engine": "Trust Engine",
+  "Platform": "Blackknight One",
   "Version": "0.5.0-alpha",
-  "Status": "Planned",
-  "Health": "Healthy",
-  "Confidence": 50,
-  "ChecksRun": 1,
-  "Passed": 1,
-  "Warnings": 0,
-  "Failed": 0,
-  "Timestamp": "2026-07-10T14:50:50.3209722Z",
-  "Evidence": [
-    "Trust Engine registered with BKOS"
+  "GeneratedAt": "2026-07-10T15:21:52.3104866Z",
+  "Result": {
+    "Engine": "Trust Engine",
+    "Version": "0.5.0-alpha",
+    "Status": "Integrated",
+    "Health": "Degraded",
+    "Confidence": 75,
+    "ChecksRun": 10,
+    "Passed": 6,
+    "Warnings": 3,
+    "Failed": 1,
+    "Timestamp": "2026-07-10T15:21:52.2973767Z",
+    "Evidence": [
+      "Conditional Access policies: 6",
+      "Enabled Conditional Access policies: 4",
+      "Report-only Conditional Access policies: 2",
+      "Disabled Conditional Access policies: 0",
+      "Named locations: 1",
+      "MFA registration: 70%",
+      "Administrative users without MFA: 0",
+      "Passwordless capability: 0%",
+      "SSPR registration: 60%",
+      "System-preferred authentication: 100%"
+    ],
+    "Recommendations": [
+      "Review report-only results and either enable or retire those policies.",
+      "Prioritize MFA registration for unregistered users.",
+      "Evaluate FIDO2, Windows Hello for Business, passkeys, and Temporary Access Pass.",
+      "Increase SSPR registration and capability coverage."
+    ]
+  },
+  "Checks": [
+    {
+      "Name": "Conditional Access Inventory",
+      "Status": "PASS",
+      "Points": 10,
+      "MaximumPoints": 10,
+      "Details": "6 policies discovered.",
+      "Recommendation": ""
+    },
+    {
+      "Name": "Enabled Conditional Access",
+      "Status": "PASS",
+      "Points": 10,
+      "MaximumPoints": 10,
+      "Details": "4 enabled policies discovered.",
+      "Recommendation": ""
+    },
+    {
+      "Name": "Disabled Policy Hygiene",
+      "Status": "PASS",
+      "Points": 10,
+      "MaximumPoints": 10,
+      "Details": "No disabled Conditional Access policies detected.",
+      "Recommendation": ""
+    },
+    {
+      "Name": "Report-Only Policy Hygiene",
+      "Status": "WARN",
+      "Points": 5,
+      "MaximumPoints": 10,
+      "Details": "2 report-only policies detected.",
+      "Recommendation": "Review report-only results and either enable or retire those policies."
+    },
+    {
+      "Name": "MFA Registration",
+      "Status": "WARN",
+      "Points": 5,
+      "MaximumPoints": 10,
+      "Details": "70% of users are registered for MFA.",
+      "Recommendation": "Prioritize MFA registration for unregistered users."
+    },
+    {
+      "Name": "Administrative MFA Coverage",
+      "Status": "PASS",
+      "Points": 10,
+      "MaximumPoints": 10,
+      "Details": "All detected administrative users are registered for MFA.",
+      "Recommendation": ""
+    },
+    {
+      "Name": "Passwordless Readiness",
+      "Status": "FAIL",
+      "Points": 0,
+      "MaximumPoints": 10,
+      "Details": "No users are currently passwordless capable.",
+      "Recommendation": "Evaluate FIDO2, Windows Hello for Business, passkeys, and Temporary Access Pass."
+    },
+    {
+      "Name": "SSPR Registration",
+      "Status": "WARN",
+      "Points": 5,
+      "MaximumPoints": 10,
+      "Details": "60% of users are registered for SSPR.",
+      "Recommendation": "Increase SSPR registration and capability coverage."
+    },
+    {
+      "Name": "System-Preferred Authentication",
+      "Status": "PASS",
+      "Points": 10,
+      "MaximumPoints": 10,
+      "Details": "100% of users have system-preferred authentication enabled.",
+      "Recommendation": ""
+    },
+    {
+      "Name": "Named Location Inventory",
+      "Status": "PASS",
+      "Points": 10,
+      "MaximumPoints": 10,
+      "Details": "1 named locations discovered and inventoried.",
+      "Recommendation": ""
+    }
   ],
-  "Recommendations": [
-    "Add Conditional Access and authentication methods discovery"
-  ]
+  "ConditionalAccess": {
+    "Total": 6,
+    "Enabled": 4,
+    "ReportOnly": 2,
+    "Disabled": 0,
+    "Policies": [
+      {
+        "Id": "92f4f0a5-672b-45f6-a86c-6941be0a9e85",
+        "DisplayName": "Blocking Legacy Sign-Ins",
+        "State": "enabledForReportingButNotEnforced",
+        "CreatedDateTime": "2026-07-09T18:46:10.6872417Z",
+        "ModifiedDateTime": null,
+        "Timestamp": "2026-07-10T15:21:51.4571387Z"
+      },
+      {
+        "Id": "f77e0bde-9f40-45c3-83c6-393e8e27278c",
+        "DisplayName": "Blocking Forgien Countries",
+        "State": "enabledForReportingButNotEnforced",
+        "CreatedDateTime": "2026-07-09T18:52:37.1960658Z",
+        "ModifiedDateTime": null,
+        "Timestamp": "2026-07-10T15:21:51.4572120Z"
+      },
+      {
+        "Id": "97654841-7af2-4ef6-b677-f6108996e908",
+        "DisplayName": "Require multifactor authentication for admins",
+        "State": "enabled",
+        "CreatedDateTime": "2026-07-09T18:53:25.2447651Z",
+        "ModifiedDateTime": null,
+        "Timestamp": "2026-07-10T15:21:51.4572346Z"
+      },
+      {
+        "Id": "2e354020-e429-439d-901f-3bc0b88c686e",
+        "DisplayName": "Block legacy authentication",
+        "State": "enabled",
+        "CreatedDateTime": "2026-07-09T18:53:26.223732Z",
+        "ModifiedDateTime": null,
+        "Timestamp": "2026-07-10T15:21:51.4572538Z"
+      },
+      {
+        "Id": "3781edf6-0918-4afa-885c-28a855e67f93",
+        "DisplayName": "Require multifactor authentication for all users",
+        "State": "enabled",
+        "CreatedDateTime": "2026-07-09T18:53:27.3584769Z",
+        "ModifiedDateTime": null,
+        "Timestamp": "2026-07-10T15:21:51.4572727Z"
+      },
+      {
+        "Id": "55982dde-e34b-455b-a6c2-964fcd063f65",
+        "DisplayName": "Require multifactor authentication for Azure management",
+        "State": "enabled",
+        "CreatedDateTime": "2026-07-09T18:53:28.3070425Z",
+        "ModifiedDateTime": null,
+        "Timestamp": "2026-07-10T15:21:51.4572907Z"
+      }
+    ]
+  },
+  "NamedLocations": [
+    {
+      "Id": "132b76d8-6ae9-4f49-8b94-8e005fe1b14a",
+      "DisplayName": "Blocked Foreign Countries",
+      "CreatedDate": "2026-07-09T18:51:39.8079353Z",
+      "ModifiedDate": "2026-07-09T18:51:39.8079353Z",
+      "Type": "#microsoft.graph.countryNamedLocation",
+      "Timestamp": "2026-07-10T15:21:51.9454327Z"
+    }
+  ],
+  "Authentication": {
+    "TotalUsers": 10,
+    "MemberUsers": 9,
+    "GuestUsers": 1,
+    "AdminUsers": 3,
+    "MfaRegistered": 7,
+    "MfaRegisteredPercent": 70.0,
+    "MfaCapable": 7,
+    "MfaCapablePercent": 70.0,
+    "PasswordlessCapable": 0,
+    "PasswordlessCapablePercent": 0.0,
+    "SsprRegistered": 6,
+    "SsprRegisteredPercent": 60.0,
+    "SsprCapable": 3,
+    "SsprCapablePercent": 30.0,
+    "SsprEnabled": 3,
+    "SsprEnabledPercent": 30.0,
+    "SystemPreferredEnabled": 10,
+    "SystemPreferredEnabledPercent": 100.0,
+    "UsersWithoutMfa": 3,
+    "AdminsWithoutMfa": 0,
+    "UsersWithoutPasswordless": 10,
+    "RegisteredMethods": [
+      {
+        "Method": "softwareOneTimePasscode",
+        "Count": 7,
+        "Percent": 70.0
+      },
+      {
+        "Method": "mobilePhone",
+        "Count": 3,
+        "Percent": 30.0
+      },
+      {
+        "Method": "microsoftAuthenticatorPush",
+        "Count": 3,
+        "Percent": 30.0
+      }
+    ],
+    "PreferredSecondaryMethods": [
+      {
+        "Method": "oath",
+        "Count": 5,
+        "Percent": 50.0
+      },
+      {
+        "Method": "none",
+        "Count": 3,
+        "Percent": 30.0
+      },
+      {
+        "Method": "push",
+        "Count": 2,
+        "Percent": 20.0
+      }
+    ],
+    "SystemPreferredAuthenticationMethods": [
+      {
+        "Method": "SoftwareOTP",
+        "Count": 4,
+        "Percent": 40.0
+      },
+      {
+        "Method": "PhoneAppNotification",
+        "Count": 3,
+        "Percent": 30.0
+      }
+    ],
+    "Timestamp": "2026-07-10T15:21:52.2960172Z"
+  }
 }
