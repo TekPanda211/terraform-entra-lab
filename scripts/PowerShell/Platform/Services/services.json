@@ -243,6 +243,20 @@
       "Description": "Displays the Blackknight One operational dashboard."
     },
     {
+      "Name": "Find-BKIdentity",
+      "Category": "Correlation",
+      "Status": "Integrated",
+      "RequiresGraph": true,
+      "RequiredScopes": [
+      "User.Read.All",
+      "Directory.Read.All",
+      "AuditLog.Read.All",
+      "RoleManagement.Read.Directory"
+  ],
+  "Description": "Searches correlated Microsoft Entra identities by authentication posture, privilege, directory roles, account state, user type, and attention indicators."
+
+},
+    {
       "Name": "Show-BKIdentity",
       "Category": "Presentation",
       "Status": "Integrated",
