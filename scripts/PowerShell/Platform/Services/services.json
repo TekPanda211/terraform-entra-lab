@@ -169,6 +169,14 @@
       "RequiresGraph": true,
       "RequiredScopes": ["AuditLog.Read.All", "Directory.Read.All"],
       "Description": "Collects Microsoft Entra authentication method registration, MFA, SSPR, and passwordless readiness summary."
-  }
+    },
+    {
+      "Name": "Get-BKDashboardData",
+      "Category": "Reporting",
+      "Status": "Integrated",
+      "RequiresGraph": false,
+      "RequiredScopes": [],
+      "Description": "Builds normalized dashboard data from platform registries and current engine reports."
+}
   ]
 }
