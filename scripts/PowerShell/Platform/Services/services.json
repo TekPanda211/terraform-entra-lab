@@ -79,7 +79,7 @@
         "User.Read.All",
         "Group.Read.All"
       ],
-      "Description": "Builds a tenant summary from reusable discovery services."
+      "Description": "Builds a normalized tenant summary from reusable discovery services."
     },
     {
       "Name": "Get-BKConditionalAccessPolicies",
@@ -112,7 +112,18 @@
         "AuditLog.Read.All",
         "Directory.Read.All"
       ],
-      "Description": "Collects Microsoft Entra authentication method registration, MFA, SSPR, and passwordless readiness summary."
+      "Description": "Collects Microsoft Entra authentication method registration, MFA, SSPR, and passwordless readiness data."
+    },
+    {
+      "Name": "Get-BKDirectoryRoles",
+      "Category": "Authorization",
+      "Status": "Integrated",
+      "RequiresGraph": true,
+      "RequiredScopes": [
+        "RoleManagement.Read.Directory",
+        "Directory.Read.All"
+      ],
+      "Description": "Collects and resolves active Microsoft Entra directory-role assignments, principal types, deprecated roles, and review severity."
     },
     {
       "Name": "Get-BKIdentityGraph",
@@ -122,9 +133,10 @@
       "RequiredScopes": [
         "User.Read.All",
         "Directory.Read.All",
-        "AuditLog.Read.All"
+        "AuditLog.Read.All",
+        "RoleManagement.Read.Directory"
       ],
-      "Description": "Correlates Microsoft Entra user inventory with authentication registration and readiness data."
+      "Description": "Correlates Microsoft Entra users with authentication posture and active directory-role assignments."
     },
     {
       "Name": "New-BKResult",
@@ -132,7 +144,7 @@
       "Status": "Integrated",
       "RequiresGraph": false,
       "RequiredScopes": [],
-      "Description": "Creates standardized Blackknight result objects."
+      "Description": "Creates standardized Blackknight One engine result objects."
     },
     {
       "Name": "Get-BKConfidenceScore",
@@ -140,7 +152,7 @@
       "Status": "Integrated",
       "RequiresGraph": false,
       "RequiredScopes": [],
-      "Description": "Calculates confidence scores from engine results."
+      "Description": "Calculates transparent confidence scores from validation checks and engine results."
     },
     {
       "Name": "Export-BKJsonReport",
@@ -148,7 +160,7 @@
       "Status": "Integrated",
       "RequiresGraph": false,
       "RequiredScopes": [],
-      "Description": "Exports Blackknight result data to JSON."
+      "Description": "Exports Blackknight One result and report data to JSON."
     },
     {
       "Name": "Get-BKDashboardData",
@@ -164,7 +176,7 @@
       "Status": "Integrated",
       "RequiresGraph": false,
       "RequiredScopes": [],
-      "Description": "Writes standardized Blackknight log messages."
+      "Description": "Writes standardized Blackknight One log messages."
     },
     {
       "Name": "Test-BKPlatform",
@@ -172,7 +184,7 @@
       "Status": "Integrated",
       "RequiresGraph": false,
       "RequiredScopes": [],
-      "Description": "Runs platform validation quality checks."
+      "Description": "Runs platform integrity, registry, service, engine, and PowerShell syntax validation checks."
     },
     {
       "Name": "Get-BKServiceManifest",
@@ -180,7 +192,7 @@
       "Status": "Integrated",
       "RequiresGraph": false,
       "RequiredScopes": [],
-      "Description": "Reads the Blackknight service manifest."
+      "Description": "Reads and returns the Blackknight One service manifest."
     },
     {
       "Name": "Get-BKPlatformConfiguration",
@@ -188,7 +200,7 @@
       "Status": "Integrated",
       "RequiresGraph": false,
       "RequiredScopes": [],
-      "Description": "Reads the Blackknight platform registry configuration."
+      "Description": "Reads the Blackknight One platform registry configuration."
     },
     {
       "Name": "Get-BKPlatformInventory",
@@ -196,7 +208,7 @@
       "Status": "Integrated",
       "RequiresGraph": false,
       "RequiredScopes": [],
-      "Description": "Inventories installed platform components."
+      "Description": "Inventories installed platform engines, services, capabilities, reports, documentation, schemas, and Terraform assets."
     },
     {
       "Name": "Get-BKEngineManifest",
@@ -204,7 +216,7 @@
       "Status": "Integrated",
       "RequiresGraph": false,
       "RequiredScopes": [],
-      "Description": "Reads and normalizes Blackknight engine manifest metadata."
+      "Description": "Reads and normalizes Blackknight One engine manifest metadata."
     },
     {
       "Name": "Get-BKCapabilities",
@@ -220,7 +232,7 @@
       "Status": "Integrated",
       "RequiresGraph": false,
       "RequiredScopes": [],
-      "Description": "Returns the complete Blackknight platform object."
+      "Description": "Returns the unified Blackknight One platform object, including configuration, engines, services, capabilities, and inventory."
     },
     {
       "Name": "Show-BKDashboard",
@@ -231,41 +243,15 @@
       "Description": "Displays the Blackknight One operational dashboard."
     },
     {
-      "Name": "Get-BKIdentityGraph",
-      "Category": "Correlation",
-      "Status": "Integrated",
-      "RequiresGraph": true,
-      "RequiredScopes": [
-      "User.Read.All",
-      "Directory.Read.All",
-      "AuditLog.Read.All",
-      "RoleManagement.Read.Directory"
-  ],
-  "Description": "Correlates Microsoft Entra users with authentication posture and active directory-role assignments."
-    
-    },
-    {
       "Name": "Show-BKAuthenticationMethodsSummary",
       "Category": "Presentation",
       "Status": "Integrated",
       "RequiresGraph": true,
       "RequiredScopes": [
-      "AuditLog.Read.All",
-      "Directory.Read.All"
+        "AuditLog.Read.All",
+        "Directory.Read.All"
       ],
       "Description": "Displays a readable Microsoft Entra authentication methods, MFA, SSPR, and passwordless readiness summary."
-
-    },
-    {
-      "Name": "Get-BKDirectoryRoles",
-      "Category": "Authorization",
-      "Status": "Integrated",
-      "RequiresGraph": true,
-      "RequiredScopes": [
-      "RoleManagement.Read.Directory",
-      "Directory.Read.All"
-    ],
-    "Description": "Collects and normalizes active Microsoft Entra directory-role assignments."
-}
+    }
   ]
 }
