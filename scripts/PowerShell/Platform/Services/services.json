@@ -243,6 +243,19 @@
       "Description": "Displays the Blackknight One operational dashboard."
     },
     {
+      "Name": "Show-BKIdentity",
+      "Category": "Presentation",
+      "Status": "Integrated",
+      "RequiresGraph": true,
+      "RequiredScopes": [
+      "User.Read.All",
+      "Directory.Read.All",
+      "AuditLog.Read.All",
+      "RoleManagement.Read.Directory"
+  ],
+  "Description": "Displays a correlated identity intelligence profile including authentication, privilege, directory roles, attention indicators, and recommendations."
+},
+    {
       "Name": "Show-BKAuthenticationMethodsSummary",
       "Category": "Presentation",
       "Status": "Integrated",
