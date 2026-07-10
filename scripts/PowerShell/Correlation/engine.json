@@ -13,6 +13,7 @@
     "Connect-BKGraph",
     "Get-BKUsers",
     "Get-BKIdentityGraph",
+    "Get-BKDirectoryRoles",
     "New-BKResult",
     "Export-BKJsonReport"
   ],
@@ -22,6 +23,9 @@
     "Privileged Identity Visibility",
     "MFA Gap Detection",
     "Passwordless Readiness Correlation",
+    "Directory Role Correlation",
+    "Privileged Identity Detection",
+    "Deprecated Role Detection"
     "Identity Graph Reporting"
   ],
   "Description": "Correlates identity and authentication evidence into a normalized identity graph."

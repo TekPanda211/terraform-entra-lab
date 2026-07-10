@@ -231,15 +231,41 @@
       "Description": "Displays the Blackknight One operational dashboard."
     },
     {
+      "Name": "Get-BKIdentityGraph",
+      "Category": "Correlation",
+      "Status": "Integrated",
+      "RequiresGraph": true,
+      "RequiredScopes": [
+      "User.Read.All",
+      "Directory.Read.All",
+      "AuditLog.Read.All",
+      "RoleManagement.Read.Directory"
+  ],
+  "Description": "Correlates Microsoft Entra users with authentication posture and active directory-role assignments."
+    
+    },
+    {
       "Name": "Show-BKAuthenticationMethodsSummary",
       "Category": "Presentation",
       "Status": "Integrated",
       "RequiresGraph": true,
       "RequiredScopes": [
-        "AuditLog.Read.All",
-        "Directory.Read.All"
+      "AuditLog.Read.All",
+      "Directory.Read.All"
       ],
       "Description": "Displays a readable Microsoft Entra authentication methods, MFA, SSPR, and passwordless readiness summary."
-    }
+
+    },
+    {
+      "Name": "Get-BKDirectoryRoles",
+      "Category": "Authorization",
+      "Status": "Integrated",
+      "RequiresGraph": true,
+      "RequiredScopes": [
+      "RoleManagement.Read.Directory",
+      "Directory.Read.All"
+    ],
+    "Description": "Collects and normalizes active Microsoft Entra directory-role assignments."
+}
   ]
 }

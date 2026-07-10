@@ -1,23 +1,25 @@
 function Get-BKIdentityGraph {
     <#
     .SYNOPSIS
-    Builds a normalized identity graph for Blackknight One.
+    Builds the normalized Blackknight One identity graph.
 
     .DESCRIPTION
-    Correlates Microsoft Entra user inventory with authentication
-    registration data using the user object ID and user principal name.
+    Correlates Microsoft Entra users with authentication registration
+    data and active directory-role assignments.
 
-    This initial version correlates:
-    - User identity
-    - Account state
-    - User type
-    - Department and job title
-    - Administrative status
-    - MFA registration and capability
-    - Passwordless capability
-    - SSPR registration and capability
-    - Registered authentication methods
-    - Preferred authentication methods
+    Current correlation layers:
+
+    - User identity and account state
+    - Authentication registration
+    - MFA and passwordless readiness
+    - SSPR readiness
+    - Active directory roles
+    - Privileged identity classification
+    - Deprecated-role detection
+    - Attention and review reasons
+
+    .PARAMETER SkipGraphConnect
+    Skips Microsoft Graph connection handling when called by an orchestrator.
     #>
 
     [CmdletBinding()]
@@ -25,14 +27,17 @@ function Get-BKIdentityGraph {
         [switch]$SkipGraphConnect
     )
 
-    Write-BKLog -Message "Building Blackknight identity graph..." -Level Info
+    Write-BKLog `
+        -Message "Building Blackknight identity graph..." `
+        -Level Info
 
     try {
         if (-not $SkipGraphConnect) {
             Connect-BKGraph -Scopes @(
                 "User.Read.All",
                 "Directory.Read.All",
-                "AuditLog.Read.All"
+                "AuditLog.Read.All",
+                "RoleManagement.Read.Directory"
             ) | Out-Null
         }
 
@@ -46,51 +51,105 @@ function Get-BKIdentityGraph {
                 -ErrorAction Stop
         )
 
+        $directoryRoles = @(
+            Get-BKDirectoryRoles -SkipGraphConnect
+        )
+
+        # Authentication lookup tables
+
         $authenticationById = @{}
         $authenticationByUpn = @{}
 
         foreach ($authenticationRecord in $authenticationDetails) {
-            if (
-                $authenticationRecord.Id -and
-                -not $authenticationById.ContainsKey(
-                    [string]$authenticationRecord.Id
-                )
-            ) {
+            if ($authenticationRecord.Id) {
                 $authenticationById[
-                    [string]$authenticationRecord.Id
+                    ([string]$authenticationRecord.Id).ToLowerInvariant()
                 ] = $authenticationRecord
             }
 
             if ($authenticationRecord.UserPrincipalName) {
-                $normalizedUpn =
-                    $authenticationRecord.UserPrincipalName.ToLowerInvariant()
-
-                if (-not $authenticationByUpn.ContainsKey($normalizedUpn)) {
-                    $authenticationByUpn[$normalizedUpn] =
-                        $authenticationRecord
-                }
+                $authenticationByUpn[
+                    $authenticationRecord.
+                        UserPrincipalName.
+                        ToLowerInvariant()
+                ] = $authenticationRecord
             }
+        }
+
+        # Directory-role lookup by user principal ID
+
+        $rolesByPrincipalId = @{}
+
+        foreach ($roleAssignment in $directoryRoles) {
+            if (-not $roleAssignment.PrincipalId) {
+                continue
+            }
+
+            $principalKey = (
+                [string]$roleAssignment.PrincipalId
+            ).ToLowerInvariant()
+
+            if (-not $rolesByPrincipalId.ContainsKey($principalKey)) {
+                $rolesByPrincipalId[$principalKey] = @()
+            }
+
+            $rolesByPrincipalId[$principalKey] += $roleAssignment
         }
 
         $identityGraph = foreach ($user in $users) {
             $authentication = $null
 
-            if (
-                $user.Id -and
-                $authenticationById.ContainsKey([string]$user.Id)
-            ) {
-                $authentication =
-                    $authenticationById[[string]$user.Id]
-            }
-            elseif ($user.UserPrincipalName) {
-                $normalizedUpn =
-                    $user.UserPrincipalName.ToLowerInvariant()
+            if ($user.Id) {
+                $userIdKey = (
+                    [string]$user.Id
+                ).ToLowerInvariant()
 
-                if ($authenticationByUpn.ContainsKey($normalizedUpn)) {
-                    $authentication =
-                        $authenticationByUpn[$normalizedUpn]
+                if ($authenticationById.ContainsKey($userIdKey)) {
+                    $authentication = $authenticationById[$userIdKey]
                 }
             }
+
+            if (
+                -not $authentication -and
+                $user.UserPrincipalName
+            ) {
+                $userUpnKey = (
+                    [string]$user.UserPrincipalName
+                ).ToLowerInvariant()
+
+                if ($authenticationByUpn.ContainsKey($userUpnKey)) {
+                    $authentication = $authenticationByUpn[$userUpnKey]
+                }
+            }
+
+            $userRoleAssignments = @()
+
+            if ($user.Id) {
+                $userRoleKey = (
+                    [string]$user.Id
+                ).ToLowerInvariant()
+
+                if ($rolesByPrincipalId.ContainsKey($userRoleKey)) {
+                    $userRoleAssignments = @(
+                        $rolesByPrincipalId[$userRoleKey]
+                    )
+                }
+            }
+
+            $roleNames = @(
+                $userRoleAssignments |
+                    Select-Object -ExpandProperty RoleName -Unique
+            )
+
+            $deprecatedRoles = @(
+                $userRoleAssignments |
+                    Where-Object { $_.IsDeprecated -eq $true }
+            )
+
+            $roleAssignmentsRequiringReview = @(
+                $userRoleAssignments |
+                    Where-Object { $_.RequiresReview -eq $true }
+            )
 
             $registeredMethods = if ($authentication) {
                 @($authentication.MethodsRegistered)
@@ -100,11 +159,26 @@ function Get-BKIdentityGraph {
             }
 
             $systemPreferredMethods = if ($authentication) {
-                @($authentication.SystemPreferredAuthenticationMethods)
+                @(
+                    $authentication.
+                        SystemPreferredAuthenticationMethods
+                )
             }
             else {
                 @()
             }
+
+            $isAuthenticationAdmin = if ($authentication) {
+                $authentication.IsAdmin
+            }
+            else {
+                $null
+            }
+
+            $isPrivileged = (
+                $userRoleAssignments.Count -gt 0 -or
+                $isAuthenticationAdmin -eq $true
+            )
 
             $attentionReasons = @()
 
@@ -112,57 +186,108 @@ function Get-BKIdentityGraph {
                 $attentionReasons += "Account disabled"
             }
 
-            if (
-                $authentication -and
-                $authentication.IsMfaRegistered -ne $true
-            ) {
-                $attentionReasons += "MFA not registered"
-            }
-
-            if (
-                $authentication -and
-                $authentication.IsAdmin -eq $true -and
-                $authentication.IsMfaRegistered -ne $true
-            ) {
-                $attentionReasons += "Administrative user without MFA"
-            }
-
-            if (
-                $authentication -and
-                $authentication.IsPasswordlessCapable -ne $true
-            ) {
-                $attentionReasons += "Not passwordless capable"
-            }
-
-            if (
-                $authentication -and
-                $authentication.IsSsprRegistered -ne $true
-            ) {
-                $attentionReasons += "SSPR not registered"
-            }
-
             if (-not $authentication) {
-                $attentionReasons += "Authentication report data unavailable"
+                $attentionReasons +=
+                    "Authentication report data unavailable"
+            }
+            else {
+                if ($authentication.IsMfaRegistered -ne $true) {
+                    $attentionReasons += "MFA not registered"
+                }
+
+                if (
+                    $isPrivileged -and
+                    $authentication.IsMfaRegistered -ne $true
+                ) {
+                    $attentionReasons +=
+                        "Privileged identity without MFA"
+                }
+
+                if (
+                    $authentication.IsPasswordlessCapable -ne $true
+                ) {
+                    $attentionReasons +=
+                        "Not passwordless capable"
+                }
+
+                if (
+                    $authentication.IsSsprRegistered -ne $true
+                ) {
+                    $attentionReasons +=
+                        "SSPR not registered"
+                }
+            }
+
+            if ($deprecatedRoles.Count -gt 0) {
+                $attentionReasons +=
+                    "Deprecated directory role assigned"
+            }
+
+            if ($roleAssignmentsRequiringReview.Count -gt 0) {
+                $attentionReasons +=
+                    "Directory-role assignment requires review"
+            }
+
+            $highestRoleSeverity = if (
+                @(
+                    $userRoleAssignments |
+                        Where-Object { $_.Severity -eq "High" }
+                ).Count -gt 0
+            ) {
+                "High"
+            }
+            elseif (
+                @(
+                    $userRoleAssignments |
+                        Where-Object { $_.Severity -eq "Medium" }
+                ).Count -gt 0
+            ) {
+                "Medium"
+            }
+            elseif (
+                @(
+                    $userRoleAssignments |
+                        Where-Object {
+                            $_.Severity -eq "Informational"
+                        }
+                ).Count -gt 0
+            ) {
+                "Informational"
+            }
+            else {
+                "None"
             }
 
             [PSCustomObject]@{
-                Id = $user.Id
-                DisplayName = $user.DisplayName
+                Id                = $user.Id
+                DisplayName       = $user.DisplayName
                 UserPrincipalName = $user.UserPrincipalName
-                UserType = $user.UserType
-                AccountEnabled = $user.AccountEnabled
-                Department = $user.Department
-                JobTitle = $user.JobTitle
-                CompanyName = $user.CompanyName
-                EmployeeId = $user.EmployeeId
-                CreatedDate = $user.CreatedDate
+                UserType          = $user.UserType
+                AccountEnabled    = $user.AccountEnabled
+                Department        = $user.Department
+                JobTitle          = $user.JobTitle
+                CompanyName       = $user.CompanyName
+                EmployeeId        = $user.EmployeeId
+                CreatedDate       = $user.CreatedDate
 
-                IsAdmin = if ($authentication) {
-                    $authentication.IsAdmin
-                }
-                else {
-                    $null
-                }
+                IsAdmin = $isAuthenticationAdmin
+
+                IsPrivileged        = $isPrivileged
+                PrivilegedRoleCount = $userRoleAssignments.Count
+                DirectoryRoles      = $roleNames
+                RoleAssignments     = $userRoleAssignments
+
+                HasDeprecatedRole = $deprecatedRoles.Count -gt 0
+
+                DeprecatedRoles = @(
+                    $deprecatedRoles |
+                        Select-Object -ExpandProperty RoleName -Unique
+                )
+
+                RoleAssignmentsRequiringReview =
+                    $roleAssignmentsRequiringReview.Count
+
+                HighestRoleSeverity = $highestRoleSeverity
 
                 IsMfaRegistered = if ($authentication) {
                     $authentication.IsMfaRegistered
@@ -235,11 +360,15 @@ function Get-BKIdentityGraph {
                 }
 
                 RequiresAttention = $attentionReasons.Count -gt 0
-                AttentionReasons = $attentionReasons
 
-                Timestamp = (Get-Date).
-                    ToUniversalTime().
-                    ToString("o")
+                AttentionReasons = @(
+                    $attentionReasons |
+                        Select-Object -Unique
+                )
+
+                Timestamp = (
+                    Get-Date
+                ).ToUniversalTime().ToString("o")
             }
         }
 
