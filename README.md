@@ -1,355 +1,446 @@
-# Blackknight One
-
-> **Enterprise Identity Engineering Platform for Microsoft Entra, Terraform, and Infrastructure as Code**
-
 <p align="center">
-  <img src="docs/images/blackknight-one-hero.png"
-       alt="Blackknight One"
-       width="100%">
+  <img src="docs/images/blackknight-one-hero.png" alt="BLACKKNIGHT ONE" width="900">
 </p>
 
-![Version](https://img.shields.io/badge/version-0.5.0--alpha-blue)
-![PowerShell](https://img.shields.io/badge/PowerShell-7+-5391FE?logo=powershell)
-![Microsoft Graph](https://img.shields.io/badge/Microsoft%20Graph-SDK-00BCF2)
-![Terraform](https://img.shields.io/badge/Terraform-Enabled-7B42BC?logo=terraform)
-![Status](https://img.shields.io/badge/status-Active%20Development-success)
+# BLACKKNIGHT ONE
+
+## Enterprise Identity Engineering Platform
+
+# One Source of Truth for Enterprise Identity Engineering
+
+Blackknight One is an open-source platform designed to help organizations **discover, correlate, validate, understand, and automate** Microsoft Entra environments through Microsoft Graph, Infrastructure as Code, and engineering-driven workflows.
 
 ---
 
-## One Source of Truth
+# Modern identity isn't simply administered.
 
-Blackknight One is an open-source **Enterprise Identity Engineering Platform** that combines Microsoft Graph discovery, identity correlation, Terraform infrastructure analysis, policy validation, and engineering automation into a single operational experience.
+**Modern identity is engineered.**
 
-Unlike traditional reporting tools that simply collect Microsoft Entra data, Blackknight One is designed to discover, understand, validate, correlate, and continuously improve enterprise identity environments.
+Today's Microsoft Entra environments extend far beyond users and groups. They include Conditional Access, Identity Governance, authentication methods, administrative roles, Infrastructure as Code, CI/CD pipelines, service principals, applications, and automation.
 
-The long-term vision is simple:
+Managing these workloads independently creates fragmented visibility and inconsistent engineering practices.
 
-> **One Source of Truth for Enterprise Identity Engineering.**
+Blackknight One exists to unify these domains into a single engineering platform.
+
+Our vision is simple.
+
+> **One Source of Truth for Enterprise Identity Engineering**
 
 ---
 
-# Why Blackknight One?
+# Our North Star
 
-Modern Microsoft Entra environments are no longer managed through the portal alone.
+Enterprise identity has become the control plane for modern organizations.
 
-Organizations now manage identity using:
+As environments continue to grow across Microsoft Entra, Microsoft 365, Infrastructure as Code, and DevSecOps pipelines, identity information becomes fragmented across portals, APIs, scripts, repositories, and operational tooling.
+
+Blackknight One brings those worlds together.
+
+Every service, engine, report, and dashboard is designed to move organizations closer to a single engineering truth.
+
+Our mission is to make Enterprise Identity Engineering:
+
+- Measurable
+- Repeatable
+- Validatable
+- Automatable
+
+---
+
+# The Five Engineering Pillars
+
+Everything inside Blackknight One aligns to five engineering principles.
+
+```text
+Discover
+      │
+      ▼
+Correlate
+      │
+      ▼
+Validate
+      │
+      ▼
+Understand
+      │
+      ▼
+Automate
+```
+
+## Discover
+
+Collect authoritative information from supported platforms.
+
+Examples include:
+
+- Microsoft Entra ID
+- Microsoft Graph
+- Microsoft 365
+- Terraform (planned)
+
+---
+
+## Correlate
+
+Relationships create intelligence.
+
+Blackknight One correlates identities, authentication, authorization, licensing, governance, and infrastructure to provide operational context.
+
+---
+
+## Validate
+
+Engineering requires validation.
+
+Blackknight One validates:
+
+- Identity
+- Trust
+- Configuration
+- Platform Health
+- Infrastructure as Code
+- CI/CD (planned)
+
+---
+
+## Understand
+
+Raw inventory has limited value.
+
+Blackknight One transforms collected information into:
+
+- Confidence Scores
+- Identity Intelligence
+- Recommendations
+- Operational Insights
+- Drift Detection (planned)
+
+---
+
+## Automate
+
+Engineering should be repeatable.
+
+Blackknight One is designed to integrate with:
 
 - Microsoft Graph
 - PowerShell
 - Terraform
-- Infrastructure as Code
-- CI/CD Pipelines
-- Zero Trust
-- Identity Governance
-
-Each produces valuable information, but none provide a unified operational picture.
-
-Blackknight One bridges that gap.
-
-Instead of asking:
-
-> "Where do I find this information?"
-
-Administrators can ask:
-
-- What identities require attention?
-- Why did my confidence score decrease?
-- Which Global Administrators are highest risk?
-- What changed since yesterday?
-- Is my Terraform deployment safe?
-- Will this Conditional Access policy break production?
-- Can I deploy this identity configuration confidently?
-
----
-
-# Platform Capabilities
-
-Blackknight One is built around two equal engineering pillars.
-
----
-
-# Microsoft Entra & Identity
-
-Discover
-
-- Tenant Inventory
-- Users
-- Groups
-- Domains
-- Licensing
-- Authentication
-- Conditional Access
-- Directory Roles
-
-Analyze
-
-- Identity Correlation
-- Trust Assessment
-- Authorization Analysis
-- Governance
-- Operational Health
-- Validation
-- Confidence Scoring
-
-Visualize
-
-- Operational Dashboard
-- Identity Intelligence
-- Recommendations
-- JSON Reports
-
----
-
-# Infrastructure as Code & Terraform
-
-Current
-
-- Terraform Project Discovery
-- Terraform Configuration Inventory
-- Terraform Registry
-- Platform Validation
-
-Planned
-
-- Terraform State Discovery
-- Terraform Resource Inventory
-- Terraform Plan Validation
-- Drift Detection
-- Module Analysis
-- Security Best Practices
-- Identity as Code Validation
-- CI/CD Integration
-
-Terraform is treated as a first-class engineering capability—not an add-on.
+- GitHub Actions (planned)
+- Azure DevOps (planned)
+- REST APIs (planned)
 
 ---
 
 # Platform Architecture
 
+Blackknight One follows a layered architecture.
+
 ```text
-                         Blackknight One
-          Enterprise Identity Engineering Platform
-────────────────────────────────────────────────────────────
+                    BLACKKNIGHT ONE
+        Enterprise Identity Engineering Platform
 
-              Microsoft Graph          Terraform / IaC
-                     │                       │
-                     │                       │
-         Discovery & Collection      Configuration Discovery
-                     │                       │
-                     └───────────┬───────────┘
-                                 │
-                         Correlation Engine
-                                 │
-                     Validation & Confidence
-                                 │
-                Identity Intelligence Platform
-                                 │
-              Dashboard • Reports • CI/CD Validation
+                  External Data Sources
+────────────────────────────────────────────────────
+
+ Microsoft Graph      Terraform      Future Providers
+
+            │              │               │
+            └──────────────┼───────────────┘
+                           │
+
+                  Discovery Services
+
+      Users
+      Groups
+      Domains
+      Licensing
+      Conditional Access
+      Authentication
+      Directory Roles
+
+                           │
+
+                   Platform Services
+
+      Logging
+      Validation
+      Reporting
+      Configuration
+      Service Registry
+      Engine Registry
+
+                           │
+
+                 Assessment Engines
+
+      Identity
+      Trust
+      Correlation
+      Governance (planned)
+      Operations (planned)
+      Terraform (planned)
+
+                           │
+
+                 Correlation Layer
+
+      Identity Graph
+      Administrative Exposure
+      Recommendations
+
+                           │
+
+                  Confidence Engine
+
+      Identity
+      Trust
+      Governance
+      Operations
+      Validation
+
+                           │
+
+                 Experience Layer
+
+      Dashboard
+      JSON Reports
+      Power BI (planned)
+      REST API (planned)
 ```
 
 ---
 
-# Current Engines
+# Current Capabilities
 
-| Engine | Purpose |
-|----------|----------|
-| Identity | Microsoft Entra discovery |
-| Trust | Zero Trust assessment |
-| Governance | Governance analysis |
-| Operations | Operational health |
-| Correlation | Identity intelligence |
-| Validation | Platform quality assurance |
+Current platform capabilities include:
+
+- Microsoft Graph Discovery
+- Tenant Discovery
+- User Inventory
+- Group Inventory
+- Domain Inventory
+- Licensing Inventory
+- Conditional Access Discovery
+- Named Locations
+- Authentication Method Analysis
+- MFA Registration Analysis
+- Passwordless Readiness
+- SSPR Readiness
+- Directory Role Analysis
+- Identity Correlation
+- Identity Graph
+- Trust Assessment
+- Confidence Scoring
+- Platform Dashboard
+- JSON Reporting
+- Platform Validation
 
 ---
 
-# Quick Start
+# Current Assessment Engines
 
-Clone the repository
-
-```powershell
-git clone https://github.com/<YOUR-REPOSITORY>/blackknight-one
-
-cd blackknight-one
-```
-
-Import Blackknight
-
-```powershell
-Import-Module .\scripts\PowerShell\Platform\Blackknight-Platform.psm1 -Force
-```
-
-Validate the platform
-
-```powershell
-Test-BKPlatform
-```
-
-Connect to Microsoft Graph
-
-```powershell
-Connect-BKGraph
-```
-
-Run Identity Discovery
-
-```powershell
-.\scripts\PowerShell\Identity\Invoke-BKIdentityDiscovery.ps1
-```
-
-Run Trust Discovery
-
-```powershell
-.\scripts\PowerShell\Trust\Invoke-BKTrustDiscovery.ps1
-```
-
-Run Correlation
-
-```powershell
-.\scripts\PowerShell\Correlation\Invoke-BKCorrelation.ps1
-```
-
-Display the Dashboard
-
-```powershell
-Show-BKDashboard
-```
-
-Within minutes you'll have a complete operational view of your Microsoft Entra tenant.
+| Engine | Status |
+|---------|--------|
+| Identity | Available |
+| Trust | Available |
+| Correlation | Available |
+| Validation | In Development |
+| Governance | Planned |
+| Operations | Planned |
+| Terraform | Planned |
 
 ---
 
 # Documentation
 
-Complete documentation lives in the **docs** directory.
+Blackknight One documentation is organized into three major areas.
 
-| Document | Description |
-|-----------|-------------|
-| Getting Started | First-time setup |
-| Installation | Requirements and installation |
-| Quick Start | Ten-minute walkthrough |
-| Architecture | Platform architecture |
-| Platform Overview | Core platform concepts |
-| Command Reference | All public commands |
-| Engine Guides | Individual engine documentation |
-| Examples | Real-world workflows |
-| Roadmap | Planned capabilities |
+## Learn
+
+New to the platform?
+
+Start here.
+
+- Getting Started
+- Installation
+- Quick Start
+- Platform Overview
+- Platform Architecture
+- Command Reference
+
+📁 `docs/Learn`
+
+---
+
+## Build
+
+Interested in extending the platform?
+
+Learn how Blackknight One is engineered.
+
+Topics include:
+
+- Platform
+- Services
+- Schemas
+- Terraform
+- Development
+- Registries
+
+📁 `docs/Build`
+
+---
+
+## Operate
+
+Using Blackknight One in production?
+
+Explore:
+
+- Concepts
+- Engines
+- Examples
+- Governance
+- Security
+- Trust
+- Roadmap
+
+📁 `docs/Operate`
+
+---
+
+# Quick Start
+
+```powershell
+Import-Module .\scripts\PowerShell\Platform\Blackknight-Platform.psm1 -Force
+
+Test-BKPlatform
+
+Connect-BKGraph
+
+Get-BKTenant
+
+.\scripts\PowerShell\Identity\Invoke-BKIdentityDiscovery.ps1
+
+.\scripts\PowerShell\Trust\Invoke-BKTrustDiscovery.ps1
+
+.\scripts\PowerShell\Correlation\Invoke-BKCorrelation.ps1
+
+Show-BKDashboard
+```
+
+Within minutes you'll have:
+
+- Tenant Inventory
+- Identity Inventory
+- Trust Assessment
+- Directory Role Analysis
+- Identity Correlation
+- Confidence Scores
+- Recommendations
+- Dashboard
+- JSON Reports
+
+---
+
+# Engineering Principles
+
+Blackknight One follows several guiding principles.
+
+- Evidence over assumptions.
+- Correlation over isolated reporting.
+- Validation before deployment.
+- Infrastructure as Code by design.
+- Automation as the default.
+- Modular architecture.
+- Reusable services.
+- Open engineering standards.
+- Confidence through measurable evidence.
+
+These principles guide every new feature, service, and assessment engine.
 
 ---
 
 # Roadmap
 
-## Identity Engineering
+## v0.5.x
 
-- Group Correlation
-- Device Correlation
-- Licensing Correlation
-- Application Correlation
-- Identity Health Scoring
-- Identity Drift Detection
-- Privileged Identity Management
-- Identity Protection
-- Access Reviews
-- Entitlement Management
+- Identity Discovery
+- Trust Discovery
+- Correlation Engine
+- Dashboard
+- Confidence Scoring
+- Platform Validation
 
 ---
 
-## Zero Trust
+## v0.6.x
 
-- Conditional Access What If Simulation
-- Conditional Access Policy Validation
-- Authentication Strength Analysis
-- Passkey Readiness
-- Passwordless Adoption
-- Security Baseline Validation
-
----
-
-## Infrastructure as Code
-
-Terraform
-
-- State Discovery
-- Resource Inventory
-- Module Analysis
-- Plan Validation
-- Policy Validation
-- Drift Detection
-- Identity as Code Validation
-- Automated Documentation Generation
-
----
-
-## DevSecOps
-
+- Terraform Discovery
+- Terraform State Analysis
+- Identity as Code
 - CI/CD Validation
-- Pull Request Validation
-- GitHub Actions Integration
-- Azure DevOps Integration
-- Configuration Drift Detection
-- Continuous Compliance
+- Conditional Access Simulation
+- Drift Detection
 
 ---
 
-## Platform
+## v0.7.x
 
-- GDAP Assessments
-- Multi-Tenant Assessments
 - REST API
+- Plugin Framework
+- HTML Reports
 - Power BI Integration
-- Microsoft Sentinel Integration
 - Historical Trending
-- HTML Executive Reports
+- Multi-Tenant Assessments
+- GDAP Optimization
 
 ---
 
-# Future Vision
+# Why Blackknight One?
 
-Blackknight One is evolving beyond a discovery tool.
+Traditional tools answer questions like:
 
-The long-term objective is to become a complete Enterprise Identity Engineering Platform capable of:
+> What exists?
 
-- Discovering enterprise identity infrastructure.
-- Correlating identities, permissions, and trust signals.
-- Validating security and operational health.
-- Simulating identity and Conditional Access changes before deployment.
-- Validating Terraform and Infrastructure as Code.
-- Supporting CI/CD identity engineering pipelines.
-- Detecting configuration drift over time.
-- Providing confidence scores backed by evidence.
-- Becoming the operational "One Source of Truth" for enterprise identity.
+Blackknight One goes further.
+
+It helps answer:
+
+- Why does it matter?
+- What changed?
+- What is at risk?
+- How confident are we?
+- What should we improve next?
+- How do we validate changes before production?
+
+That shift—from inventory to engineering intelligence—is what defines Blackknight One.
 
 ---
 
 # Contributing
 
-Community contributions are welcome.
+Contributions are welcome.
 
-Please read:
+Whether you're improving documentation, building assessment engines, enhancing Terraform support, or expanding identity intelligence, every contribution helps move the platform closer to its North Star.
 
-- CONTRIBUTING.md
-- SECURITY.md
-
-before submitting issues or pull requests.
+Please review the documentation in **docs/Build** before contributing.
 
 ---
 
 # License
 
-MIT License
+This project is licensed under the MIT License.
 
 ---
 
-# Built With
+# The Journey
 
-- PowerShell 7
-- Microsoft Graph SDK
-- Microsoft Entra
-- Terraform
-- Infrastructure as Code
-- GitHub
+Blackknight One is more than a collection of PowerShell modules.
 
----
+It is a long-term effort to build an open, extensible platform for Enterprise Identity Engineering—one that helps organizations confidently discover, correlate, validate, understand, and automate their identity environments.
 
-> **Build • Coach • Mentor**
+Every release moves us closer to our North Star.
 
-Blackknight One exists to help administrators and identity engineers understand, validate, and continuously improve enterprise identity platforms through engineering, automation, and repeatable best practices.
+# One Source of Truth for Enterprise Identity Engineering
