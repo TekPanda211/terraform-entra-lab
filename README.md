@@ -2,7 +2,11 @@
 
 > **Enterprise Identity Engineering Platform for Microsoft Entra, Terraform, and Infrastructure as Code**
 
-![Blackknight One Hero](docs/images/Blackknight-One.png)
+<p align="center">
+  <img src="docs/images/blackknight-one-hero.png"
+       alt="Blackknight One"
+       width="100%">
+</p>
 
 ![Version](https://img.shields.io/badge/version-0.5.0--alpha-blue)
 ![PowerShell](https://img.shields.io/badge/PowerShell-7+-5391FE?logo=powershell)
