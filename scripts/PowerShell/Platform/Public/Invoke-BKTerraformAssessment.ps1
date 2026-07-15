@@ -4,12 +4,19 @@ function Invoke-BKTerraformAssessment {
     Runs the complete Blackknight One Terraform assessment.
 
     .DESCRIPTION
-    Provides the public Blackknight One command for invoking the Terraform
-    Engineering Engine.
+    Provides the public platform entry point for the Blackknight One
+    Terraform assessment engine.
 
-    The public wrapper validates user-supplied paths, locates the Terraform
-    engine entry point, forwards supported parameters, and returns the
-    assessment result when PassThru is specified.
+    The assessment can perform:
+
+    - Terraform project inventory
+    - Terraform HCL architecture discovery
+    - Terraform configuration validation
+    - Terraform execution-plan analysis
+    - Two-phase Terraform drift confirmation
+    - Combined confidence scoring
+    - Release-readiness evaluation
+    - Optional JSON report generation
 
     This command does not run terraform apply.
 
@@ -20,10 +27,13 @@ function Invoke-BKTerraformAssessment {
     Specifies an optional Terraform variable file.
 
     .PARAMETER SkipInit
-    Skips Terraform initialization.
+    Skips Terraform initialization in supported assessment phases.
+
+    .PARAMETER SkipHclDiscovery
+    Skips Terraform HCL architecture discovery.
 
     .PARAMETER SkipPlan
-    Skips Terraform plan analysis.
+    Skips Terraform execution-plan analysis.
 
     .PARAMETER SkipDrift
     Skips Terraform drift detection.
@@ -31,11 +41,14 @@ function Invoke-BKTerraformAssessment {
     .PARAMETER IncludeFileDetails
     Includes detailed Terraform file inventory information.
 
+    .PARAMETER IncludeHclSource
+    Includes parsed HCL source text in the assessment result and JSON report.
+
     .PARAMETER ExportJson
-    Exports the assessment report as JSON.
+    Exports the combined Terraform assessment as JSON.
 
     .PARAMETER OutputPath
-    Specifies the JSON report destination.
+    Specifies the destination path for the JSON report.
 
     .PARAMETER PassThru
     Returns the complete Terraform assessment object.
@@ -48,6 +61,19 @@ function Invoke-BKTerraformAssessment {
         -Path ".\terraform" `
         -ExportJson `
         -PassThru
+
+    .EXAMPLE
+    $Assessment = Invoke-BKTerraformAssessment `
+        -Path ".\terraform" `
+        -IncludeHclSource `
+        -ExportJson `
+        -PassThru
+
+    .EXAMPLE
+    Invoke-BKTerraformAssessment `
+        -Path ".\terraform" `
+        -SkipHclDiscovery `
+        -SkipDrift
     #>
 
     [CmdletBinding()]
@@ -63,6 +89,9 @@ function Invoke-BKTerraformAssessment {
         [switch]$SkipInit,
 
         [Parameter()]
+        [switch]$SkipHclDiscovery,
+
+        [Parameter()]
         [switch]$SkipPlan,
 
         [Parameter()]
@@ -70,6 +99,9 @@ function Invoke-BKTerraformAssessment {
 
         [Parameter()]
         [switch]$IncludeFileDetails,
+
+        [Parameter()]
+        [switch]$IncludeHclSource,
 
         [Parameter()]
         [switch]$ExportJson,
@@ -83,9 +115,12 @@ function Invoke-BKTerraformAssessment {
         [switch]$PassThru
     )
 
+    $engineRelativePath =
+        "..\..\Terraform\Invoke-BKTerraformAssessment.ps1"
+
     $engineScript = Join-Path `
         -Path $PSScriptRoot `
-        -ChildPath "..\..\Terraform\Invoke-BKTerraformAssessment.ps1"
+        -ChildPath $engineRelativePath
 
     $engineScript = [System.IO.Path]::GetFullPath(
         $engineScript
@@ -144,15 +179,21 @@ function Invoke-BKTerraformAssessment {
     $invokeParameters = @{
         Path               = $resolvedPath
         SkipInit           = $SkipInit.IsPresent
+        SkipHclDiscovery   = $SkipHclDiscovery.IsPresent
         SkipPlan           = $SkipPlan.IsPresent
         SkipDrift          = $SkipDrift.IsPresent
         IncludeFileDetails = $IncludeFileDetails.IsPresent
+        IncludeHclSource   = $IncludeHclSource.IsPresent
         ExportJson         = $ExportJson.IsPresent
         OutputPath         = $OutputPath
         PassThru           = $PassThru.IsPresent
     }
 
-    if ($resolvedVariableFile) {
+    if (
+        -not [string]::IsNullOrWhiteSpace(
+            $resolvedVariableFile
+        )
+    ) {
         $invokeParameters.VariableFile =
             $resolvedVariableFile
     }
@@ -161,16 +202,43 @@ function Invoke-BKTerraformAssessment {
     Write-Verbose "Terraform engine: $engineScript"
     Write-Verbose "Terraform project: $resolvedPath"
     Write-Verbose "Skip initialization: $($SkipInit.IsPresent)"
+    Write-Verbose "Skip HCL discovery: $($SkipHclDiscovery.IsPresent)"
     Write-Verbose "Skip plan analysis: $($SkipPlan.IsPresent)"
     Write-Verbose "Skip drift detection: $($SkipDrift.IsPresent)"
+    Write-Verbose "Include file details: $($IncludeFileDetails.IsPresent)"
+    Write-Verbose "Include HCL source: $($IncludeHclSource.IsPresent)"
     Write-Verbose "Export JSON: $($ExportJson.IsPresent)"
     Write-Verbose "Output path: $OutputPath"
 
-    try {
-        $result =
-            & $engineScript @invokeParameters
+    if ($resolvedVariableFile) {
+        Write-Verbose "Terraform variable file: $resolvedVariableFile"
+    }
 
-        if ($PassThru) {
+    try {
+        $engineOutput = @(
+            & $engineScript @invokeParameters
+        )
+
+        $result = $engineOutput |
+            Where-Object {
+                $null -ne $_ -and
+                $null -ne $_.PSObject -and
+                $_.PSObject.Properties.Name -contains "Operation" -and
+                $_.Operation -eq "FullAssessment"
+            } |
+            Select-Object -Last 1
+
+        if (
+            $PassThru.IsPresent -and
+            $null -eq $result
+        ) {
+            throw (
+                "Terraform assessment completed without returning a valid " +
+                "FullAssessment result object."
+            )
+        }
+
+        if ($PassThru.IsPresent) {
             return $result
         }
     }
@@ -180,7 +248,7 @@ function Invoke-BKTerraformAssessment {
 
         if (
             Get-Command `
-                -Name Write-BKLog `
+                -Name "Write-BKLog" `
                 -ErrorAction SilentlyContinue
         ) {
             Write-BKLog `

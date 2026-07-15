@@ -1,0 +1,905 @@
+{
+  "Platform": "Blackknight One",
+  "Engine": "Terraform",
+  "Operation": "HclDiscoveryV2",
+  "GeneratedAt": "2026-07-14T20:56:23.6951020Z",
+  "Project": {
+    "Path": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform",
+    "TerraformInstalled": true,
+    "TerraformVersion": "1.15.7",
+    "InitializationSucceeded": true,
+    "GraphAvailable": true
+  },
+  "Summary": {
+    "Health": "Excellent",
+    "ArchitectureScore": 96,
+    "TerraformFiles": 10,
+    "TerraformBlocks": 1,
+    "Providers": 1,
+    "RequiredProviders": 1,
+    "Resources": 2,
+    "DataSources": 1,
+    "Modules": 0,
+    "Variables": 2,
+    "Outputs": 2,
+    "Locals": 63,
+    "Backends": 0,
+    "Imports": 0,
+    "MovedBlocks": 0,
+    "Dependencies": 15,
+    "ExplicitDependencies": 0,
+    "GraphNodes": 3,
+    "GraphEdges": 0,
+    "CriticalFindings": 0,
+    "HighFindings": 0,
+    "MediumFindings": 1,
+    "LowFindings": 0
+  },
+  "Files": [
+    {
+      "Path": "access-packages.tf",
+      "FullPath": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform\\access-packages.tf",
+      "Length": 3104,
+      "LastModified": "2026-07-08T14:30:52.3618923Z"
+    },
+    {
+      "Path": "data.tf",
+      "FullPath": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform\\data.tf",
+      "Length": 41,
+      "LastModified": "2026-07-07T20:21:06.0721004Z"
+    },
+    {
+      "Path": "groups.tf",
+      "FullPath": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform\\groups.tf",
+      "Length": 512,
+      "LastModified": "2026-07-07T23:01:09.3461003Z"
+    },
+    {
+      "Path": "locals.tf",
+      "FullPath": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform\\locals.tf",
+      "Length": 413,
+      "LastModified": "2026-07-07T22:27:11.8994342Z"
+    },
+    {
+      "Path": "main.tf",
+      "FullPath": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform\\main.tf",
+      "Length": 91,
+      "LastModified": "2026-07-07T20:28:25.4939961Z"
+    },
+    {
+      "Path": "outputs.tf",
+      "FullPath": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform\\outputs.tf",
+      "Length": 200,
+      "LastModified": "2026-07-07T20:27:45.6623307Z"
+    },
+    {
+      "Path": "providers.tf",
+      "FullPath": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform\\providers.tf",
+      "Length": 21,
+      "LastModified": "2026-07-07T20:20:38.3389284Z"
+    },
+    {
+      "Path": "role-assignable-groups.tf",
+      "FullPath": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform\\role-assignable-groups.tf",
+      "Length": 363,
+      "LastModified": "2026-07-07T23:09:50.0267046Z"
+    },
+    {
+      "Path": "variables.tf",
+      "FullPath": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform\\variables.tf",
+      "Length": 402,
+      "LastModified": "2026-07-07T22:24:34.7366578Z"
+    },
+    {
+      "Path": "versions.tf",
+      "FullPath": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform\\versions.tf",
+      "Length": 163,
+      "LastModified": "2026-07-07T20:20:11.1114647Z"
+    }
+  ],
+  "VersionConstraints": [
+    {
+      "Type": "Terraform",
+      "Name": "terraform",
+      "Source": null,
+      "Version": ">= 1.5",
+      "File": "versions.tf",
+      "StartLine": 1
+    },
+    {
+      "Type": "Provider",
+      "Name": "azuread",
+      "Source": "hashicorp/azuread",
+      "Version": "~> 3.0",
+      "File": "versions.tf",
+      "StartLine": 1
+    }
+  ],
+  "Providers": [
+    {
+      "Name": "azuread",
+      "Alias": null,
+      "File": "providers.tf",
+      "StartLine": 1,
+      "References": [],
+      "Source": null
+    }
+  ],
+  "Resources": [
+    {
+      "Address": "azuread_group.department_groups",
+      "Type": "azuread_group",
+      "Name": "department_groups",
+      "Provider": null,
+      "CountExpression": null,
+      "ForEachExpression": "{",
+      "PreventDestroy": false,
+      "CreateBeforeDestroy": false,
+      "IgnoreChanges": false,
+      "References": [
+        "each.value",
+        "group.key",
+        "local.departments",
+        "local.group_types",
+        "local.naming_prefix",
+        "var.environment"
+      ],
+      "ExplicitDependencies": [],
+      "File": "groups.tf",
+      "StartLine": 1,
+      "EndLine": 17,
+      "Source": null
+    },
+    {
+      "Address": "azuread_group.role_assignable_groups",
+      "Type": "azuread_group",
+      "Name": "role_assignable_groups",
+      "Provider": null,
+      "CountExpression": null,
+      "ForEachExpression": "toset(local.privileged_groups)",
+      "PreventDestroy": false,
+      "CreateBeforeDestroy": false,
+      "IgnoreChanges": false,
+      "References": [
+        "each.value",
+        "local.naming_prefix",
+        "local.privileged_groups",
+        "var.environment"
+      ],
+      "ExplicitDependencies": [],
+      "File": "role-assignable-groups.tf",
+      "StartLine": 1,
+      "EndLine": 8,
+      "Source": null
+    }
+  ],
+  "DataSources": [
+    {
+      "Address": "data.azuread_client_config.current",
+      "Type": "azuread_client_config",
+      "Name": "current",
+      "Provider": null,
+      "CountExpression": null,
+      "ForEachExpression": null,
+      "References": [],
+      "ExplicitDependencies": [],
+      "File": "data.tf",
+      "StartLine": 1,
+      "EndLine": 1,
+      "Source": null
+    }
+  ],
+  "Modules": [],
+  "Variables": [
+    {
+      "Address": "var.company_prefix",
+      "Name": "company_prefix",
+      "Type": "string",
+      "Description": "Organization prefix used for naming Microsoft Entra ID resources.",
+      "HasDefault": false,
+      "Default": null,
+      "Sensitive": false,
+      "Nullable": true,
+      "HasValidation": false,
+      "File": "variables.tf",
+      "StartLine": 1,
+      "Source": null
+    },
+    {
+      "Address": "var.environment",
+      "Name": "environment",
+      "Type": "string",
+      "Description": "Deployment environment.",
+      "HasDefault": false,
+      "Default": null,
+      "Sensitive": false,
+      "Nullable": true,
+      "HasValidation": true,
+      "File": "variables.tf",
+      "StartLine": 6,
+      "Source": null
+    }
+  ],
+  "Outputs": [
+    {
+      "Address": "output.tenant_id",
+      "Name": "tenant_id",
+      "Description": null,
+      "Value": "data.azuread_client_config.current.tenant_id",
+      "Sensitive": false,
+      "References": [
+        "current.tenant_id",
+        "data.azuread_client_config",
+        "data.azuread_client_config.current"
+      ],
+      "File": "outputs.tf",
+      "StartLine": 1,
+      "Source": null
+    },
+    {
+      "Address": "output.created_groups",
+      "Name": "created_groups",
+      "Description": null,
+      "Value": "[",
+      "Sensitive": false,
+      "References": [
+        "azuread_group.department_groups",
+        "group.display_name"
+      ],
+      "File": "outputs.tf",
+      "StartLine": 5,
+      "Source": null
+    }
+  ],
+  "Locals": [
+    {
+      "Name": "access_catalogs",
+      "Address": "local.access_catalogs",
+      "Expression": "{",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "workforce",
+      "Address": "local.workforce",
+      "Expression": "{",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "display_name",
+      "Address": "local.display_name",
+      "Expression": "\"Workforce Access\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "description",
+      "Address": "local.description",
+      "Expression": "\"Standard employee access including new hire, department, manager, and executive access.\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "privileged",
+      "Address": "local.privileged",
+      "Expression": "{",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "display_name",
+      "Address": "local.display_name",
+      "Expression": "\"Privileged Access\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "description",
+      "Address": "local.description",
+      "Expression": "\"Elevated administrative access governed by approval, expiration, and review.\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "contractor",
+      "Address": "local.contractor",
+      "Expression": "{",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "display_name",
+      "Address": "local.display_name",
+      "Expression": "\"Contractor Access\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "description",
+      "Address": "local.description",
+      "Expression": "\"Temporary access for contractors, vendors, and external workforce users.\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "applications",
+      "Address": "local.applications",
+      "Expression": "{",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "display_name",
+      "Address": "local.display_name",
+      "Expression": "\"Application Access\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "description",
+      "Address": "local.description",
+      "Expression": "\"Application-specific access for business systems, SaaS platforms, and enterprise applications.\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "guests",
+      "Address": "local.guests",
+      "Expression": "{",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "display_name",
+      "Address": "local.display_name",
+      "Expression": "\"Guest Collaboration\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "description",
+      "Address": "local.description",
+      "Expression": "\"External collaboration access for business partners, customers, legal, and audit users.\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "access_packages",
+      "Address": "local.access_packages",
+      "Expression": "{",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "new_hire_baseline",
+      "Address": "local.new_hire_baseline",
+      "Expression": "{",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "catalog",
+      "Address": "local.catalog",
+      "Expression": "\"workforce\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "name",
+      "Address": "local.name",
+      "Expression": "\"New Hire Baseline\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "description",
+      "Address": "local.description",
+      "Expression": "\"Baseline access package for new employees.\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "duration",
+      "Address": "local.duration",
+      "Expression": "\"365 days\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "approval",
+      "Address": "local.approval",
+      "Expression": "\"Manager\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "review",
+      "Address": "local.review",
+      "Expression": "\"Quarterly\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "it_department_access",
+      "Address": "local.it_department_access",
+      "Expression": "{",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "catalog",
+      "Address": "local.catalog",
+      "Expression": "\"workforce\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "name",
+      "Address": "local.name",
+      "Expression": "\"IT Department Access\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "description",
+      "Address": "local.description",
+      "Expression": "\"Standard access package for IT department users.\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "duration",
+      "Address": "local.duration",
+      "Expression": "\"365 days\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "approval",
+      "Address": "local.approval",
+      "Expression": "\"Manager\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "review",
+      "Address": "local.review",
+      "Expression": "\"Quarterly\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "security_department_access",
+      "Address": "local.security_department_access",
+      "Expression": "{",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "catalog",
+      "Address": "local.catalog",
+      "Expression": "\"workforce\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "name",
+      "Address": "local.name",
+      "Expression": "\"Security Department Access\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "description",
+      "Address": "local.description",
+      "Expression": "\"Standard access package for security department users.\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "duration",
+      "Address": "local.duration",
+      "Expression": "\"365 days\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "approval",
+      "Address": "local.approval",
+      "Expression": "\"Manager\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "review",
+      "Address": "local.review",
+      "Expression": "\"Quarterly\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "contractor_baseline",
+      "Address": "local.contractor_baseline",
+      "Expression": "{",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "catalog",
+      "Address": "local.catalog",
+      "Expression": "\"contractor\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "name",
+      "Address": "local.name",
+      "Expression": "\"Contractor Baseline\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "description",
+      "Address": "local.description",
+      "Expression": "\"Baseline temporary access package for contractors.\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "duration",
+      "Address": "local.duration",
+      "Expression": "\"90 days\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "approval",
+      "Address": "local.approval",
+      "Expression": "\"Sponsor\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "review",
+      "Address": "local.review",
+      "Expression": "\"Monthly\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "temporary_project_access",
+      "Address": "local.temporary_project_access",
+      "Expression": "{",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "catalog",
+      "Address": "local.catalog",
+      "Expression": "\"contractor\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "name",
+      "Address": "local.name",
+      "Expression": "\"Temporary Project Access\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "description",
+      "Address": "local.description",
+      "Expression": "\"Time-bound project access package.\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "duration",
+      "Address": "local.duration",
+      "Expression": "\"30 days\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "approval",
+      "Address": "local.approval",
+      "Expression": "\"Project Owner\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "review",
+      "Address": "local.review",
+      "Expression": "\"Monthly\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "privileged_admin_access",
+      "Address": "local.privileged_admin_access",
+      "Expression": "{",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "catalog",
+      "Address": "local.catalog",
+      "Expression": "\"privileged\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "name",
+      "Address": "local.name",
+      "Expression": "\"Privileged Admin Access\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "description",
+      "Address": "local.description",
+      "Expression": "\"Governed privileged administrative access package.\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "duration",
+      "Address": "local.duration",
+      "Expression": "\"8 hours\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "approval",
+      "Address": "local.approval",
+      "Expression": "\"Security\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "review",
+      "Address": "local.review",
+      "Expression": "\"Monthly\"",
+      "References": [],
+      "File": "access-packages.tf",
+      "StartLine": 12
+    },
+    {
+      "Name": "naming_prefix",
+      "Address": "local.naming_prefix",
+      "Expression": "\"${var.company_prefix}-${var.environment}\"",
+      "References": [
+        "var.company_prefix",
+        "var.environment"
+      ],
+      "File": "locals.tf",
+      "StartLine": 1
+    },
+    {
+      "Name": "departments",
+      "Address": "local.departments",
+      "Expression": "[",
+      "References": [],
+      "File": "locals.tf",
+      "StartLine": 1
+    },
+    {
+      "Name": "group_types",
+      "Address": "local.group_types",
+      "Expression": "[",
+      "References": [],
+      "File": "locals.tf",
+      "StartLine": 1
+    },
+    {
+      "Name": "privileged_groups",
+      "Address": "local.privileged_groups",
+      "Expression": "[",
+      "References": [],
+      "File": "locals.tf",
+      "StartLine": 1
+    }
+  ],
+  "Backends": [],
+  "Imports": [],
+  "MovedBlocks": [],
+  "Dependencies": [
+    {
+      "SourceAddress": "azuread_group.department_groups",
+      "TargetAddress": "each.value",
+      "Reference": "each.value",
+      "DependencyType": "Expression",
+      "File": "groups.tf",
+      "StartLine": 1
+    },
+    {
+      "SourceAddress": "azuread_group.department_groups",
+      "TargetAddress": "group.key",
+      "Reference": "group.key",
+      "DependencyType": "Expression",
+      "File": "groups.tf",
+      "StartLine": 1
+    },
+    {
+      "SourceAddress": "azuread_group.department_groups",
+      "TargetAddress": "local.departments",
+      "Reference": "local.departments",
+      "DependencyType": "Expression",
+      "File": "groups.tf",
+      "StartLine": 1
+    },
+    {
+      "SourceAddress": "azuread_group.department_groups",
+      "TargetAddress": "local.group_types",
+      "Reference": "local.group_types",
+      "DependencyType": "Expression",
+      "File": "groups.tf",
+      "StartLine": 1
+    },
+    {
+      "SourceAddress": "azuread_group.department_groups",
+      "TargetAddress": "local.naming_prefix",
+      "Reference": "local.naming_prefix",
+      "DependencyType": "Expression",
+      "File": "groups.tf",
+      "StartLine": 1
+    },
+    {
+      "SourceAddress": "azuread_group.department_groups",
+      "TargetAddress": "var.environment",
+      "Reference": "var.environment",
+      "DependencyType": "Expression",
+      "File": "groups.tf",
+      "StartLine": 1
+    },
+    {
+      "SourceAddress": "azuread_group.role_assignable_groups",
+      "TargetAddress": "each.value",
+      "Reference": "each.value",
+      "DependencyType": "Expression",
+      "File": "role-assignable-groups.tf",
+      "StartLine": 1
+    },
+    {
+      "SourceAddress": "azuread_group.role_assignable_groups",
+      "TargetAddress": "local.naming_prefix",
+      "Reference": "local.naming_prefix",
+      "DependencyType": "Expression",
+      "File": "role-assignable-groups.tf",
+      "StartLine": 1
+    },
+    {
+      "SourceAddress": "azuread_group.role_assignable_groups",
+      "TargetAddress": "local.privileged_groups",
+      "Reference": "local.privileged_groups",
+      "DependencyType": "Expression",
+      "File": "role-assignable-groups.tf",
+      "StartLine": 1
+    },
+    {
+      "SourceAddress": "azuread_group.role_assignable_groups",
+      "TargetAddress": "var.environment",
+      "Reference": "var.environment",
+      "DependencyType": "Expression",
+      "File": "role-assignable-groups.tf",
+      "StartLine": 1
+    },
+    {
+      "SourceAddress": "output.created_groups",
+      "TargetAddress": "azuread_group.department_groups",
+      "Reference": "azuread_group.department_groups",
+      "DependencyType": "Expression",
+      "File": "outputs.tf",
+      "StartLine": 5
+    },
+    {
+      "SourceAddress": "output.created_groups",
+      "TargetAddress": "group.display_name",
+      "Reference": "group.display_name",
+      "DependencyType": "Expression",
+      "File": "outputs.tf",
+      "StartLine": 5
+    },
+    {
+      "SourceAddress": "output.tenant_id",
+      "TargetAddress": "current.tenant_id",
+      "Reference": "current.tenant_id",
+      "DependencyType": "Expression",
+      "File": "outputs.tf",
+      "StartLine": 1
+    },
+    {
+      "SourceAddress": "output.tenant_id",
+      "TargetAddress": "data.azuread_client_config",
+      "Reference": "data.azuread_client_config",
+      "DependencyType": "Expression",
+      "File": "outputs.tf",
+      "StartLine": 1
+    },
+    {
+      "SourceAddress": "output.tenant_id",
+      "TargetAddress": "data.azuread_client_config.current",
+      "Reference": "data.azuread_client_config.current",
+      "DependencyType": "Expression",
+      "File": "outputs.tf",
+      "StartLine": 1
+    }
+  ],
+  "TerraformGraph": {
+    "Nodes": [
+      "azuread_group.department_groups",
+      "azuread_group.role_assignable_groups",
+      "data.azuread_client_config.current"
+    ],
+    "Edges": []
+  },
+  "Findings": [
+    {
+      "Severity": "Medium",
+      "Category": "Backend",
+      "Title": "No explicit Terraform backend detected",
+      "Details": "Terraform will use local state unless a backend is supplied externally.",
+      "Recommendation": "Use a secured remote backend for shared or production workloads."
+    }
+  ]
+}

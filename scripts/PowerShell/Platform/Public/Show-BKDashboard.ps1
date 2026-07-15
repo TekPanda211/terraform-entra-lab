@@ -1,16 +1,16 @@
 function Show-BKDashboard {
     <#
     .SYNOPSIS
-    Opens the interactive Blackknight One command dashboard.
+    Opens the interactive Blackknight One operations dashboard.
 
     .DESCRIPTION
-    Provides a menu-driven launcher for the primary Blackknight One engines
-    and platform services.
+    Provides a menu-driven launcher for Blackknight One assessments and
+    platform operations.
 
-    The dashboard includes nine options:
+    Dashboard options:
 
     1. Terraform Assessment
-    2. Microsoft Graph Connection and Tenant Discovery
+    2. Microsoft Graph Assessment
     3. Identity Assessment
     4. Trust Assessment
     5. Governance Assessment
@@ -19,20 +19,19 @@ function Show-BKDashboard {
     8. Platform Validation
     9. Command Inventory
 
-    The dashboard remains open after each operation until the user chooses
-    to quit.
+    The dashboard remains open until the user selects Quit.
 
     .PARAMETER TerraformPath
     Specifies the default Terraform project directory.
 
     .PARAMETER ReportRoot
-    Specifies the root folder used for generated reports.
+    Specifies the root directory for generated reports.
 
     .PARAMETER ExportReports
-    Automatically requests JSON export from commands that support it.
+    Automatically exports reports from assessments that support JSON output.
 
     .PARAMETER NoClear
-    Prevents the dashboard from clearing the console between menu displays.
+    Prevents the console from being cleared between menu displays.
 
     .EXAMPLE
     Show-BKDashboard
@@ -93,7 +92,7 @@ function Show-BKDashboard {
             -ForegroundColor Yellow
         Write-Host ""
         Write-Host "  [1] Terraform Assessment"
-        Write-Host "  [2] Microsoft Graph Connection and Tenant Discovery"
+        Write-Host "  [2] Microsoft Graph Assessment"
         Write-Host "  [3] Identity Assessment"
         Write-Host "  [4] Trust Assessment"
         Write-Host "  [5] Governance Assessment"
@@ -133,17 +132,23 @@ function Show-BKDashboard {
         [CmdletBinding()]
         param()
 
-        $currentPath = (Get-Location).Path
         $candidate = Get-Item `
-            -LiteralPath $currentPath `
+            -LiteralPath (Get-Location).Path `
             -ErrorAction Stop
 
         while ($null -ne $candidate) {
             $modulePath = Join-Path `
                 -Path $candidate.FullName `
-                -ChildPath "scripts\PowerShell\Platform\Blackknight-Platform.psm1"
+                -ChildPath (
+                    "scripts\PowerShell\Platform\" +
+                    "Blackknight-Platform.psm1"
+                )
 
-            if (Test-Path -LiteralPath $modulePath -PathType Leaf) {
+            if (
+                Test-Path `
+                    -LiteralPath $modulePath `
+                    -PathType Leaf
+            ) {
                 return $candidate.FullName
             }
 
@@ -268,8 +273,12 @@ function Show-BKDashboard {
             }
         }
 
-        if (Test-BKDashboardCommand -Name "Invoke-BKTerraformAssessment") {
-            $result = Invoke-BKTerraformAssessment @parameters
+        if (
+            Test-BKDashboardCommand `
+                -Name "Invoke-BKTerraformAssessment"
+        ) {
+            $result =
+                Invoke-BKTerraformAssessment @parameters
         }
         else {
             $result = Invoke-BKDashboardScript `
@@ -277,14 +286,20 @@ function Show-BKDashboard {
                     (
                         Join-Path `
                             -Path $repoRoot `
-                            -ChildPath "scripts\PowerShell\Terraform\Invoke-BKTerraformAssessment.ps1"
+                            -ChildPath (
+                                "scripts\PowerShell\Terraform\" +
+                                "Invoke-BKTerraformAssessment.ps1"
+                            )
                     )
                 ) `
                 -Parameters $parameters `
                 -DisplayName "Terraform Assessment"
         }
 
-        if ($null -ne $result -and $null -ne $result.Summary) {
+        if (
+            $null -ne $result -and
+            $null -ne $result.Summary
+        ) {
             Write-Host ""
             Write-Host "Terraform Executive Result" `
                 -ForegroundColor Cyan
@@ -297,237 +312,231 @@ function Show-BKDashboard {
     }
 
     function Invoke-BKDashboardGraph {
-    [CmdletBinding()]
-    param()
+        [CmdletBinding()]
+        param()
 
-    Write-Host ""
-    Write-Host "Microsoft Graph Connection and Tenant Discovery" `
-        -ForegroundColor Yellow
-    Write-Host "------------------------------------------------------------"
-    Write-Host ""
-
-    if (
-        -not (
-            Test-BKDashboardCommand `
-                -Name "Connect-MgGraph"
-        )
-    ) {
-        Write-Host `
-            "[NOT AVAILABLE] Connect-MgGraph is not installed or loaded." `
-            -ForegroundColor DarkYellow
-
-        return
-    }
-
-    #
-    # Display the current connection
-    #
-
-    $currentContext = $null
-
-    if (
-        Test-BKDashboardCommand `
-            -Name "Get-MgContext"
-    ) {
-        $currentContext = Get-MgContext `
-            -ErrorAction SilentlyContinue
-    }
-
-    if ($null -ne $currentContext) {
-        Write-Host "Current Microsoft Graph connection:" `
-            -ForegroundColor Cyan
-
-        $currentContext |
-            Select-Object `
-                Account,
-                TenantId,
-                Environment,
-                AuthType |
-            Format-List |
-            Out-Host
-
-        $disconnectChoice = Read-Host `
-            "Disconnect the current Microsoft Graph session? [Y/N]"
+        Write-Host ""
+        Write-Host "Microsoft Graph Assessment" `
+            -ForegroundColor Yellow
+        Write-Host "------------------------------------------------------------"
+        Write-Host ""
 
         if (
-            $disconnectChoice -match
-            '^(Y|YES)$'
-        ) {
-            if (
+            -not (
                 Test-BKDashboardCommand `
-                    -Name "Disconnect-MgGraph"
-            ) {
-                Disconnect-MgGraph |
-                    Out-Null
-
-                Write-Host ""
-                Write-Host `
-                    "Current Microsoft Graph session disconnected." `
-                    -ForegroundColor Green
-            }
-        }
-    }
-
-    #
-    # Select the Microsoft Graph environment
-    #
-
-    $availableEnvironments = @()
-
-    if (
-        Test-BKDashboardCommand `
-            -Name "Get-MgEnvironment"
-    ) {
-        $availableEnvironments = @(
-            Get-MgEnvironment |
-                Sort-Object Name
-        )
-    }
-
-    $selectedEnvironment = "Global"
-
-    if ($availableEnvironments.Count -gt 0) {
-        Write-Host ""
-        Write-Host "Available Microsoft Graph environments:" `
-            -ForegroundColor Cyan
-        Write-Host ""
-
-        for (
-            $index = 0;
-            $index -lt $availableEnvironments.Count;
-            $index++
+                    -Name "Connect-MgGraph"
+            )
         ) {
             Write-Host (
-                "  [{0}] {1}" -f
-                ($index + 1),
-                $availableEnvironments[$index].Name
+                "[NOT AVAILABLE] Connect-MgGraph is not installed " +
+                "or loaded."
+            ) -ForegroundColor DarkYellow
+
+            return
+        }
+
+        $currentContext = $null
+
+        if (
+            Test-BKDashboardCommand `
+                -Name "Get-MgContext"
+        ) {
+            $currentContext = Get-MgContext `
+                -ErrorAction SilentlyContinue
+        }
+
+        if ($null -ne $currentContext) {
+            Write-Host "Current Microsoft Graph connection:" `
+                -ForegroundColor Cyan
+
+            $currentContext |
+                Select-Object `
+                    Account,
+                    TenantId,
+                    Environment,
+                    AuthType |
+                Format-List |
+                Out-Host
+
+            $disconnectChoice = Read-Host (
+                "Disconnect the current Microsoft Graph session? [Y/N]"
+            )
+
+            if ($disconnectChoice -match '^(Y|YES)$') {
+                if (
+                    Test-BKDashboardCommand `
+                        -Name "Disconnect-MgGraph"
+                ) {
+                    Disconnect-MgGraph |
+                        Out-Null
+
+                    Write-Host ""
+                    Write-Host (
+                        "Current Microsoft Graph session disconnected."
+                    ) -ForegroundColor Green
+                }
+            }
+        }
+
+        $availableEnvironments = @()
+
+        if (
+            Test-BKDashboardCommand `
+                -Name "Get-MgEnvironment"
+        ) {
+            $availableEnvironments = @(
+                Get-MgEnvironment |
+                    Sort-Object Name
             )
         }
 
+        $selectedEnvironment = "Global"
+
+        if ($availableEnvironments.Count -gt 0) {
+            Write-Host ""
+            Write-Host "Available Microsoft Graph environments:" `
+                -ForegroundColor Cyan
+            Write-Host ""
+
+            for (
+                $index = 0;
+                $index -lt $availableEnvironments.Count;
+                $index++
+            ) {
+                Write-Host (
+                    "  [{0}] {1}" -f
+                    ($index + 1),
+                    $availableEnvironments[$index].Name
+                )
+            }
+
+            Write-Host ""
+            Write-Host "Press Enter to use the Global public cloud."
+
+            $environmentSelection = Read-Host (
+                "Select Microsoft Graph environment"
+            )
+
+            if (
+                -not [string]::IsNullOrWhiteSpace(
+                    $environmentSelection
+                )
+            ) {
+                $environmentNumber = 0
+
+                if (
+                    [int]::TryParse(
+                        $environmentSelection,
+                        [ref]$environmentNumber
+                    ) -and
+                    $environmentNumber -ge 1 -and
+                    $environmentNumber -le
+                    $availableEnvironments.Count
+                ) {
+                    $selectedEnvironment =
+                        $availableEnvironments[
+                            $environmentNumber - 1
+                        ].Name
+                }
+                else {
+                    Write-Host ""
+                    Write-Host (
+                        "Invalid environment selection. Using Global."
+                    ) -ForegroundColor DarkYellow
+                }
+            }
+        }
+
+        Write-Host ""
+        Write-Host "Target Tenant" `
+            -ForegroundColor Cyan
+        Write-Host "------------------------------------------------------------"
+        Write-Host (
+            "Enter the Microsoft Entra tenant ID you want to assess."
+        )
+        Write-Host (
+            "Example: 00000000-0000-0000-0000-000000000000"
+        )
         Write-Host ""
         Write-Host (
-            "Press Enter to use the Global public cloud."
+            "Press Enter without a tenant ID to choose the tenant " +
+            "during sign-in."
         )
 
-        $environmentSelection = Read-Host `
-            "Select Microsoft Graph environment"
+        $tenantId = Read-Host "Tenant ID"
 
         if (
             -not [string]::IsNullOrWhiteSpace(
-                $environmentSelection
+                $tenantId
+            ) -and
+            $tenantId -notmatch (
+                '^[0-9a-fA-F]{8}-' +
+                '[0-9a-fA-F]{4}-' +
+                '[0-9a-fA-F]{4}-' +
+                '[0-9a-fA-F]{4}-' +
+                '[0-9a-fA-F]{12}$'
             )
         ) {
-            $environmentNumber = 0
+            Write-Host ""
+            Write-Host (
+                "[ERROR] The tenant ID is not a valid GUID."
+            ) -ForegroundColor Red
 
-            if (
-                [int]::TryParse(
-                    $environmentSelection,
-                    [ref]$environmentNumber
-                ) -and
-                $environmentNumber -ge 1 -and
-                $environmentNumber -le
-                $availableEnvironments.Count
-            ) {
-                $selectedEnvironment =
-                    $availableEnvironments[
-                        $environmentNumber - 1
-                    ].Name
-            }
-            else {
-                Write-Host ""
-                Write-Host (
-                    "Invalid environment selection. Using Global."
-                ) -ForegroundColor DarkYellow
-            }
+            return
         }
-    }
 
-    #
-    # Ask which tenant to connect to
-    #
-
-    Write-Host ""
-    Write-Host "Target tenant" `
-        -ForegroundColor Cyan
-    Write-Host "------------------------------------------------------------"
-    Write-Host (
-        "Enter the Microsoft Entra tenant ID you want to assess."
-    )
-    Write-Host (
-        "Example: 00000000-0000-0000-0000-000000000000"
-    )
-    Write-Host ""
-    Write-Host (
-        "Press Enter without a tenant ID to use the tenant selected " +
-        "during sign-in."
-    )
-
-    $tenantId = Read-Host "Tenant ID"
-
-    if (
-        -not [string]::IsNullOrWhiteSpace(
-            $tenantId
-        ) -and
-        $tenantId -notmatch
-        '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'
-    ) {
-        Write-Host ""
-        Write-Host (
-            "[ERROR] The tenant ID is not a valid GUID."
-        ) -ForegroundColor Red
-
-        return
-    }
-
-    #
-    # Build the connection parameters
-    #
-
-    $connectionParameters = @{
-        Environment  = $selectedEnvironment
-        ContextScope = "Process"
-        NoWelcome    = $true
-    }
-
-    if (
-        -not [string]::IsNullOrWhiteSpace(
-            $tenantId
-        )
-    ) {
-        $connectionParameters.TenantId =
-            $tenantId
-    }
-
-    #
-    # Prefer the Blackknight wrapper when it supports tenant selection.
-    #
-
-    $connectedWithBlackknight = $false
-
-    if (
-        Test-BKDashboardCommand `
-            -Name "Connect-BKGraph"
-    ) {
-        $bkGraphCommand = Get-Command `
-            -Name "Connect-BKGraph" `
-            -ErrorAction SilentlyContinue
-
-        $supportsTenantId =
-            $bkGraphCommand.Parameters.ContainsKey(
-                "TenantId"
-            )
-
-        $supportsEnvironment =
-            $bkGraphCommand.Parameters.ContainsKey(
-                "Environment"
-            )
+        $connectedWithBlackknight = $false
 
         if (
-            $supportsTenantId -and
-            $supportsEnvironment
+            Test-BKDashboardCommand `
+                -Name "Connect-BKGraph"
         ) {
-            $bkConnectionParameters = @{
-                Environment = $selectedEnvironment
+            $bkGraphCommand = Get-Command `
+                -Name "Connect-BKGraph" `
+                -ErrorAction SilentlyContinue
+
+            $supportsTenantId =
+                $bkGraphCommand.Parameters.ContainsKey(
+                    "TenantId"
+                )
+
+            $supportsEnvironment =
+                $bkGraphCommand.Parameters.ContainsKey(
+                    "Environment"
+                )
+
+            if (
+                $supportsTenantId -and
+                $supportsEnvironment
+            ) {
+                $bkConnectionParameters = @{
+                    Environment = $selectedEnvironment
+                }
+
+                if (
+                    -not [string]::IsNullOrWhiteSpace(
+                        $tenantId
+                    )
+                ) {
+                    $bkConnectionParameters.TenantId =
+                        $tenantId
+                }
+
+                Write-Host ""
+                Write-Host "Connecting through Connect-BKGraph..." `
+                    -ForegroundColor Yellow
+
+                Connect-BKGraph @bkConnectionParameters
+
+                $connectedWithBlackknight = $true
+            }
+        }
+
+        if (-not $connectedWithBlackknight) {
+            $connectionParameters = @{
+                Environment  = $selectedEnvironment
+                ContextScope = "Process"
+                NoWelcome    = $true
             }
 
             if (
@@ -535,136 +544,158 @@ function Show-BKDashboard {
                     $tenantId
                 )
             ) {
-                $bkConnectionParameters.TenantId =
+                $connectionParameters.TenantId =
                     $tenantId
             }
 
             Write-Host ""
             Write-Host (
-                "Connecting through Connect-BKGraph..."
+                "Connecting directly through Microsoft Graph PowerShell..."
             ) -ForegroundColor Yellow
 
-            Connect-BKGraph @bkConnectionParameters
+            Connect-MgGraph @connectionParameters
+        }
 
-            $connectedWithBlackknight = $true
+        $graphContext = Get-MgContext `
+            -ErrorAction SilentlyContinue
+
+        if ($null -eq $graphContext) {
+            Write-Host ""
+            Write-Host (
+                "[ERROR] Microsoft Graph did not return an active context."
+            ) -ForegroundColor Red
+
+            return
+        }
+
+        Write-Host ""
+        Write-Host "Connected Microsoft Graph Context" `
+            -ForegroundColor Cyan
+        Write-Host "------------------------------------------------------------"
+
+        $graphContext |
+            Select-Object `
+                Account,
+                TenantId,
+                Environment,
+                AuthType,
+                ContextScope,
+                Scopes |
+            Format-List |
+            Out-Host
+
+        if (
+            -not [string]::IsNullOrWhiteSpace(
+                $tenantId
+            ) -and
+            $graphContext.TenantId -ne $tenantId
+        ) {
+            Write-Host ""
+            Write-Host (
+                "[WARNING] The connected tenant does not match " +
+                "the requested tenant."
+            ) -ForegroundColor Red
+
+            Write-Host "Requested tenant : $tenantId"
+            Write-Host "Connected tenant : $($graphContext.TenantId)"
+            Write-Host ""
+            Write-Host (
+                "The assessment was stopped to prevent collection " +
+                "from the wrong tenant."
+            ) -ForegroundColor Red
+
+            return
+        }
+
+        Write-Host ""
+        $continueChoice = Read-Host (
+            "Run the Graph assessment against this tenant? [Y/N]"
+        )
+
+        if ($continueChoice -notmatch '^(Y|YES)$') {
+            Write-Host ""
+            Write-Host "Microsoft Graph assessment cancelled." `
+                -ForegroundColor DarkYellow
+
+            return
+        }
+
+        if (
+            Test-BKDashboardCommand `
+                -Name "Invoke-BKGraphAssessment"
+        ) {
+            Write-Host ""
+            Write-Host "Microsoft Graph Assessment" `
+                -ForegroundColor Cyan
+            Write-Host "------------------------------------------------------------"
+
+            $graphAssessmentParameters = @{
+                IncludeObjects = $true
+                PassThru       = $true
+            }
+
+            if ($ExportReports.IsPresent) {
+                $graphAssessmentParameters.ExportJson = $true
+
+                $graphAssessmentParameters.OutputPath = Join-Path `
+                    -Path $resolvedReportRoot `
+                    -ChildPath "graph\graph-assessment.json"
+            }
+            else {
+                $exportChoice = Read-Host (
+                    "Export the Graph assessment to JSON? [Y/N]"
+                )
+
+                if ($exportChoice -match '^(Y|YES)$') {
+                    $graphAssessmentParameters.ExportJson = $true
+
+                    $graphAssessmentParameters.OutputPath = Join-Path `
+                        -Path $resolvedReportRoot `
+                        -ChildPath "graph\graph-assessment.json"
+                }
+            }
+
+            $graphAssessment =
+                Invoke-BKGraphAssessment `
+                    @graphAssessmentParameters
+
+            if (
+                $null -ne $graphAssessment -and
+                $null -ne $graphAssessment.Summary
+            ) {
+                Write-Host ""
+                Write-Host "Graph Executive Result" `
+                    -ForegroundColor Cyan
+                Write-Host "------------------------------------------------------------"
+
+                $graphAssessment.Summary |
+                    Format-List |
+                    Out-Host
+            }
+        }
+        elseif (
+            Test-BKDashboardCommand `
+                -Name "Get-BKTenantDiscovery"
+        ) {
+            Write-Host ""
+            Write-Host (
+                "Graph assessment command unavailable. " +
+                "Running tenant discovery instead."
+            ) -ForegroundColor DarkYellow
+
+            Get-BKTenantDiscovery `
+                -IncludeObjects `
+                -PassThru |
+                Out-Host
+        }
+        else {
+            Write-Host ""
+            Write-Host (
+                "The Graph connection succeeded, but no Graph " +
+                "assessment or tenant-discovery command is available."
+            ) -ForegroundColor DarkYellow
         }
     }
-
-    if (-not $connectedWithBlackknight) {
-        Write-Host ""
-        Write-Host (
-            "Connecting directly through Microsoft Graph PowerShell..."
-        ) -ForegroundColor Yellow
-
-        Connect-MgGraph @connectionParameters
-    }
-
-    #
-    # Verify the actual connected tenant
-    #
-
-    $graphContext = Get-MgContext `
-        -ErrorAction SilentlyContinue
-
-    if ($null -eq $graphContext) {
-        Write-Host ""
-        Write-Host (
-            "[ERROR] Microsoft Graph did not return an active context."
-        ) -ForegroundColor Red
-
-        return
-    }
-
-    Write-Host ""
-    Write-Host "Connected Microsoft Graph context" `
-        -ForegroundColor Cyan
-    Write-Host "------------------------------------------------------------"
-
-    $graphContext |
-        Select-Object `
-            Account,
-            TenantId,
-            Environment,
-            AuthType,
-            ContextScope,
-            Scopes |
-        Format-List |
-        Out-Host
-
-    if (
-        -not [string]::IsNullOrWhiteSpace(
-            $tenantId
-        ) -and
-        $graphContext.TenantId -ne $tenantId
-    ) {
-        Write-Host ""
-        Write-Host (
-            "[WARNING] The connected tenant does not match the " +
-            "tenant ID you requested."
-        ) -ForegroundColor Red
-
-        Write-Host "Requested tenant : $tenantId"
-        Write-Host "Connected tenant : $($graphContext.TenantId)"
-        Write-Host ""
-        Write-Host (
-            "Tenant discovery has been stopped to prevent assessing " +
-            "the wrong environment."
-        ) -ForegroundColor Red
-
-        return
-    }
-
-    #
-    # Confirm before collecting tenant information
-    #
-
-    Write-Host ""
-    $continueChoice = Read-Host `
-        "Run tenant discovery against this tenant? [Y/N]"
-
-    if (
-        $continueChoice -notmatch
-        '^(Y|YES)$'
-    ) {
-        Write-Host ""
-        Write-Host "Tenant discovery cancelled." `
-            -ForegroundColor DarkYellow
-
-        return
-    }
-
-    if (
-        Test-BKDashboardCommand `
-            -Name "Get-BKTenant"
-    ) {
-        Write-Host ""
-        Write-Host "Tenant Discovery" `
-            -ForegroundColor Cyan
-        Write-Host "------------------------------------------------------------"
-
-        Get-BKTenant |
-            Out-Host
-    }
-    elseif (
-        Test-BKDashboardCommand `
-            -Name "Get-BKOrganization"
-    ) {
-        Write-Host ""
-        Write-Host "Organization Discovery" `
-            -ForegroundColor Cyan
-        Write-Host "------------------------------------------------------------"
-
-        Get-BKOrganization |
-            Out-Host
-    }
-    else {
-        Write-Host ""
-        Write-Host (
-            "Microsoft Graph connection completed, but no Blackknight " +
-            "tenant-discovery command is currently available."
-        ) -ForegroundColor DarkYellow
-    }
-}
 
     function Invoke-BKDashboardIdentity {
         [CmdletBinding()]
@@ -706,12 +737,18 @@ function Show-BKDashboard {
                 (
                     Join-Path `
                         -Path $repoRoot `
-                        -ChildPath "scripts\PowerShell\Identity\Invoke-BKIdentityAssessment.ps1"
+                        -ChildPath (
+                            "scripts\PowerShell\Identity\" +
+                            "Invoke-BKIdentityAssessment.ps1"
+                        )
                 )
                 (
                     Join-Path `
                         -Path $repoRoot `
-                        -ChildPath "scripts\PowerShell\Identity\Invoke-BKIdentityDiscovery.ps1"
+                        -ChildPath (
+                            "scripts\PowerShell\Identity\" +
+                            "Invoke-BKIdentityDiscovery.ps1"
+                        )
                 )
             ) `
             -Parameters $parameters `
@@ -759,12 +796,18 @@ function Show-BKDashboard {
                 (
                     Join-Path `
                         -Path $repoRoot `
-                        -ChildPath "scripts\PowerShell\Trust\Invoke-BKTrustAssessment.ps1"
+                        -ChildPath (
+                            "scripts\PowerShell\Trust\" +
+                            "Invoke-BKTrustAssessment.ps1"
+                        )
                 )
                 (
                     Join-Path `
                         -Path $repoRoot `
-                        -ChildPath "scripts\PowerShell\Trust\Invoke-BKTrustDiscovery.ps1"
+                        -ChildPath (
+                            "scripts\PowerShell\Trust\" +
+                            "Invoke-BKTrustDiscovery.ps1"
+                        )
                 )
             ) `
             -Parameters $parameters `
@@ -812,12 +855,18 @@ function Show-BKDashboard {
                 (
                     Join-Path `
                         -Path $repoRoot `
-                        -ChildPath "scripts\PowerShell\Governance\Invoke-BKGovernanceAssessment.ps1"
+                        -ChildPath (
+                            "scripts\PowerShell\Governance\" +
+                            "Invoke-BKGovernanceAssessment.ps1"
+                        )
                 )
                 (
                     Join-Path `
                         -Path $repoRoot `
-                        -ChildPath "scripts\PowerShell\Governance\Invoke-BKIdentityGovernanceAssessment.ps1"
+                        -ChildPath (
+                            "scripts\PowerShell\Governance\" +
+                            "Invoke-BKIdentityGovernanceAssessment.ps1"
+                        )
                 )
             ) `
             -Parameters $parameters `
@@ -865,12 +914,18 @@ function Show-BKDashboard {
                 (
                     Join-Path `
                         -Path $repoRoot `
-                        -ChildPath "scripts\PowerShell\Correlation\Invoke-BKCorrelationAssessment.ps1"
+                        -ChildPath (
+                            "scripts\PowerShell\Correlation\" +
+                            "Invoke-BKCorrelationAssessment.ps1"
+                        )
                 )
                 (
                     Join-Path `
                         -Path $repoRoot `
-                        -ChildPath "scripts\PowerShell\Correlation\Invoke-BKCorrelation.ps1"
+                        -ChildPath (
+                            "scripts\PowerShell\Correlation\" +
+                            "Invoke-BKCorrelation.ps1"
+                        )
                 )
             ) `
             -Parameters $parameters `
@@ -918,12 +973,18 @@ function Show-BKDashboard {
                 (
                     Join-Path `
                         -Path $repoRoot `
-                        -ChildPath "scripts\PowerShell\Operations\Invoke-BKOperationsAssessment.ps1"
+                        -ChildPath (
+                            "scripts\PowerShell\Operations\" +
+                            "Invoke-BKOperationsAssessment.ps1"
+                        )
                 )
                 (
                     Join-Path `
                         -Path $repoRoot `
-                        -ChildPath "scripts\PowerShell\Operations\Invoke-BKOperationsDiscovery.ps1"
+                        -ChildPath (
+                            "scripts\PowerShell\Operations\" +
+                            "Invoke-BKOperationsDiscovery.ps1"
+                        )
                 )
             ) `
             -Parameters $parameters `
@@ -940,36 +1001,21 @@ function Show-BKDashboard {
             -ForegroundColor Yellow
         Write-Host "------------------------------------------------------------"
 
-        if (-not (Test-BKDashboardCommand -Name "Test-BKPlatform")) {
+        if (
+            -not (
+                Test-BKDashboardCommand `
+                    -Name "Test-BKPlatform"
+            )
+        ) {
             Write-Host ""
             Write-Host "[NOT AVAILABLE] Test-BKPlatform is not loaded." `
                 -ForegroundColor DarkYellow
+
             return
         }
 
-        $parameters = @{
-            PassThru = $true
-        }
-
-        if ($ExportReports.IsPresent) {
-            $parameters.ExportJson = $true
-            $parameters.OutputPath = Join-Path `
-                -Path $resolvedReportRoot `
-                -ChildPath "validation\platform-validation.json"
-        }
-
-        $validation = Test-BKPlatform @parameters
-
-        if ($null -ne $validation) {
-            Write-Host ""
-            Write-Host "Platform Validation Object" `
-                -ForegroundColor Cyan
-            Write-Host "------------------------------------------------------------"
-
-            $validation.Overall |
-                Format-List |
-                Out-Host
-        }
+        Test-BKPlatform |
+            Out-Host
     }
 
     function Show-BKDashboardCommands {
@@ -998,6 +1044,7 @@ function Show-BKDashboard {
         if ($moduleCommands.Count -eq 0) {
             Write-Host "No Blackknight commands are loaded." `
                 -ForegroundColor DarkYellow
+
             return
         }
 
@@ -1094,8 +1141,8 @@ function Show-BKDashboard {
                 default {
                     Write-Host ""
                     Write-Host (
-                        "[INVALID SELECTION] Enter a number from 1 through 9, " +
-                        "or Q to quit."
+                        "[INVALID SELECTION] Enter a number from 1 " +
+                        "through 9, or Q to quit."
                     ) -ForegroundColor Red
 
                     Start-Sleep -Seconds 2

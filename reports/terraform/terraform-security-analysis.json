@@ -1,0 +1,46 @@
+{
+  "Platform": "Blackknight One",
+  "Engine": "Terraform",
+  "Operation": "SecurityAnalysis",
+  "GeneratedAt": "2026-07-15T02:41:15.3104137Z",
+  "Project": {
+    "Path": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform",
+    "SkipInit": false,
+    "IncludeSource": false,
+    "SourceWasRefreshed": true
+  },
+  "Summary": {
+    "Status": "Complete",
+    "Health": "Excellent",
+    "SecurityScore": 97,
+    "Decision": "Conditional Pass",
+    "TotalFindings": 1,
+    "CriticalFindings": 0,
+    "HighFindings": 0,
+    "MediumFindings": 1,
+    "LowFindings": 0,
+    "InformationalFindings": 0,
+    "Penalty": 3,
+    "ResourcesAnalyzed": 2,
+    "VariablesAnalyzed": 2,
+    "OutputsAnalyzed": 2,
+    "ModulesAnalyzed": 0,
+    "BackendsAnalyzed": 0
+  },
+  "Findings": [
+    {
+      "Severity": "Medium",
+      "Category": "State",
+      "Title": "No explicit remote backend detected",
+      "Details": "Terraform may rely on local state for this project.",
+      "Resource": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform",
+      "File": "",
+      "Line": 0,
+      "Recommendation": "Use a secured remote backend with encryption, access control, and state locking."
+    }
+  ],
+  "Recommendations": [
+    "Use a secured remote backend with encryption, access control, and state locking."
+  ],
+  "HclDiscovery": null
+}

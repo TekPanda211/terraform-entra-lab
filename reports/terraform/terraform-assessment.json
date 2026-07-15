@@ -2,7 +2,7 @@
   "Platform": "Blackknight One",
   "Engine": "Terraform",
   "Operation": "FullAssessment",
-  "GeneratedAt": "2026-07-14T14:37:59.5541241Z",
+  "GeneratedAt": "2026-07-14T23:47:18.2442812Z",
   "Project": {
     "Path": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform",
     "VariableFile": null
@@ -10,7 +10,7 @@
   "Summary": {
     "Status": "Complete",
     "Health": "Healthy",
-    "Confidence": 96.0,
+    "Confidence": 96.2,
     "ReleaseDecision": "Conditional Pass",
     "ReleaseReason": "No critical blockers were detected, but medium-severity findings should be reviewed.",
     "TotalFindings": 2,
@@ -18,6 +18,7 @@
     "HighFindings": 0,
     "MediumFindings": 2,
     "LowFindings": 0,
+    "InformationalFindings": 0,
     "TerraformInstalled": true,
     "TerraformVersion": "1.15.7",
     "Projects": 1,
@@ -26,16 +27,30 @@
     "Resources": 2,
     "Modules": 0,
     "LocalStateFiles": 2,
+    "TrackedStateFiles": 0,
+    "HclHealth": "Excellent",
+    "HclArchitectureScore": 96.0,
+    "HclResources": 2,
+    "HclDataSources": 1,
+    "HclModules": 0,
+    "HclVariables": 2,
+    "HclOutputs": 2,
+    "HclLocalBlocks": 2,
+    "HclLocalExpressions": 63,
+    "HclDependencies": 15,
+    "HclGraphNodes": 3,
+    "HclGraphEdges": 0,
     "ConfigurationErrors": 0,
     "PlanChanges": 0,
     "ConfirmedDrift": false
   },
   "Scores": {
     "Inventory": 80,
+    "HclArchitecture": 96.0,
     "Configuration": 100.0,
     "Plan": 100.0,
     "Drift": 100.0,
-    "Overall": 96.0
+    "Overall": 96.2
   },
   "Inventory": {
     "RootPath": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform",
@@ -122,7 +137,912 @@
       "Terraform state files were discovered under the scanned path."
     ],
     "Files": null,
-    "Timestamp": "2026-07-14T14:37:32.6392031Z"
+    "Timestamp": "2026-07-14T23:46:43.5412339Z"
+  },
+  "HclDiscovery": {
+    "Platform": "Blackknight One",
+    "Engine": "Terraform",
+    "Operation": "HclDiscoveryV2",
+    "GeneratedAt": "2026-07-14T23:46:47.2884691Z",
+    "Project": {
+      "Path": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform",
+      "TerraformInstalled": true,
+      "TerraformVersion": "1.15.7",
+      "InitializationSucceeded": true,
+      "GraphAvailable": true
+    },
+    "Summary": {
+      "Health": "Excellent",
+      "ArchitectureScore": 96,
+      "TerraformFiles": 10,
+      "TerraformBlocks": 1,
+      "Providers": 1,
+      "RequiredProviders": 1,
+      "Resources": 2,
+      "DataSources": 1,
+      "Modules": 0,
+      "Variables": 2,
+      "Outputs": 2,
+      "Locals": 63,
+      "Backends": 0,
+      "Imports": 0,
+      "MovedBlocks": 0,
+      "Dependencies": 15,
+      "ExplicitDependencies": 0,
+      "GraphNodes": 3,
+      "GraphEdges": 0,
+      "CriticalFindings": 0,
+      "HighFindings": 0,
+      "MediumFindings": 1,
+      "LowFindings": 0
+    },
+    "Files": [
+      {
+        "Path": "access-packages.tf",
+        "FullPath": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform\\access-packages.tf",
+        "Length": 3104,
+        "LastModified": "2026-07-08T14:30:52.3618923Z"
+      },
+      {
+        "Path": "data.tf",
+        "FullPath": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform\\data.tf",
+        "Length": 41,
+        "LastModified": "2026-07-07T20:21:06.0721004Z"
+      },
+      {
+        "Path": "groups.tf",
+        "FullPath": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform\\groups.tf",
+        "Length": 512,
+        "LastModified": "2026-07-07T23:01:09.3461003Z"
+      },
+      {
+        "Path": "locals.tf",
+        "FullPath": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform\\locals.tf",
+        "Length": 413,
+        "LastModified": "2026-07-07T22:27:11.8994342Z"
+      },
+      {
+        "Path": "main.tf",
+        "FullPath": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform\\main.tf",
+        "Length": 91,
+        "LastModified": "2026-07-07T20:28:25.4939961Z"
+      },
+      {
+        "Path": "outputs.tf",
+        "FullPath": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform\\outputs.tf",
+        "Length": 200,
+        "LastModified": "2026-07-07T20:27:45.6623307Z"
+      },
+      {
+        "Path": "providers.tf",
+        "FullPath": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform\\providers.tf",
+        "Length": 21,
+        "LastModified": "2026-07-07T20:20:38.3389284Z"
+      },
+      {
+        "Path": "role-assignable-groups.tf",
+        "FullPath": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform\\role-assignable-groups.tf",
+        "Length": 363,
+        "LastModified": "2026-07-07T23:09:50.0267046Z"
+      },
+      {
+        "Path": "variables.tf",
+        "FullPath": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform\\variables.tf",
+        "Length": 402,
+        "LastModified": "2026-07-07T22:24:34.7366578Z"
+      },
+      {
+        "Path": "versions.tf",
+        "FullPath": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform\\versions.tf",
+        "Length": 163,
+        "LastModified": "2026-07-07T20:20:11.1114647Z"
+      }
+    ],
+    "VersionConstraints": [
+      {
+        "Type": "Terraform",
+        "Name": "terraform",
+        "Source": null,
+        "Version": ">= 1.5",
+        "File": "versions.tf",
+        "StartLine": 1
+      },
+      {
+        "Type": "Provider",
+        "Name": "azuread",
+        "Source": "hashicorp/azuread",
+        "Version": "~> 3.0",
+        "File": "versions.tf",
+        "StartLine": 1
+      }
+    ],
+    "Providers": [
+      {
+        "Name": "azuread",
+        "Alias": null,
+        "File": "providers.tf",
+        "StartLine": 1,
+        "References": [],
+        "Source": null
+      }
+    ],
+    "Resources": [
+      {
+        "Address": "azuread_group.department_groups",
+        "Type": "azuread_group",
+        "Name": "department_groups",
+        "Provider": null,
+        "CountExpression": null,
+        "ForEachExpression": "{",
+        "PreventDestroy": false,
+        "CreateBeforeDestroy": false,
+        "IgnoreChanges": false,
+        "References": [
+          "each.value",
+          "group.key",
+          "local.departments",
+          "local.group_types",
+          "local.naming_prefix",
+          "var.environment"
+        ],
+        "ExplicitDependencies": [],
+        "File": "groups.tf",
+        "StartLine": 1,
+        "EndLine": 17,
+        "Source": null
+      },
+      {
+        "Address": "azuread_group.role_assignable_groups",
+        "Type": "azuread_group",
+        "Name": "role_assignable_groups",
+        "Provider": null,
+        "CountExpression": null,
+        "ForEachExpression": "toset(local.privileged_groups)",
+        "PreventDestroy": false,
+        "CreateBeforeDestroy": false,
+        "IgnoreChanges": false,
+        "References": [
+          "each.value",
+          "local.naming_prefix",
+          "local.privileged_groups",
+          "var.environment"
+        ],
+        "ExplicitDependencies": [],
+        "File": "role-assignable-groups.tf",
+        "StartLine": 1,
+        "EndLine": 8,
+        "Source": null
+      }
+    ],
+    "DataSources": [
+      {
+        "Address": "data.azuread_client_config.current",
+        "Type": "azuread_client_config",
+        "Name": "current",
+        "Provider": null,
+        "CountExpression": null,
+        "ForEachExpression": null,
+        "References": [],
+        "ExplicitDependencies": [],
+        "File": "data.tf",
+        "StartLine": 1,
+        "EndLine": 1,
+        "Source": null
+      }
+    ],
+    "Modules": [],
+    "Variables": [
+      {
+        "Address": "var.company_prefix",
+        "Name": "company_prefix",
+        "Type": "string",
+        "Description": "Organization prefix used for naming Microsoft Entra ID resources.",
+        "HasDefault": false,
+        "Default": null,
+        "Sensitive": false,
+        "Nullable": true,
+        "HasValidation": false,
+        "File": "variables.tf",
+        "StartLine": 1,
+        "Source": null
+      },
+      {
+        "Address": "var.environment",
+        "Name": "environment",
+        "Type": "string",
+        "Description": "Deployment environment.",
+        "HasDefault": false,
+        "Default": null,
+        "Sensitive": false,
+        "Nullable": true,
+        "HasValidation": true,
+        "File": "variables.tf",
+        "StartLine": 6,
+        "Source": null
+      }
+    ],
+    "Outputs": [
+      {
+        "Address": "output.tenant_id",
+        "Name": "tenant_id",
+        "Description": null,
+        "Value": "data.azuread_client_config.current.tenant_id",
+        "Sensitive": false,
+        "References": [
+          "current.tenant_id",
+          "data.azuread_client_config",
+          "data.azuread_client_config.current"
+        ],
+        "File": "outputs.tf",
+        "StartLine": 1,
+        "Source": null
+      },
+      {
+        "Address": "output.created_groups",
+        "Name": "created_groups",
+        "Description": null,
+        "Value": "[",
+        "Sensitive": false,
+        "References": [
+          "azuread_group.department_groups",
+          "group.display_name"
+        ],
+        "File": "outputs.tf",
+        "StartLine": 5,
+        "Source": null
+      }
+    ],
+    "Locals": [
+      {
+        "Name": "access_catalogs",
+        "Address": "local.access_catalogs",
+        "Expression": "{",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "workforce",
+        "Address": "local.workforce",
+        "Expression": "{",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "display_name",
+        "Address": "local.display_name",
+        "Expression": "\"Workforce Access\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "description",
+        "Address": "local.description",
+        "Expression": "\"Standard employee access including new hire, department, manager, and executive access.\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "privileged",
+        "Address": "local.privileged",
+        "Expression": "{",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "display_name",
+        "Address": "local.display_name",
+        "Expression": "\"Privileged Access\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "description",
+        "Address": "local.description",
+        "Expression": "\"Elevated administrative access governed by approval, expiration, and review.\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "contractor",
+        "Address": "local.contractor",
+        "Expression": "{",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "display_name",
+        "Address": "local.display_name",
+        "Expression": "\"Contractor Access\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "description",
+        "Address": "local.description",
+        "Expression": "\"Temporary access for contractors, vendors, and external workforce users.\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "applications",
+        "Address": "local.applications",
+        "Expression": "{",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "display_name",
+        "Address": "local.display_name",
+        "Expression": "\"Application Access\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "description",
+        "Address": "local.description",
+        "Expression": "\"Application-specific access for business systems, SaaS platforms, and enterprise applications.\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "guests",
+        "Address": "local.guests",
+        "Expression": "{",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "display_name",
+        "Address": "local.display_name",
+        "Expression": "\"Guest Collaboration\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "description",
+        "Address": "local.description",
+        "Expression": "\"External collaboration access for business partners, customers, legal, and audit users.\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "access_packages",
+        "Address": "local.access_packages",
+        "Expression": "{",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "new_hire_baseline",
+        "Address": "local.new_hire_baseline",
+        "Expression": "{",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "catalog",
+        "Address": "local.catalog",
+        "Expression": "\"workforce\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "name",
+        "Address": "local.name",
+        "Expression": "\"New Hire Baseline\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "description",
+        "Address": "local.description",
+        "Expression": "\"Baseline access package for new employees.\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "duration",
+        "Address": "local.duration",
+        "Expression": "\"365 days\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "approval",
+        "Address": "local.approval",
+        "Expression": "\"Manager\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "review",
+        "Address": "local.review",
+        "Expression": "\"Quarterly\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "it_department_access",
+        "Address": "local.it_department_access",
+        "Expression": "{",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "catalog",
+        "Address": "local.catalog",
+        "Expression": "\"workforce\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "name",
+        "Address": "local.name",
+        "Expression": "\"IT Department Access\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "description",
+        "Address": "local.description",
+        "Expression": "\"Standard access package for IT department users.\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "duration",
+        "Address": "local.duration",
+        "Expression": "\"365 days\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "approval",
+        "Address": "local.approval",
+        "Expression": "\"Manager\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "review",
+        "Address": "local.review",
+        "Expression": "\"Quarterly\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "security_department_access",
+        "Address": "local.security_department_access",
+        "Expression": "{",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "catalog",
+        "Address": "local.catalog",
+        "Expression": "\"workforce\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "name",
+        "Address": "local.name",
+        "Expression": "\"Security Department Access\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "description",
+        "Address": "local.description",
+        "Expression": "\"Standard access package for security department users.\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "duration",
+        "Address": "local.duration",
+        "Expression": "\"365 days\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "approval",
+        "Address": "local.approval",
+        "Expression": "\"Manager\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "review",
+        "Address": "local.review",
+        "Expression": "\"Quarterly\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "contractor_baseline",
+        "Address": "local.contractor_baseline",
+        "Expression": "{",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "catalog",
+        "Address": "local.catalog",
+        "Expression": "\"contractor\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "name",
+        "Address": "local.name",
+        "Expression": "\"Contractor Baseline\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "description",
+        "Address": "local.description",
+        "Expression": "\"Baseline temporary access package for contractors.\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "duration",
+        "Address": "local.duration",
+        "Expression": "\"90 days\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "approval",
+        "Address": "local.approval",
+        "Expression": "\"Sponsor\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "review",
+        "Address": "local.review",
+        "Expression": "\"Monthly\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "temporary_project_access",
+        "Address": "local.temporary_project_access",
+        "Expression": "{",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "catalog",
+        "Address": "local.catalog",
+        "Expression": "\"contractor\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "name",
+        "Address": "local.name",
+        "Expression": "\"Temporary Project Access\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "description",
+        "Address": "local.description",
+        "Expression": "\"Time-bound project access package.\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "duration",
+        "Address": "local.duration",
+        "Expression": "\"30 days\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "approval",
+        "Address": "local.approval",
+        "Expression": "\"Project Owner\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "review",
+        "Address": "local.review",
+        "Expression": "\"Monthly\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "privileged_admin_access",
+        "Address": "local.privileged_admin_access",
+        "Expression": "{",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "catalog",
+        "Address": "local.catalog",
+        "Expression": "\"privileged\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "name",
+        "Address": "local.name",
+        "Expression": "\"Privileged Admin Access\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "description",
+        "Address": "local.description",
+        "Expression": "\"Governed privileged administrative access package.\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "duration",
+        "Address": "local.duration",
+        "Expression": "\"8 hours\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "approval",
+        "Address": "local.approval",
+        "Expression": "\"Security\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "review",
+        "Address": "local.review",
+        "Expression": "\"Monthly\"",
+        "References": [],
+        "File": "access-packages.tf",
+        "StartLine": 12
+      },
+      {
+        "Name": "naming_prefix",
+        "Address": "local.naming_prefix",
+        "Expression": "\"${var.company_prefix}-${var.environment}\"",
+        "References": [
+          "var.company_prefix",
+          "var.environment"
+        ],
+        "File": "locals.tf",
+        "StartLine": 1
+      },
+      {
+        "Name": "departments",
+        "Address": "local.departments",
+        "Expression": "[",
+        "References": [],
+        "File": "locals.tf",
+        "StartLine": 1
+      },
+      {
+        "Name": "group_types",
+        "Address": "local.group_types",
+        "Expression": "[",
+        "References": [],
+        "File": "locals.tf",
+        "StartLine": 1
+      },
+      {
+        "Name": "privileged_groups",
+        "Address": "local.privileged_groups",
+        "Expression": "[",
+        "References": [],
+        "File": "locals.tf",
+        "StartLine": 1
+      }
+    ],
+    "Backends": [],
+    "Imports": [],
+    "MovedBlocks": [],
+    "Dependencies": [
+      {
+        "SourceAddress": "azuread_group.department_groups",
+        "TargetAddress": "each.value",
+        "Reference": "each.value",
+        "DependencyType": "Expression",
+        "File": "groups.tf",
+        "StartLine": 1
+      },
+      {
+        "SourceAddress": "azuread_group.department_groups",
+        "TargetAddress": "group.key",
+        "Reference": "group.key",
+        "DependencyType": "Expression",
+        "File": "groups.tf",
+        "StartLine": 1
+      },
+      {
+        "SourceAddress": "azuread_group.department_groups",
+        "TargetAddress": "local.departments",
+        "Reference": "local.departments",
+        "DependencyType": "Expression",
+        "File": "groups.tf",
+        "StartLine": 1
+      },
+      {
+        "SourceAddress": "azuread_group.department_groups",
+        "TargetAddress": "local.group_types",
+        "Reference": "local.group_types",
+        "DependencyType": "Expression",
+        "File": "groups.tf",
+        "StartLine": 1
+      },
+      {
+        "SourceAddress": "azuread_group.department_groups",
+        "TargetAddress": "local.naming_prefix",
+        "Reference": "local.naming_prefix",
+        "DependencyType": "Expression",
+        "File": "groups.tf",
+        "StartLine": 1
+      },
+      {
+        "SourceAddress": "azuread_group.department_groups",
+        "TargetAddress": "var.environment",
+        "Reference": "var.environment",
+        "DependencyType": "Expression",
+        "File": "groups.tf",
+        "StartLine": 1
+      },
+      {
+        "SourceAddress": "azuread_group.role_assignable_groups",
+        "TargetAddress": "each.value",
+        "Reference": "each.value",
+        "DependencyType": "Expression",
+        "File": "role-assignable-groups.tf",
+        "StartLine": 1
+      },
+      {
+        "SourceAddress": "azuread_group.role_assignable_groups",
+        "TargetAddress": "local.naming_prefix",
+        "Reference": "local.naming_prefix",
+        "DependencyType": "Expression",
+        "File": "role-assignable-groups.tf",
+        "StartLine": 1
+      },
+      {
+        "SourceAddress": "azuread_group.role_assignable_groups",
+        "TargetAddress": "local.privileged_groups",
+        "Reference": "local.privileged_groups",
+        "DependencyType": "Expression",
+        "File": "role-assignable-groups.tf",
+        "StartLine": 1
+      },
+      {
+        "SourceAddress": "azuread_group.role_assignable_groups",
+        "TargetAddress": "var.environment",
+        "Reference": "var.environment",
+        "DependencyType": "Expression",
+        "File": "role-assignable-groups.tf",
+        "StartLine": 1
+      },
+      {
+        "SourceAddress": "output.created_groups",
+        "TargetAddress": "azuread_group.department_groups",
+        "Reference": "azuread_group.department_groups",
+        "DependencyType": "Expression",
+        "File": "outputs.tf",
+        "StartLine": 5
+      },
+      {
+        "SourceAddress": "output.created_groups",
+        "TargetAddress": "group.display_name",
+        "Reference": "group.display_name",
+        "DependencyType": "Expression",
+        "File": "outputs.tf",
+        "StartLine": 5
+      },
+      {
+        "SourceAddress": "output.tenant_id",
+        "TargetAddress": "current.tenant_id",
+        "Reference": "current.tenant_id",
+        "DependencyType": "Expression",
+        "File": "outputs.tf",
+        "StartLine": 1
+      },
+      {
+        "SourceAddress": "output.tenant_id",
+        "TargetAddress": "data.azuread_client_config",
+        "Reference": "data.azuread_client_config",
+        "DependencyType": "Expression",
+        "File": "outputs.tf",
+        "StartLine": 1
+      },
+      {
+        "SourceAddress": "output.tenant_id",
+        "TargetAddress": "data.azuread_client_config.current",
+        "Reference": "data.azuread_client_config.current",
+        "DependencyType": "Expression",
+        "File": "outputs.tf",
+        "StartLine": 1
+      }
+    ],
+    "TerraformGraph": {
+      "Nodes": [
+        "azuread_group.department_groups",
+        "azuread_group.role_assignable_groups",
+        "data.azuread_client_config.current"
+      ],
+      "Edges": []
+    },
+    "Findings": [
+      {
+        "Severity": "Medium",
+        "Category": "Backend",
+        "Title": "No explicit Terraform backend detected",
+        "Details": "Terraform will use local state unless a backend is supplied externally.",
+        "Recommendation": "Use a secured remote backend for shared or production workloads."
+      }
+    ]
   },
   "Configuration": {
     "Platform": "Blackknight One",
@@ -130,7 +1050,7 @@
     "Operation": "ConfigurationValidation",
     "TerraformVersion": "1.15.7",
     "RootPath": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform",
-    "GeneratedAt": "2026-07-14T14:37:35.5539965Z",
+    "GeneratedAt": "2026-07-14T23:46:51.8441393Z",
     "Summary": {
       "Projects": 1,
       "ValidProjects": 1,
@@ -178,7 +1098,7 @@
     "Platform": "Blackknight One",
     "Engine": "Terraform",
     "Operation": "PlanAnalysis",
-    "GeneratedAt": "2026-07-14T14:37:44.8747558Z",
+    "GeneratedAt": "2026-07-14T23:47:01.8410712Z",
     "Project": {
       "Path": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform",
       "PlanFile": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform\\.bk-terraform-plan.tfplan",
@@ -209,7 +1129,7 @@
     "Platform": "Blackknight One",
     "Engine": "Terraform",
     "Operation": "DriftDetection",
-    "GeneratedAt": "2026-07-14T14:37:59.4864385Z",
+    "GeneratedAt": "2026-07-14T23:47:18.2178107Z",
     "Project": {
       "Path": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform",
       "VariableFile": null,
@@ -519,41 +1439,41 @@
     "Terraform": {
       "RefreshOnly": {
         "ExitCode": 2,
-        "StandardOutput": "data.azuread_client_config.current: Reading...\ndata.azuread_client_config.current: Read complete after 0s [id=5e0e3977-d571-4ae6-9a65-1f967968ee9a-04b07795-8ddb-461a-bbee-02f9e1bf7b46-3a7f5488-3ad0-44a9-a33d-005a74e86ba2]\nazuread_group.role_assignable_groups[\"IT-Admins\"]: Refreshing state... [id=/groups/944dfb69-deba-47fd-a801-8596f036f63b]\nazuread_group.department_groups[\"HR-Readers\"]: Refreshing state... [id=/groups/f037ea3c-7184-40d5-bd13-e6ce1b4e3f59]\nazuread_group.role_assignable_groups[\"Security-Admins\"]: Refreshing state... [id=/groups/06f4b567-c77f-4c70-87e7-71855fb22cc8]\nazuread_group.department_groups[\"Contractors-Users\"]: Refreshing state... [id=/groups/d0b00fc8-7ab8-409b-8b08-072ce52cdb73]\nazuread_group.role_assignable_groups[\"Engineering-Admins\"]: Refreshing state... [id=/groups/32b7c6da-6803-4ebe-b3f5-27d7aac93eae]\nazuread_group.department_groups[\"Engineering-Users\"]: Refreshing state... [id=/groups/e754f5db-8814-438c-9351-78e089db5b5c]\nazuread_group.department_groups[\"Support-Admins\"]: Refreshing state... [id=/groups/ae641505-a65b-48db-85d6-8873b138849c]\nazuread_group.department_groups[\"Security-Users\"]: Refreshing state... [id=/groups/17eb342e-4ac2-4c65-bd37-7be3e8db14d7]\nazuread_group.department_groups[\"Engineering-Readers\"]: Refreshing state... [id=/groups/887f83ff-604f-43ab-83ff-b36bf1d5d899]\nazuread_group.department_groups[\"IT-Readers\"]: Refreshing state... [id=/groups/09c49050-095d-4fa0-befd-e727178bea9c]\nazuread_group.department_groups[\"IT-Admins\"]: Refreshing state... [id=/groups/736dbb4a-32b7-431f-91de-c8fd6457d745]\nazuread_group.department_groups[\"Engineering-Admins\"]: Refreshing state... [id=/groups/de69947a-1dba-4a43-91a3-6ddee8a6278c]\nazuread_group.department_groups[\"Sales-Readers\"]: Refreshing state... [id=/groups/6c6e8344-bae8-40b5-83f7-11529b5567f2]\nazuread_group.department_groups[\"Finance-Readers\"]: Refreshing state... [id=/groups/d7d5fcd9-44ff-4772-9368-0dd579971458]\nazuread_group.department_groups[\"HR-Admins\"]: Refreshing state... [id=/groups/00f9fbb6-555e-431b-8b75-577498894934]\nazuread_group.department_groups[\"Finance-Admins\"]: Refreshing state... [id=/groups/e0f90afa-c3ff-488d-bc3e-b635a6cba416]\nazuread_group.department_groups[\"Marketing-Admins\"]: Refreshing state... [id=/groups/37261bbd-61e9-4eb3-bd67-a80011a91483]\nazuread_group.department_groups[\"Contractors-Readers\"]: Refreshing state... [id=/groups/4c289d1a-d5f9-485a-a019-dedf6b9ee2af]\nazuread_group.department_groups[\"Finance-Users\"]: Refreshing state... [id=/groups/fe290f8a-8ab3-4aaa-b9aa-61f3df72d9a1]\nazuread_group.department_groups[\"Support-Users\"]: Refreshing state... [id=/groups/cc951f2d-debc-4313-b6b8-459c8d2625e6]\nazuread_group.department_groups[\"Support-Readers\"]: Refreshing state... [id=/groups/1b3e7873-471d-4a38-9ce9-51eb0ab762a0]\nazuread_group.department_groups[\"Security-Admins\"]: Refreshing state... [id=/groups/0cbdfa2f-8db4-47a7-9284-c9295f525af6]\nazuread_group.department_groups[\"IT-Users\"]: Refreshing state... [id=/groups/18c61a24-9976-4631-8d3d-7c1678e85d04]\nazuread_group.department_groups[\"Sales-Admins\"]: Refreshing state... [id=/groups/74290057-b60d-4db7-88e6-e97064fcc77d]\nazuread_group.department_groups[\"Security-Readers\"]: Refreshing state... [id=/groups/f8b76ec9-5fd4-4f75-a560-4cdb759e7c9c]\nazuread_group.department_groups[\"Marketing-Readers\"]: Refreshing state... [id=/groups/33cdf470-78c5-4d4e-b774-b472e114f22b]\nazuread_group.department_groups[\"HR-Users\"]: Refreshing state... [id=/groups/5b8f93f8-e3c9-4678-8cbc-ed661a9b562b]\nazuread_group.department_groups[\"Marketing-Users\"]: Refreshing state... [id=/groups/c306185d-8daf-46cf-a698-f245237478cd]\nazuread_group.department_groups[\"Sales-Users\"]: Refreshing state... [id=/groups/5049278a-3afc-4919-bdea-6433446c6875]\nazuread_group.department_groups[\"Contractors-Admins\"]: Refreshing state... [id=/groups/b1df7905-b18d-4a4a-8899-719eb4a2d331]\n\nNote: Objects have changed outside of Terraform\n\nTerraform detected the following changes made outside of Terraform since the\nlast \"terraform apply\" which may have affected this plan:\n\n  # azuread_group.role_assignable_groups[\"Engineering-Admins\"] has changed\n  ~ resource \"azuread_group\" \"role_assignable_groups\" {\n      + administrative_unit_ids        = []\n      + behaviors                      = []\n        id                             = \"/groups/32b7c6da-6803-4ebe-b3f5-27d7aac93eae\"\n      + provisioning_options           = []\n      + types                          = []\n        # (26 unchanged attributes hidden)\n    }\n\n  # azuread_group.role_assignable_groups[\"IT-Admins\"] has changed\n  ~ resource \"azuread_group\" \"role_assignable_groups\" {\n      + administrative_unit_ids        = []\n      + behaviors                      = []\n        id                             = \"/groups/944dfb69-deba-47fd-a801-8596f036f63b\"\n      + provisioning_options           = []\n      + types                          = []\n        # (26 unchanged attributes hidden)\n    }\n\n  # azuread_group.role_assignable_groups[\"Security-Admins\"] has changed\n  ~ resource \"azuread_group\" \"role_assignable_groups\" {\n      + administrative_unit_ids        = []\n      + behaviors                      = []\n        id                             = \"/groups/06f4b567-c77f-4c70-87e7-71855fb22cc8\"\n      + provisioning_options           = []\n      + types                          = []\n        # (26 unchanged attributes hidden)\n    }\n\n\nThis is a refresh-only plan, so Terraform will not take any actions to undo\nthese. If you were expecting these changes then you can apply this plan to\nrecord the updated values in the Terraform state without changing any remote\nobjects.\n\nΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ\n\nSaved the plan to:\nC:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform\\.bk-terraform-refresh-only.tfplan\n\nTo perform exactly these actions, run the following command to apply:\n    terraform apply \"C:\\\\Users\\\\ToddCrow\\\\Source\\\\blackknight-one\\\\terraform\\\\.bk-terraform-refresh-only.tfplan\"",
+        "StandardOutput": "data.azuread_client_config.current: Reading...\ndata.azuread_client_config.current: Read complete after 0s [id=5e0e3977-d571-4ae6-9a65-1f967968ee9a-04b07795-8ddb-461a-bbee-02f9e1bf7b46-3a7f5488-3ad0-44a9-a33d-005a74e86ba2]\nazuread_group.role_assignable_groups[\"Engineering-Admins\"]: Refreshing state... [id=/groups/32b7c6da-6803-4ebe-b3f5-27d7aac93eae]\nazuread_group.role_assignable_groups[\"IT-Admins\"]: Refreshing state... [id=/groups/944dfb69-deba-47fd-a801-8596f036f63b]\nazuread_group.department_groups[\"Engineering-Admins\"]: Refreshing state... [id=/groups/de69947a-1dba-4a43-91a3-6ddee8a6278c]\nazuread_group.department_groups[\"IT-Admins\"]: Refreshing state... [id=/groups/736dbb4a-32b7-431f-91de-c8fd6457d745]\nazuread_group.department_groups[\"IT-Readers\"]: Refreshing state... [id=/groups/09c49050-095d-4fa0-befd-e727178bea9c]\nazuread_group.role_assignable_groups[\"Security-Admins\"]: Refreshing state... [id=/groups/06f4b567-c77f-4c70-87e7-71855fb22cc8]\nazuread_group.department_groups[\"Support-Users\"]: Refreshing state... [id=/groups/cc951f2d-debc-4313-b6b8-459c8d2625e6]\nazuread_group.department_groups[\"IT-Users\"]: Refreshing state... [id=/groups/18c61a24-9976-4631-8d3d-7c1678e85d04]\nazuread_group.department_groups[\"Marketing-Admins\"]: Refreshing state... [id=/groups/37261bbd-61e9-4eb3-bd67-a80011a91483]\nazuread_group.department_groups[\"Finance-Admins\"]: Refreshing state... [id=/groups/e0f90afa-c3ff-488d-bc3e-b635a6cba416]\nazuread_group.department_groups[\"Sales-Readers\"]: Refreshing state... [id=/groups/6c6e8344-bae8-40b5-83f7-11529b5567f2]\nazuread_group.department_groups[\"Engineering-Readers\"]: Refreshing state... [id=/groups/887f83ff-604f-43ab-83ff-b36bf1d5d899]\nazuread_group.department_groups[\"Support-Readers\"]: Refreshing state... [id=/groups/1b3e7873-471d-4a38-9ce9-51eb0ab762a0]\nazuread_group.department_groups[\"HR-Readers\"]: Refreshing state... [id=/groups/f037ea3c-7184-40d5-bd13-e6ce1b4e3f59]\nazuread_group.department_groups[\"Finance-Readers\"]: Refreshing state... [id=/groups/d7d5fcd9-44ff-4772-9368-0dd579971458]\nazuread_group.department_groups[\"Engineering-Users\"]: Refreshing state... [id=/groups/e754f5db-8814-438c-9351-78e089db5b5c]\nazuread_group.department_groups[\"Security-Readers\"]: Refreshing state... [id=/groups/f8b76ec9-5fd4-4f75-a560-4cdb759e7c9c]\nazuread_group.department_groups[\"Contractors-Users\"]: Refreshing state... [id=/groups/d0b00fc8-7ab8-409b-8b08-072ce52cdb73]\nazuread_group.department_groups[\"Finance-Users\"]: Refreshing state... [id=/groups/fe290f8a-8ab3-4aaa-b9aa-61f3df72d9a1]\nazuread_group.department_groups[\"Sales-Admins\"]: Refreshing state... [id=/groups/74290057-b60d-4db7-88e6-e97064fcc77d]\nazuread_group.department_groups[\"Support-Admins\"]: Refreshing state... [id=/groups/ae641505-a65b-48db-85d6-8873b138849c]\nazuread_group.department_groups[\"HR-Users\"]: Refreshing state... [id=/groups/5b8f93f8-e3c9-4678-8cbc-ed661a9b562b]\nazuread_group.department_groups[\"HR-Admins\"]: Refreshing state... [id=/groups/00f9fbb6-555e-431b-8b75-577498894934]\nazuread_group.department_groups[\"Sales-Users\"]: Refreshing state... [id=/groups/5049278a-3afc-4919-bdea-6433446c6875]\nazuread_group.department_groups[\"Security-Users\"]: Refreshing state... [id=/groups/17eb342e-4ac2-4c65-bd37-7be3e8db14d7]\nazuread_group.department_groups[\"Contractors-Admins\"]: Refreshing state... [id=/groups/b1df7905-b18d-4a4a-8899-719eb4a2d331]\nazuread_group.department_groups[\"Contractors-Readers\"]: Refreshing state... [id=/groups/4c289d1a-d5f9-485a-a019-dedf6b9ee2af]\nazuread_group.department_groups[\"Marketing-Readers\"]: Refreshing state... [id=/groups/33cdf470-78c5-4d4e-b774-b472e114f22b]\nazuread_group.department_groups[\"Marketing-Users\"]: Refreshing state... [id=/groups/c306185d-8daf-46cf-a698-f245237478cd]\nazuread_group.department_groups[\"Security-Admins\"]: Refreshing state... [id=/groups/0cbdfa2f-8db4-47a7-9284-c9295f525af6]\n\nNote: Objects have changed outside of Terraform\n\nTerraform detected the following changes made outside of Terraform since the\nlast \"terraform apply\" which may have affected this plan:\n\n  # azuread_group.role_assignable_groups[\"Engineering-Admins\"] has changed\n  ~ resource \"azuread_group\" \"role_assignable_groups\" {\n      + administrative_unit_ids        = []\n      + behaviors                      = []\n        id                             = \"/groups/32b7c6da-6803-4ebe-b3f5-27d7aac93eae\"\n      + provisioning_options           = []\n      + types                          = []\n        # (26 unchanged attributes hidden)\n    }\n\n  # azuread_group.role_assignable_groups[\"IT-Admins\"] has changed\n  ~ resource \"azuread_group\" \"role_assignable_groups\" {\n      + administrative_unit_ids        = []\n      + behaviors                      = []\n        id                             = \"/groups/944dfb69-deba-47fd-a801-8596f036f63b\"\n      + provisioning_options           = []\n      + types                          = []\n        # (26 unchanged attributes hidden)\n    }\n\n  # azuread_group.role_assignable_groups[\"Security-Admins\"] has changed\n  ~ resource \"azuread_group\" \"role_assignable_groups\" {\n      + administrative_unit_ids        = []\n      + behaviors                      = []\n        id                             = \"/groups/06f4b567-c77f-4c70-87e7-71855fb22cc8\"\n      + provisioning_options           = []\n      + types                          = []\n        # (26 unchanged attributes hidden)\n    }\n\n\nThis is a refresh-only plan, so Terraform will not take any actions to undo\nthese. If you were expecting these changes then you can apply this plan to\nrecord the updated values in the Terraform state without changing any remote\nobjects.\n\nΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ\n\nSaved the plan to:\nC:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform\\.bk-terraform-refresh-only.tfplan\n\nTo perform exactly these actions, run the following command to apply:\n    terraform apply \"C:\\\\Users\\\\ToddCrow\\\\Source\\\\blackknight-one\\\\terraform\\\\.bk-terraform-refresh-only.tfplan\"",
         "StandardError": ""
       },
       "Confirmation": {
         "ExitCode": 0,
-        "StandardOutput": "data.azuread_client_config.current: Reading...\ndata.azuread_client_config.current: Read complete after 0s [id=5e0e3977-d571-4ae6-9a65-1f967968ee9a-04b07795-8ddb-461a-bbee-02f9e1bf7b46-3a7f5488-3ad0-44a9-a33d-005a74e86ba2]\nazuread_group.role_assignable_groups[\"Security-Admins\"]: Refreshing state... [id=/groups/06f4b567-c77f-4c70-87e7-71855fb22cc8]\nazuread_group.department_groups[\"IT-Admins\"]: Refreshing state... [id=/groups/736dbb4a-32b7-431f-91de-c8fd6457d745]\nazuread_group.department_groups[\"Engineering-Admins\"]: Refreshing state... [id=/groups/de69947a-1dba-4a43-91a3-6ddee8a6278c]\nazuread_group.role_assignable_groups[\"Engineering-Admins\"]: Refreshing state... [id=/groups/32b7c6da-6803-4ebe-b3f5-27d7aac93eae]\nazuread_group.department_groups[\"Finance-Admins\"]: Refreshing state... [id=/groups/e0f90afa-c3ff-488d-bc3e-b635a6cba416]\nazuread_group.department_groups[\"Sales-Users\"]: Refreshing state... [id=/groups/5049278a-3afc-4919-bdea-6433446c6875]\nazuread_group.role_assignable_groups[\"IT-Admins\"]: Refreshing state... [id=/groups/944dfb69-deba-47fd-a801-8596f036f63b]\nazuread_group.department_groups[\"Engineering-Readers\"]: Refreshing state... [id=/groups/887f83ff-604f-43ab-83ff-b36bf1d5d899]\nazuread_group.department_groups[\"Security-Readers\"]: Refreshing state... [id=/groups/f8b76ec9-5fd4-4f75-a560-4cdb759e7c9c]\nazuread_group.department_groups[\"HR-Readers\"]: Refreshing state... [id=/groups/f037ea3c-7184-40d5-bd13-e6ce1b4e3f59]\nazuread_group.department_groups[\"IT-Users\"]: Refreshing state... [id=/groups/18c61a24-9976-4631-8d3d-7c1678e85d04]\nazuread_group.department_groups[\"Marketing-Readers\"]: Refreshing state... [id=/groups/33cdf470-78c5-4d4e-b774-b472e114f22b]\nazuread_group.department_groups[\"Security-Admins\"]: Refreshing state... [id=/groups/0cbdfa2f-8db4-47a7-9284-c9295f525af6]\nazuread_group.department_groups[\"Support-Users\"]: Refreshing state... [id=/groups/cc951f2d-debc-4313-b6b8-459c8d2625e6]\nazuread_group.department_groups[\"Engineering-Users\"]: Refreshing state... [id=/groups/e754f5db-8814-438c-9351-78e089db5b5c]\nazuread_group.department_groups[\"Finance-Users\"]: Refreshing state... [id=/groups/fe290f8a-8ab3-4aaa-b9aa-61f3df72d9a1]\nazuread_group.department_groups[\"HR-Admins\"]: Refreshing state... [id=/groups/00f9fbb6-555e-431b-8b75-577498894934]\nazuread_group.department_groups[\"Contractors-Admins\"]: Refreshing state... [id=/groups/b1df7905-b18d-4a4a-8899-719eb4a2d331]\nazuread_group.department_groups[\"IT-Readers\"]: Refreshing state... [id=/groups/09c49050-095d-4fa0-befd-e727178bea9c]\nazuread_group.department_groups[\"Security-Users\"]: Refreshing state... [id=/groups/17eb342e-4ac2-4c65-bd37-7be3e8db14d7]\nazuread_group.department_groups[\"Support-Admins\"]: Refreshing state... [id=/groups/ae641505-a65b-48db-85d6-8873b138849c]\nazuread_group.department_groups[\"Marketing-Admins\"]: Refreshing state... [id=/groups/37261bbd-61e9-4eb3-bd67-a80011a91483]\nazuread_group.department_groups[\"Contractors-Readers\"]: Refreshing state... [id=/groups/4c289d1a-d5f9-485a-a019-dedf6b9ee2af]\nazuread_group.department_groups[\"Finance-Readers\"]: Refreshing state... [id=/groups/d7d5fcd9-44ff-4772-9368-0dd579971458]\nazuread_group.department_groups[\"HR-Users\"]: Refreshing state... [id=/groups/5b8f93f8-e3c9-4678-8cbc-ed661a9b562b]\nazuread_group.department_groups[\"Marketing-Users\"]: Refreshing state... [id=/groups/c306185d-8daf-46cf-a698-f245237478cd]\nazuread_group.department_groups[\"Sales-Admins\"]: Refreshing state... [id=/groups/74290057-b60d-4db7-88e6-e97064fcc77d]\nazuread_group.department_groups[\"Support-Readers\"]: Refreshing state... [id=/groups/1b3e7873-471d-4a38-9ce9-51eb0ab762a0]\nazuread_group.department_groups[\"Sales-Readers\"]: Refreshing state... [id=/groups/6c6e8344-bae8-40b5-83f7-11529b5567f2]\nazuread_group.department_groups[\"Contractors-Users\"]: Refreshing state... [id=/groups/d0b00fc8-7ab8-409b-8b08-072ce52cdb73]\n\nNo changes. Your infrastructure matches the configuration.\n\nTerraform has compared your real infrastructure against your configuration\nand found no differences, so no changes are needed.",
+        "StandardOutput": "data.azuread_client_config.current: Reading...\ndata.azuread_client_config.current: Read complete after 0s [id=5e0e3977-d571-4ae6-9a65-1f967968ee9a-04b07795-8ddb-461a-bbee-02f9e1bf7b46-3a7f5488-3ad0-44a9-a33d-005a74e86ba2]\nazuread_group.department_groups[\"Contractors-Admins\"]: Refreshing state... [id=/groups/b1df7905-b18d-4a4a-8899-719eb4a2d331]\nazuread_group.department_groups[\"HR-Admins\"]: Refreshing state... [id=/groups/00f9fbb6-555e-431b-8b75-577498894934]\nazuread_group.role_assignable_groups[\"IT-Admins\"]: Refreshing state... [id=/groups/944dfb69-deba-47fd-a801-8596f036f63b]\nazuread_group.department_groups[\"Engineering-Users\"]: Refreshing state... [id=/groups/e754f5db-8814-438c-9351-78e089db5b5c]\nazuread_group.role_assignable_groups[\"Security-Admins\"]: Refreshing state... [id=/groups/06f4b567-c77f-4c70-87e7-71855fb22cc8]\nazuread_group.role_assignable_groups[\"Engineering-Admins\"]: Refreshing state... [id=/groups/32b7c6da-6803-4ebe-b3f5-27d7aac93eae]\nazuread_group.department_groups[\"Engineering-Admins\"]: Refreshing state... [id=/groups/de69947a-1dba-4a43-91a3-6ddee8a6278c]\nazuread_group.department_groups[\"Sales-Readers\"]: Refreshing state... [id=/groups/6c6e8344-bae8-40b5-83f7-11529b5567f2]\nazuread_group.department_groups[\"Marketing-Readers\"]: Refreshing state... [id=/groups/33cdf470-78c5-4d4e-b774-b472e114f22b]\nazuread_group.department_groups[\"IT-Readers\"]: Refreshing state... [id=/groups/09c49050-095d-4fa0-befd-e727178bea9c]\nazuread_group.department_groups[\"Marketing-Users\"]: Refreshing state... [id=/groups/c306185d-8daf-46cf-a698-f245237478cd]\nazuread_group.department_groups[\"Sales-Users\"]: Refreshing state... [id=/groups/5049278a-3afc-4919-bdea-6433446c6875]\nazuread_group.department_groups[\"Sales-Admins\"]: Refreshing state... [id=/groups/74290057-b60d-4db7-88e6-e97064fcc77d]\nazuread_group.department_groups[\"Engineering-Readers\"]: Refreshing state... [id=/groups/887f83ff-604f-43ab-83ff-b36bf1d5d899]\nazuread_group.department_groups[\"HR-Users\"]: Refreshing state... [id=/groups/5b8f93f8-e3c9-4678-8cbc-ed661a9b562b]\nazuread_group.department_groups[\"IT-Admins\"]: Refreshing state... [id=/groups/736dbb4a-32b7-431f-91de-c8fd6457d745]\nazuread_group.department_groups[\"IT-Users\"]: Refreshing state... [id=/groups/18c61a24-9976-4631-8d3d-7c1678e85d04]\nazuread_group.department_groups[\"Support-Users\"]: Refreshing state... [id=/groups/cc951f2d-debc-4313-b6b8-459c8d2625e6]\nazuread_group.department_groups[\"Finance-Readers\"]: Refreshing state... [id=/groups/d7d5fcd9-44ff-4772-9368-0dd579971458]\nazuread_group.department_groups[\"Finance-Admins\"]: Refreshing state... [id=/groups/e0f90afa-c3ff-488d-bc3e-b635a6cba416]\nazuread_group.department_groups[\"Finance-Users\"]: Refreshing state... [id=/groups/fe290f8a-8ab3-4aaa-b9aa-61f3df72d9a1]\nazuread_group.department_groups[\"Marketing-Admins\"]: Refreshing state... [id=/groups/37261bbd-61e9-4eb3-bd67-a80011a91483]\nazuread_group.department_groups[\"Security-Readers\"]: Refreshing state... [id=/groups/f8b76ec9-5fd4-4f75-a560-4cdb759e7c9c]\nazuread_group.department_groups[\"Contractors-Readers\"]: Refreshing state... [id=/groups/4c289d1a-d5f9-485a-a019-dedf6b9ee2af]\nazuread_group.department_groups[\"Support-Readers\"]: Refreshing state... [id=/groups/1b3e7873-471d-4a38-9ce9-51eb0ab762a0]\nazuread_group.department_groups[\"HR-Readers\"]: Refreshing state... [id=/groups/f037ea3c-7184-40d5-bd13-e6ce1b4e3f59]\nazuread_group.department_groups[\"Security-Admins\"]: Refreshing state... [id=/groups/0cbdfa2f-8db4-47a7-9284-c9295f525af6]\nazuread_group.department_groups[\"Security-Users\"]: Refreshing state... [id=/groups/17eb342e-4ac2-4c65-bd37-7be3e8db14d7]\nazuread_group.department_groups[\"Support-Admins\"]: Refreshing state... [id=/groups/ae641505-a65b-48db-85d6-8873b138849c]\nazuread_group.department_groups[\"Contractors-Users\"]: Refreshing state... [id=/groups/d0b00fc8-7ab8-409b-8b08-072ce52cdb73]\n\nNo changes. Your infrastructure matches the configuration.\n\nTerraform has compared your real infrastructure against your configuration\nand found no differences, so no changes are needed.",
         "StandardError": ""
       }
     }
   },
   "Findings": [
     {
-      "Source": "Inventory",
       "Severity": "Medium",
+      "Source": "HCL",
+      "Title": "No explicit Terraform backend detected",
+      "Details": "Terraform will use local state unless a backend is supplied externally.",
+      "Resource": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform",
+      "Recommendation": "Use a secured remote backend for shared or production workloads."
+    },
+    {
+      "Severity": "Medium",
+      "Source": "Inventory",
       "Title": "Ignored local Terraform state detected",
       "Details": "2 local Terraform state files were found, but none are tracked by Git.",
       "Resource": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform",
       "Recommendation": "Use a secured remote backend before shared or production deployment."
-    },
-    {
-      "Source": "Inventory",
-      "Severity": "Medium",
-      "Title": "No explicit Terraform backend detected",
-      "Details": "No explicit Terraform backend declaration was discovered.",
-      "Resource": "C:\\Users\\ToddCrow\\Source\\blackknight-one\\terraform",
-      "Recommendation": "Evaluate a secured remote backend for shared or production Terraform workloads."
     }
   ],
   "Recommendations": [
-    "Evaluate a secured remote backend for shared or production Terraform workloads.",
     "Refresh-only observations were retained as provider-normalized, computed, or state-only differences.",
     "Terraform configuration passed formatting and validation quality gates.",
     "Terraform observed refresh-only state differences, but the normal confirmation plan reported no infrastructure changes. No actionable drift is present.",
     "Terraform reported no infrastructure changes.",
     "The Terraform configuration currently matches the infrastructure configuration.",
-    "Use a secured remote backend before shared or production deployment."
+    "Use a secured remote backend before shared or production deployment.",
+    "Use a secured remote backend for shared or production workloads."
   ]
 }
