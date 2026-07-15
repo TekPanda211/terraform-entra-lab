@@ -14,6 +14,30 @@ BlackKnight One is an enterprise PowerShell platform designed to assess, analyze
 
 The platform combines Terraform engineering, Microsoft Graph discovery, identity analysis, and security assessments into a single dashboard-driven experience with standardized reporting and executive scoring.
 
+## North Star
+
+BlackKnight One exists to become the definitive assessment platform for Microsoft cloud, identity, infrastructure, and security engineering.
+
+The vision is to provide a single, consistent platform capable of assessing, validating, and correlating infrastructure across Terraform, Microsoft Graph, Azure, Microsoft 365, and future cloud technologies.
+
+Every assessment engine should answer three fundamental questions:
+
+1. What exists?
+2. Is it healthy, secure, and compliant?
+3. What should be done next?
+
+BlackKnight One is designed around a common assessment model so that every engine—regardless of technology—produces standardized findings, confidence scoring, executive summaries, and actionable recommendations.
+
+The long-term objective is to provide engineers, architects, consultants, and security professionals with a single platform capable of evaluating an organization's cloud posture from infrastructure to identity.
+
+## Vision
+
+One platform.
+
+One dashboard.
+
+One assessment model.
+
 ---
 
 ## Platform Capabilities
