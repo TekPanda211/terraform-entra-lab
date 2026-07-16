@@ -1,0 +1,188 @@
+{
+  "Platform": "Blackknight One",
+  "Engine": "ConditionalAccess",
+  "Operation": "WhatIfEvaluation",
+  "GeneratedAt": "2026-07-15T23:23:28.7827339Z",
+  "Tenant": {
+    "Account": "GA-tcrow@blackknightnetworking.com",
+    "TenantId": "5e0e3977-d571-4ae6-9a65-1f967968ee9a",
+    "Environment": "Global",
+    "AuthType": 0
+  },
+  "Scenario": {
+    "Identity": {
+      "Type": "User",
+      "Id": "96f30b17-6cf1-488e-b50b-675ef55193c2",
+      "DisplayName": "Todd Crow",
+      "UserPrincipalName": "tcrow@blackknightnetworking.com",
+      "UserType": "Member",
+      "AccountEnabled": true
+    },
+    "ApplicationIds": [
+      "00000003-0000-0000-c000-000000000000"
+    ],
+    "DevicePlatform": "windows",
+    "ClientAppType": "browser",
+    "SignInRisk": "none",
+    "UserRisk": "none",
+    "IpAddress": "",
+    "Country": "US",
+    "IsCompliant": true,
+    "IsManaged": null,
+    "TrustType": "",
+    "AppliedOnly": true
+  },
+  "Summary": {
+    "Health": "Protected",
+    "Confidence": 100,
+    "PoliciesEvaluated": 1,
+    "PoliciesApplied": 1,
+    "PoliciesNotApplied": 0,
+    "BlockPolicies": 0,
+    "MfaPolicies": 1,
+    "DevicePolicies": 0,
+    "SessionPolicies": 1,
+    "IncompletePolicies": 0,
+    "Findings": 0
+  },
+  "AppliedPolicies": [
+    {
+      "Id": "3781edf6-0918-4afa-885c-28a855e67f93",
+      "DisplayName": "Require multifactor authentication for all users",
+      "State": "enabled",
+      "PolicyApplies": true,
+      "AnalysisReasons": "notSet",
+      "Classification": [
+        "AuthenticationStrength",
+        "MFA",
+        "Session"
+      ],
+      "GrantControls": {
+        "AuthenticationStrength": {
+          "AllowedCombinations": null,
+          "CombinationConfigurations": null,
+          "CreatedDateTime": null,
+          "Description": null,
+          "DisplayName": null,
+          "Id": null,
+          "ModifiedDateTime": null,
+          "PolicyType": null,
+          "RequirementsSatisfied": null
+        },
+        "BuiltInControls": [
+          "mfa"
+        ],
+        "CustomAuthenticationFactors": [],
+        "Operator": "OR",
+        "TermsOfUse": []
+      },
+      "SessionControls": {
+        "ApplicationEnforcedRestrictions": {
+          "IsEnabled": null
+        },
+        "CloudAppSecurity": {
+          "CloudAppSecurityType": null,
+          "IsEnabled": null
+        },
+        "DisableResilienceDefaults": null,
+        "PersistentBrowser": {
+          "IsEnabled": null,
+          "Mode": null
+        },
+        "SecureSignInSession": {
+          "IsEnabled": null
+        },
+        "SignInFrequency": {
+          "AuthenticationType": null,
+          "FrequencyInterval": null,
+          "IsEnabled": null,
+          "Type": null,
+          "Value": null
+        }
+      }
+    }
+  ],
+  "NotAppliedPolicies": [],
+  "Policies": [
+    {
+      "Id": "3781edf6-0918-4afa-885c-28a855e67f93",
+      "DisplayName": "Require multifactor authentication for all users",
+      "State": "enabled",
+      "PolicyApplies": true,
+      "AnalysisReasons": "notSet",
+      "Classification": [
+        "AuthenticationStrength",
+        "MFA",
+        "Session"
+      ],
+      "GrantControls": {
+        "AuthenticationStrength": {
+          "AllowedCombinations": null,
+          "CombinationConfigurations": null,
+          "CreatedDateTime": null,
+          "Description": null,
+          "DisplayName": null,
+          "Id": null,
+          "ModifiedDateTime": null,
+          "PolicyType": null,
+          "RequirementsSatisfied": null
+        },
+        "BuiltInControls": [
+          "mfa"
+        ],
+        "CustomAuthenticationFactors": [],
+        "Operator": "OR",
+        "TermsOfUse": []
+      },
+      "SessionControls": {
+        "ApplicationEnforcedRestrictions": {
+          "IsEnabled": null
+        },
+        "CloudAppSecurity": {
+          "CloudAppSecurityType": null,
+          "IsEnabled": null
+        },
+        "DisableResilienceDefaults": null,
+        "PersistentBrowser": {
+          "IsEnabled": null,
+          "Mode": null
+        },
+        "SecureSignInSession": {
+          "IsEnabled": null
+        },
+        "SignInFrequency": {
+          "AuthenticationType": null,
+          "FrequencyInterval": null,
+          "IsEnabled": null,
+          "Type": null,
+          "Value": null
+        }
+      }
+    }
+  ],
+  "Findings": [],
+  "Recommendations": [],
+  "Request": {
+    "signInConditions": {
+      "country": "US",
+      "devicePlatform": "windows",
+      "userRiskLevel": "none",
+      "clientAppType": "browser",
+      "signInRiskLevel": "none",
+      "deviceInfo": {
+        "isCompliant": true
+      }
+    },
+    "signInIdentity": {
+      "@odata.type": "#microsoft.graph.userSignIn",
+      "userId": "96f30b17-6cf1-488e-b50b-675ef55193c2"
+    },
+    "signInContext": {
+      "includeApplications": [
+        "00000003-0000-0000-c000-000000000000"
+      ],
+      "@odata.type": "#microsoft.graph.applicationContext"
+    },
+    "appliedPoliciesOnly": true
+  }
+}

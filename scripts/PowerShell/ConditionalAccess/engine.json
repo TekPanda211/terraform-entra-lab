@@ -1,0 +1,17 @@
+{
+  "Name": "ConditionalAccess",
+  "Version": "0.2.0",
+  "EntryPoint": "Invoke-BKConditionalAccessAssessment.ps1",
+  "Description": "Assesses Microsoft Entra Conditional Access policy coverage, configuration, and security hygiene.",
+  "Dependencies": [
+    "Get-MgContext",
+    "Invoke-MgGraphRequest"
+  ],
+  "RequiredScopes": [
+    "Policy.Read.All"
+  ],
+  "Operations": [
+    "ConditionalAccessAssessment",
+    "WhatIfEvaluation"
+  ]
+}

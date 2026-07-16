@@ -11,13 +11,16 @@ function Show-BKDashboard {
 
     1. Terraform Assessment
     2. Microsoft Graph Assessment
-    3. Identity Assessment
-    4. Trust Assessment
-    5. Governance Assessment
-    6. Correlation Assessment
-    7. Operations Assessment
-    8. Platform Validation
-    9. Command Inventory
+    3. Conditional Access What If
+    4. Identity Assessment
+    5. Trust Assessment
+    6. Governance Assessment
+    7. Correlation Assessment
+    8. Operations Assessment
+    9. Platform Validation
+    10. Command Inventory
+    11. Microsoft Graph Connection
+    12. Platform Settings
 
     The dashboard remains open until the user selects Quit.
 
@@ -64,7 +67,71 @@ function Show-BKDashboard {
 
     $ErrorActionPreference = "Stop"
 
-    function Write-BKDashboardHeader {
+    # Resolve dashboard paths before creating scriptblock closures so the
+    # closures capture stable, non-null values even if a child assessment
+    # reloads or removes the Blackknight module.
+    $candidateRoot = Get-Item `
+        -LiteralPath (Get-Location).Path `
+        -ErrorAction Stop
+
+    $repoRoot = $null
+
+    while ($null -ne $candidateRoot) {
+        $candidateModulePath = Join-Path `
+            -Path $candidateRoot.FullName `
+            -ChildPath (
+                "scripts\PowerShell\Platform\" +
+                "Blackknight-Platform.psm1"
+            )
+
+        if (
+            Test-Path `
+                -LiteralPath $candidateModulePath `
+                -PathType Leaf
+        ) {
+            $repoRoot = $candidateRoot.FullName
+            break
+        }
+
+        $candidateRoot = $candidateRoot.Parent
+    }
+
+    if ([string]::IsNullOrWhiteSpace($repoRoot)) {
+        $repoRoot = (Get-Location).Path
+    }
+
+    $resolvedTerraformPath = if (
+        [System.IO.Path]::IsPathRooted($TerraformPath)
+    ) {
+        [System.IO.Path]::GetFullPath($TerraformPath)
+    }
+    else {
+        [System.IO.Path]::GetFullPath(
+            (
+                Join-Path `
+                    -Path $repoRoot `
+                    -ChildPath $TerraformPath
+            )
+        )
+    }
+
+    $resolvedReportRoot = if (
+        [System.IO.Path]::IsPathRooted($ReportRoot)
+    ) {
+        [System.IO.Path]::GetFullPath($ReportRoot)
+    }
+    else {
+        [System.IO.Path]::GetFullPath(
+            (
+                Join-Path `
+                    -Path $repoRoot `
+                    -ChildPath $ReportRoot
+            )
+        )
+    }
+
+
+    $sbWriteBKDashboardHeader = {
         [CmdletBinding()]
         param()
 
@@ -82,38 +149,49 @@ function Show-BKDashboard {
         Write-Host "============================================================" `
             -ForegroundColor Cyan
         Write-Host ""
-    }
+    }.GetNewClosure()
 
-    function Write-BKDashboardMenu {
+    $sbWriteBKDashboardMenu = {
         [CmdletBinding()]
         param()
 
-        Write-Host "Select an assessment or platform operation:" `
-            -ForegroundColor Yellow
-        Write-Host ""
+        Write-Host "Assessment Engines" -ForegroundColor Yellow
+        Write-Host "------------------------------------------------------------"
         Write-Host "  [1] Terraform Assessment"
         Write-Host "  [2] Microsoft Graph Assessment"
-        Write-Host "  [3] Identity Assessment"
-        Write-Host "  [4] Trust Assessment"
-        Write-Host "  [5] Governance Assessment"
-        Write-Host "  [6] Correlation Assessment"
-        Write-Host "  [7] Operations Assessment"
-        Write-Host "  [8] Platform Validation"
-        Write-Host "  [9] Command Inventory"
+        Write-Host "  [3] Conditional Access What If"
+        Write-Host ""
+        Write-Host "Identity and Security" -ForegroundColor Yellow
+        Write-Host "------------------------------------------------------------"
+        Write-Host "  [4] Identity Assessment"
+        Write-Host "  [5] Trust Assessment"
+        Write-Host "  [6] Governance Assessment"
+        Write-Host "  [7] Correlation Assessment"
+        Write-Host ""
+        Write-Host "Platform" -ForegroundColor Yellow
+        Write-Host "------------------------------------------------------------"
+        Write-Host "  [8] Operations Assessment"
+        Write-Host "  [9] Platform Validation"
+        Write-Host " [10] Command Inventory"
+        Write-Host ""
+        Write-Host "Configuration" -ForegroundColor Yellow
+        Write-Host "------------------------------------------------------------"
+        Write-Host " [11] Microsoft Graph Connection"
+        Write-Host " [12] Platform Settings"
         Write-Host ""
         Write-Host "  [Q] Quit"
         Write-Host ""
-    }
+    }.GetNewClosure()
 
-    function Wait-BKDashboard {
+    $sbWaitBKDashboard = {
         [CmdletBinding()]
         param()
 
         Write-Host ""
         $null = Read-Host "Press Enter to return to the dashboard"
-    }
+    }.GetNewClosure()
 
-    function Test-BKDashboardCommand {
+    $sbTestBKDashboardCommand = {
         [CmdletBinding()]
         param(
             [Parameter(Mandatory)]
@@ -126,9 +204,9 @@ function Show-BKDashboard {
                 -Name $Name `
                 -ErrorAction SilentlyContinue
         )
-    }
+    }.GetNewClosure()
 
-    function Get-BKDashboardRepoRoot {
+    $sbGetBKDashboardRepoRoot = {
         [CmdletBinding()]
         param()
 
@@ -156,9 +234,9 @@ function Show-BKDashboard {
         }
 
         return (Get-Location).Path
-    }
+    }.GetNewClosure()
 
-    function Resolve-BKDashboardPath {
+    $sbResolveBKDashboardPath = {
         [CmdletBinding()]
         param(
             [Parameter(Mandatory)]
@@ -181,9 +259,9 @@ function Show-BKDashboard {
                     -ChildPath $Path
             )
         )
-    }
+    }.GetNewClosure()
 
-    function Invoke-BKDashboardScript {
+    $sbInvokeBKDashboardScript = {
         [CmdletBinding()]
         param(
             [Parameter(Mandatory)]
@@ -224,9 +302,140 @@ function Show-BKDashboard {
         Write-Verbose "Invoking engine script: $scriptPath"
 
         return & $scriptPath @Parameters
-    }
+    }.GetNewClosure()
 
-    function Invoke-BKDashboardTerraform {
+
+    $sbReadBKDashboardYesNo = {
+        [CmdletBinding()]
+        param(
+            [Parameter(Mandatory)]
+            [ValidateNotNullOrEmpty()]
+            [string]$Prompt,
+
+            [Parameter()]
+            [bool]$Default = $false
+        )
+
+        $suffix = if ($Default) { "[Y/n]" } else { "[y/N]" }
+        $response = Read-Host "$Prompt $suffix"
+
+        if ([string]::IsNullOrWhiteSpace($response)) {
+            return $Default
+        }
+
+        return $response -match '^(Y|YES)$'
+    }.GetNewClosure()
+
+    $sbConnectBKDashboardGraph = {
+        [CmdletBinding()]
+        param(
+            [Parameter()]
+            [string[]]$RequiredScopes = @(),
+
+            [Parameter()]
+            [switch]$ForceReconnect
+        )
+
+        if (-not (& $sbTestBKDashboardCommand -Name "Connect-MgGraph")) {
+            throw "Connect-MgGraph is unavailable. Install or import the Microsoft Graph PowerShell SDK."
+        }
+
+        $currentContext = $null
+        if (& $sbTestBKDashboardCommand -Name "Get-MgContext") {
+            $currentContext = Get-MgContext -ErrorAction SilentlyContinue
+        }
+
+        $missingScopes = @()
+        if ($null -ne $currentContext -and $RequiredScopes.Count -gt 0) {
+            $currentScopes = @($currentContext.Scopes | ForEach-Object { [string]$_ })
+            $missingScopes = @($RequiredScopes | Where-Object { $_ -notin $currentScopes })
+        }
+
+        $reconnectRequired = $ForceReconnect.IsPresent -or $null -eq $currentContext -or $missingScopes.Count -gt 0
+
+        if (-not $reconnectRequired) {
+            return $currentContext
+        }
+
+        if ($null -ne $currentContext) {
+            Write-Host ""
+            Write-Host "Current Microsoft Graph connection" -ForegroundColor Cyan
+            Write-Host "------------------------------------------------------------"
+            $currentContext | Select-Object Account,TenantId,Environment,AuthType,Scopes | Format-List | Out-Host
+
+            if ($missingScopes.Count -gt 0) {
+                Write-Host ""
+                Write-Host ("The current connection is missing required scopes: " + ($missingScopes -join ", ")) -ForegroundColor DarkYellow
+            }
+
+            $reconnect = & $sbReadBKDashboardYesNo -Prompt "Reconnect Microsoft Graph?" -Default $true
+            if (-not $reconnect) {
+                if ($missingScopes.Count -gt 0) {
+                    throw "The current Graph context does not have the required scopes."
+                }
+                return $currentContext
+            }
+
+            if (& $sbTestBKDashboardCommand -Name "Disconnect-MgGraph") {
+                Disconnect-MgGraph | Out-Null
+            }
+        }
+
+        Write-Host ""
+        Write-Host "Microsoft Graph Connection" -ForegroundColor Cyan
+        Write-Host "------------------------------------------------------------"
+        Write-Host "Enter a tenant ID, or press Enter to select the tenant during sign-in."
+        $tenantId = Read-Host "Tenant ID"
+
+        if (-not [string]::IsNullOrWhiteSpace($tenantId) -and $tenantId -notmatch '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$') {
+            throw "The tenant ID is not a valid GUID."
+        }
+
+        $connectionParameters = @{ ContextScope = "Process"; NoWelcome = $true }
+        if ($RequiredScopes.Count -gt 0) { $connectionParameters.Scopes = @($RequiredScopes | Sort-Object -Unique) }
+        if (-not [string]::IsNullOrWhiteSpace($tenantId)) { $connectionParameters.TenantId = $tenantId }
+
+        Connect-MgGraph @connectionParameters
+        $newContext = Get-MgContext -ErrorAction SilentlyContinue
+        if ($null -eq $newContext) { throw "Microsoft Graph did not return an active context." }
+        if (-not [string]::IsNullOrWhiteSpace($tenantId) -and $newContext.TenantId -ne $tenantId) {
+            throw "The connected tenant does not match the requested tenant."
+        }
+
+        Write-Host ""
+        Write-Host "Connected Microsoft Graph Context" -ForegroundColor Cyan
+        Write-Host "------------------------------------------------------------"
+        $newContext | Select-Object Account,TenantId,Environment,AuthType,Scopes | Format-List | Out-Host
+        return $newContext
+    }.GetNewClosure()
+
+    $sbShowBKDashboardGraphConnection = {
+        [CmdletBinding()]
+        param()
+
+        $context = & $sbConnectBKDashboardGraph -RequiredScopes @("Policy.Read.ConditionalAccess","User.Read.All")
+        Write-Host ""
+        Write-Host "Active Graph connection" -ForegroundColor Green
+        $context | Select-Object Account,TenantId,Environment,AuthType,Scopes | Format-List | Out-Host
+    }.GetNewClosure()
+
+    $sbShowBKDashboardSettings = {
+        [CmdletBinding()]
+        param()
+
+        Write-Host ""
+        Write-Host "Platform Settings" -ForegroundColor Yellow
+        Write-Host "------------------------------------------------------------"
+        Write-Host "Repository Root : $repoRoot"
+        Write-Host "Terraform Path  : $resolvedTerraformPath"
+        Write-Host "Report Root     : $resolvedReportRoot"
+        Write-Host "Export Reports  : $($ExportReports.IsPresent)"
+        Write-Host "Clear Console   : $(-not $NoClear.IsPresent)"
+        Write-Host ""
+        Write-Host "Settings are currently supplied through Show-BKDashboard parameters." -ForegroundColor DarkYellow
+    }.GetNewClosure()
+
+    $sbInvokeBKDashboardTerraform = {
         [CmdletBinding()]
         param()
 
@@ -274,14 +483,14 @@ function Show-BKDashboard {
         }
 
         if (
-            Test-BKDashboardCommand `
+            & $sbTestBKDashboardCommand `
                 -Name "Invoke-BKTerraformAssessment"
         ) {
             $result =
                 Invoke-BKTerraformAssessment @parameters
         }
         else {
-            $result = Invoke-BKDashboardScript `
+            $result = & $sbInvokeBKDashboardScript `
                 -CandidatePaths @(
                     (
                         Join-Path `
@@ -309,9 +518,9 @@ function Show-BKDashboard {
                 Format-List |
                 Out-Host
         }
-    }
+    }.GetNewClosure()
 
-    function Invoke-BKDashboardGraph {
+    $sbInvokeBKDashboardGraph = {
         [CmdletBinding()]
         param()
 
@@ -323,7 +532,7 @@ function Show-BKDashboard {
 
         if (
             -not (
-                Test-BKDashboardCommand `
+                & $sbTestBKDashboardCommand `
                     -Name "Connect-MgGraph"
             )
         ) {
@@ -338,7 +547,7 @@ function Show-BKDashboard {
         $currentContext = $null
 
         if (
-            Test-BKDashboardCommand `
+            & $sbTestBKDashboardCommand `
                 -Name "Get-MgContext"
         ) {
             $currentContext = Get-MgContext `
@@ -364,7 +573,7 @@ function Show-BKDashboard {
 
             if ($disconnectChoice -match '^(Y|YES)$') {
                 if (
-                    Test-BKDashboardCommand `
+                    & $sbTestBKDashboardCommand `
                         -Name "Disconnect-MgGraph"
                 ) {
                     Disconnect-MgGraph |
@@ -381,7 +590,7 @@ function Show-BKDashboard {
         $availableEnvironments = @()
 
         if (
-            Test-BKDashboardCommand `
+            & $sbTestBKDashboardCommand `
                 -Name "Get-MgEnvironment"
         ) {
             $availableEnvironments = @(
@@ -488,7 +697,7 @@ function Show-BKDashboard {
         $connectedWithBlackknight = $false
 
         if (
-            Test-BKDashboardCommand `
+            & $sbTestBKDashboardCommand `
                 -Name "Connect-BKGraph"
         ) {
             $bkGraphCommand = Get-Command `
@@ -621,7 +830,7 @@ function Show-BKDashboard {
         }
 
         if (
-            Test-BKDashboardCommand `
+            & $sbTestBKDashboardCommand `
                 -Name "Invoke-BKGraphAssessment"
         ) {
             Write-Host ""
@@ -674,7 +883,7 @@ function Show-BKDashboard {
             }
         }
         elseif (
-            Test-BKDashboardCommand `
+            & $sbTestBKDashboardCommand `
                 -Name "Get-BKTenantDiscovery"
         ) {
             Write-Host ""
@@ -695,9 +904,181 @@ function Show-BKDashboard {
                 "assessment or tenant-discovery command is available."
             ) -ForegroundColor DarkYellow
         }
-    }
+    }.GetNewClosure()
 
-    function Invoke-BKDashboardIdentity {
+
+    $sbInvokeBKDashboardConditionalAccess = {
+        [CmdletBinding()]
+        param()
+
+        Write-Host ""
+        Write-Host "Conditional Access What If" -ForegroundColor Yellow
+        Write-Host "------------------------------------------------------------"
+
+        if (-not (& $sbTestBKDashboardCommand -Name "Invoke-BKConditionalAccessWhatIf")) {
+            Write-Host ""
+            Write-Host "[NOT AVAILABLE] Invoke-BKConditionalAccessWhatIf is not loaded." -ForegroundColor DarkYellow
+            return
+        }
+
+        $null = & $sbConnectBKDashboardGraph -RequiredScopes @("Policy.Read.ConditionalAccess","User.Read.All")
+
+        Write-Host ""
+        Write-Host "Scenario" -ForegroundColor Cyan
+        Write-Host "------------------------------------------------------------"
+        Write-Host "  [1] Administrator from non-compliant Windows device"
+        Write-Host "  [2] Standard user from compliant Windows device"
+        Write-Host "  [3] Guest user from foreign country"
+        Write-Host "  [4] Legacy authentication attempt"
+        Write-Host "  [5] High-risk user sign-in"
+        Write-Host "  [6] Emergency access account"
+        Write-Host "  [7] Custom scenario"
+        Write-Host ""
+
+        $scenarioSelection = Read-Host "Select scenario"
+        $scenario = @{ DevicePlatform="windows"; ClientAppType="browser"; SignInRiskLevel="none"; UserRiskLevel="none"; IsCompliant=$false; Country="US" }
+
+        switch ($scenarioSelection) {
+            "2" { $scenario.IsCompliant = $true }
+            "3" { $scenario.Country = "" }
+            "4" { $scenario.ClientAppType = "other" }
+            "5" { $scenario.SignInRiskLevel = "high"; $scenario.UserRiskLevel = "high" }
+            "7" { $scenario.DevicePlatform=""; $scenario.ClientAppType=""; $scenario.SignInRiskLevel=""; $scenario.UserRiskLevel=""; $scenario.Country=""; $scenario.Remove("IsCompliant") }
+        }
+
+        Write-Host ""
+        Write-Host "Identity" -ForegroundColor Cyan
+        Write-Host "------------------------------------------------------------"
+        $userPrincipalName = Read-Host "User principal name"
+        if ([string]::IsNullOrWhiteSpace($userPrincipalName)) {
+            Write-Host "[ERROR] A user principal name is required." -ForegroundColor Red
+            return
+        }
+
+        Write-Host ""
+        Write-Host "Application" -ForegroundColor Cyan
+        Write-Host "------------------------------------------------------------"
+        Write-Host "  [1] Microsoft Graph"
+        Write-Host "  [2] Azure Management"
+        Write-Host "  [3] Exchange Online"
+        Write-Host "  [4] SharePoint Online"
+        Write-Host "  [5] Microsoft Teams"
+        Write-Host "  [6] Custom application ID"
+        Write-Host ""
+
+        $applicationSelection = Read-Host "Select application"
+        $applicationPresets = @{
+            "1" = @{ Name="Microsoft Graph"; Id="00000003-0000-0000-c000-000000000000" }
+            "2" = @{ Name="Azure Management"; Id="797f4846-ba00-4fd7-ba43-dac1f8f63013" }
+            "3" = @{ Name="Exchange Online"; Id="00000002-0000-0ff1-ce00-000000000000" }
+            "4" = @{ Name="SharePoint Online"; Id="00000003-0000-0ff1-ce00-000000000000" }
+            "5" = @{ Name="Microsoft Teams"; Id="1fec8e78-bce4-4aaf-ab1b-5451cc387264" }
+        }
+
+        if ($applicationSelection -eq "6") {
+            $applicationId = Read-Host "Application ID"
+            $applicationName = "Custom Application"
+        }
+        elseif ($applicationPresets.ContainsKey($applicationSelection)) {
+            $applicationId = $applicationPresets[$applicationSelection].Id
+            $applicationName = $applicationPresets[$applicationSelection].Name
+        }
+        else {
+            $applicationId = $applicationPresets["1"].Id
+            $applicationName = $applicationPresets["1"].Name
+        }
+
+        if ($scenarioSelection -in @("3","7")) {
+            $country = Read-Host "Two-letter country code [US]"
+            if ([string]::IsNullOrWhiteSpace($country)) { $country = "US" }
+            $scenario.Country = $country.ToUpperInvariant()
+        }
+
+        if ($scenarioSelection -eq "7") {
+            $platform = Read-Host "Device platform [windows/android/iOS/linux/macOS]"
+            if ([string]::IsNullOrWhiteSpace($platform)) { $platform = "windows" }
+            $scenario.DevicePlatform = $platform
+
+            $clientApp = Read-Host "Client type [browser/mobileAppsAndDesktopClients/other]"
+            if ([string]::IsNullOrWhiteSpace($clientApp)) { $clientApp = "browser" }
+            $scenario.ClientAppType = $clientApp
+
+            $signInRisk = Read-Host "Sign-in risk [none/low/medium/high]"
+            if ([string]::IsNullOrWhiteSpace($signInRisk)) { $signInRisk = "none" }
+            $scenario.SignInRiskLevel = $signInRisk
+
+            $userRisk = Read-Host "User risk [none/low/medium/high]"
+            if ([string]::IsNullOrWhiteSpace($userRisk)) { $userRisk = "none" }
+            $scenario.UserRiskLevel = $userRisk
+
+            $complianceChoice = Read-Host "Device compliance [C]ompliant, [N]on-compliant, [U]nspecified"
+            switch ($complianceChoice.ToUpperInvariant()) {
+                "C" { $scenario.IsCompliant = $true }
+                "N" { $scenario.IsCompliant = $false }
+                default { $scenario.Remove("IsCompliant") }
+            }
+        }
+
+        $ipAddress = Read-Host "Source IP address [optional]"
+        $appliedOnly = & $sbReadBKDashboardYesNo -Prompt "Show applied policies only?" -Default $false
+        $exportJson = if ($ExportReports.IsPresent) { $true } else { & $sbReadBKDashboardYesNo -Prompt "Export the result to JSON?" -Default $true }
+
+        $parameters = @{
+            UserPrincipalName   = $userPrincipalName
+            ApplicationId      = $applicationId
+            DevicePlatform     = $scenario.DevicePlatform
+            ClientAppType      = $scenario.ClientAppType
+            SignInRiskLevel    = $scenario.SignInRiskLevel
+            UserRiskLevel      = $scenario.UserRiskLevel
+            AppliedPoliciesOnly = $appliedOnly
+            PassThru           = $true
+        }
+
+        if (-not [string]::IsNullOrWhiteSpace($scenario.Country)) { $parameters.Country = $scenario.Country }
+        if ($scenario.ContainsKey("IsCompliant")) { $parameters.IsCompliant = $scenario.IsCompliant }
+        if (-not [string]::IsNullOrWhiteSpace($ipAddress)) { $parameters.IpAddress = $ipAddress }
+        if ($exportJson) {
+            $parameters.ExportJson = $true
+            $parameters.OutputPath = Join-Path -Path $resolvedReportRoot -ChildPath "conditional-access\conditional-access-what-if.json"
+        }
+
+        Write-Host ""
+        Write-Host "Scenario Summary" -ForegroundColor Cyan
+        Write-Host "------------------------------------------------------------"
+        Write-Host "User          : $userPrincipalName"
+        Write-Host "Application   : $applicationName"
+        Write-Host "Application ID: $applicationId"
+        Write-Host "Platform      : $($scenario.DevicePlatform)"
+        Write-Host "Client Type   : $($scenario.ClientAppType)"
+        Write-Host "Country       : $($scenario.Country)"
+        Write-Host "Sign-in Risk  : $($scenario.SignInRiskLevel)"
+        Write-Host "User Risk     : $($scenario.UserRiskLevel)"
+        if ($scenario.ContainsKey("IsCompliant")) { Write-Host "Compliant     : $($scenario.IsCompliant)" } else { Write-Host "Compliant     : Not specified" }
+        Write-Host ""
+
+        if (-not (& $sbReadBKDashboardYesNo -Prompt "Run this Conditional Access simulation?" -Default $true)) {
+            Write-Host "Conditional Access simulation cancelled." -ForegroundColor DarkYellow
+            return
+        }
+
+        $result = Invoke-BKConditionalAccessWhatIf @parameters
+        if ($null -ne $result -and $null -ne $result.Summary) {
+            Write-Host ""
+            Write-Host "Conditional Access Executive Result" -ForegroundColor Cyan
+            Write-Host "------------------------------------------------------------"
+            $result.Summary | Format-List | Out-Host
+
+            Write-Host ""
+            Write-Host "Next Actions" -ForegroundColor Yellow
+            Write-Host "------------------------------------------------------------"
+            Write-Host "  [1] Run another Conditional Access simulation"
+            Write-Host "  [2] Return to dashboard"
+            Write-Host ""
+            if ((Read-Host "Select next action") -eq "1") { & $sbInvokeBKDashboardConditionalAccess }
+        }
+    }.GetNewClosure()
+
+    $sbInvokeBKDashboardIdentity = {
         [CmdletBinding()]
         param()
 
@@ -713,7 +1094,7 @@ function Show-BKDashboard {
         }
 
         if (
-            Test-BKDashboardCommand `
+            & $sbTestBKDashboardCommand `
                 -Name "Invoke-BKIdentityAssessment"
         ) {
             Invoke-BKIdentityAssessment @parameters |
@@ -723,7 +1104,7 @@ function Show-BKDashboard {
         }
 
         if (
-            Test-BKDashboardCommand `
+            & $sbTestBKDashboardCommand `
                 -Name "Invoke-BKIdentityDiscovery"
         ) {
             Invoke-BKIdentityDiscovery @parameters |
@@ -732,7 +1113,7 @@ function Show-BKDashboard {
             return
         }
 
-        Invoke-BKDashboardScript `
+        & $sbInvokeBKDashboardScript `
             -CandidatePaths @(
                 (
                     Join-Path `
@@ -754,9 +1135,9 @@ function Show-BKDashboard {
             -Parameters $parameters `
             -DisplayName "Identity Assessment" |
             Out-Host
-    }
+    }.GetNewClosure()
 
-    function Invoke-BKDashboardTrust {
+    $sbInvokeBKDashboardTrust = {
         [CmdletBinding()]
         param()
 
@@ -772,7 +1153,7 @@ function Show-BKDashboard {
         }
 
         if (
-            Test-BKDashboardCommand `
+            & $sbTestBKDashboardCommand `
                 -Name "Invoke-BKTrustAssessment"
         ) {
             Invoke-BKTrustAssessment @parameters |
@@ -782,7 +1163,7 @@ function Show-BKDashboard {
         }
 
         if (
-            Test-BKDashboardCommand `
+            & $sbTestBKDashboardCommand `
                 -Name "Invoke-BKTrustDiscovery"
         ) {
             Invoke-BKTrustDiscovery @parameters |
@@ -791,7 +1172,7 @@ function Show-BKDashboard {
             return
         }
 
-        Invoke-BKDashboardScript `
+        & $sbInvokeBKDashboardScript `
             -CandidatePaths @(
                 (
                     Join-Path `
@@ -813,9 +1194,9 @@ function Show-BKDashboard {
             -Parameters $parameters `
             -DisplayName "Trust Assessment" |
             Out-Host
-    }
+    }.GetNewClosure()
 
-    function Invoke-BKDashboardGovernance {
+    $sbInvokeBKDashboardGovernance = {
         [CmdletBinding()]
         param()
 
@@ -831,7 +1212,7 @@ function Show-BKDashboard {
         }
 
         if (
-            Test-BKDashboardCommand `
+            & $sbTestBKDashboardCommand `
                 -Name "Invoke-BKGovernanceAssessment"
         ) {
             Invoke-BKGovernanceAssessment @parameters |
@@ -841,7 +1222,7 @@ function Show-BKDashboard {
         }
 
         if (
-            Test-BKDashboardCommand `
+            & $sbTestBKDashboardCommand `
                 -Name "Invoke-BKIdentityGovernanceAssessment"
         ) {
             Invoke-BKIdentityGovernanceAssessment @parameters |
@@ -850,7 +1231,7 @@ function Show-BKDashboard {
             return
         }
 
-        Invoke-BKDashboardScript `
+        & $sbInvokeBKDashboardScript `
             -CandidatePaths @(
                 (
                     Join-Path `
@@ -872,9 +1253,9 @@ function Show-BKDashboard {
             -Parameters $parameters `
             -DisplayName "Governance Assessment" |
             Out-Host
-    }
+    }.GetNewClosure()
 
-    function Invoke-BKDashboardCorrelation {
+    $sbInvokeBKDashboardCorrelation = {
         [CmdletBinding()]
         param()
 
@@ -890,7 +1271,7 @@ function Show-BKDashboard {
         }
 
         if (
-            Test-BKDashboardCommand `
+            & $sbTestBKDashboardCommand `
                 -Name "Invoke-BKCorrelationAssessment"
         ) {
             Invoke-BKCorrelationAssessment @parameters |
@@ -900,7 +1281,7 @@ function Show-BKDashboard {
         }
 
         if (
-            Test-BKDashboardCommand `
+            & $sbTestBKDashboardCommand `
                 -Name "Invoke-BKCorrelation"
         ) {
             Invoke-BKCorrelation @parameters |
@@ -909,7 +1290,7 @@ function Show-BKDashboard {
             return
         }
 
-        Invoke-BKDashboardScript `
+        & $sbInvokeBKDashboardScript `
             -CandidatePaths @(
                 (
                     Join-Path `
@@ -931,9 +1312,9 @@ function Show-BKDashboard {
             -Parameters $parameters `
             -DisplayName "Correlation Assessment" |
             Out-Host
-    }
+    }.GetNewClosure()
 
-    function Invoke-BKDashboardOperations {
+    $sbInvokeBKDashboardOperations = {
         [CmdletBinding()]
         param()
 
@@ -949,7 +1330,7 @@ function Show-BKDashboard {
         }
 
         if (
-            Test-BKDashboardCommand `
+            & $sbTestBKDashboardCommand `
                 -Name "Invoke-BKOperationsAssessment"
         ) {
             Invoke-BKOperationsAssessment @parameters |
@@ -959,7 +1340,7 @@ function Show-BKDashboard {
         }
 
         if (
-            Test-BKDashboardCommand `
+            & $sbTestBKDashboardCommand `
                 -Name "Invoke-BKOperationsDiscovery"
         ) {
             Invoke-BKOperationsDiscovery @parameters |
@@ -968,7 +1349,7 @@ function Show-BKDashboard {
             return
         }
 
-        Invoke-BKDashboardScript `
+        & $sbInvokeBKDashboardScript `
             -CandidatePaths @(
                 (
                     Join-Path `
@@ -990,9 +1371,9 @@ function Show-BKDashboard {
             -Parameters $parameters `
             -DisplayName "Operations Assessment" |
             Out-Host
-    }
+    }.GetNewClosure()
 
-    function Invoke-BKDashboardPlatformValidation {
+    $sbInvokeBKDashboardPlatformValidation = {
         [CmdletBinding()]
         param()
 
@@ -1003,7 +1384,7 @@ function Show-BKDashboard {
 
         if (
             -not (
-                Test-BKDashboardCommand `
+                & $sbTestBKDashboardCommand `
                     -Name "Test-BKPlatform"
             )
         ) {
@@ -1016,9 +1397,9 @@ function Show-BKDashboard {
 
         Test-BKPlatform |
             Out-Host
-    }
+    }.GetNewClosure()
 
-    function Show-BKDashboardCommands {
+    $sbShowBKDashboardCommands = {
         [CmdletBinding()]
         param()
 
@@ -1059,92 +1440,36 @@ function Show-BKDashboard {
 
         Write-Host ""
         Write-Host "Total commands: $($moduleCommands.Count)"
-    }
-
-    $repoRoot = Get-BKDashboardRepoRoot
-
-    $resolvedTerraformPath = Resolve-BKDashboardPath `
-        -Path $TerraformPath `
-        -BasePath $repoRoot
-
-    $resolvedReportRoot = Resolve-BKDashboardPath `
-        -Path $ReportRoot `
-        -BasePath $repoRoot
+    }.GetNewClosure()
 
     $exitDashboard = $false
 
     while (-not $exitDashboard) {
-        Write-BKDashboardHeader
-        Write-BKDashboardMenu
+        & $sbWriteBKDashboardHeader
+        & $sbWriteBKDashboardMenu
 
         $selection = Read-Host "Enter selection"
 
         try {
             switch (($selection.Trim()).ToUpperInvariant()) {
-                "1" {
-                    Invoke-BKDashboardTerraform
-                    Wait-BKDashboard
-                }
-
-                "2" {
-                    Invoke-BKDashboardGraph
-                    Wait-BKDashboard
-                }
-
-                "3" {
-                    Invoke-BKDashboardIdentity
-                    Wait-BKDashboard
-                }
-
-                "4" {
-                    Invoke-BKDashboardTrust
-                    Wait-BKDashboard
-                }
-
-                "5" {
-                    Invoke-BKDashboardGovernance
-                    Wait-BKDashboard
-                }
-
-                "6" {
-                    Invoke-BKDashboardCorrelation
-                    Wait-BKDashboard
-                }
-
-                "7" {
-                    Invoke-BKDashboardOperations
-                    Wait-BKDashboard
-                }
-
-                "8" {
-                    Invoke-BKDashboardPlatformValidation
-                    Wait-BKDashboard
-                }
-
-                "9" {
-                    Show-BKDashboardCommands
-                    Wait-BKDashboard
-                }
-
-                "Q" {
-                    $exitDashboard = $true
-                }
-
-                "QUIT" {
-                    $exitDashboard = $true
-                }
-
-                "EXIT" {
-                    $exitDashboard = $true
-                }
-
+                "1" { & $sbInvokeBKDashboardTerraform; & $sbWaitBKDashboard }
+                "2" { & $sbInvokeBKDashboardGraph; & $sbWaitBKDashboard }
+                "3" { & $sbInvokeBKDashboardConditionalAccess; & $sbWaitBKDashboard }
+                "4" { & $sbInvokeBKDashboardIdentity; & $sbWaitBKDashboard }
+                "5" { & $sbInvokeBKDashboardTrust; & $sbWaitBKDashboard }
+                "6" { & $sbInvokeBKDashboardGovernance; & $sbWaitBKDashboard }
+                "7" { & $sbInvokeBKDashboardCorrelation; & $sbWaitBKDashboard }
+                "8" { & $sbInvokeBKDashboardOperations; & $sbWaitBKDashboard }
+                "9" { & $sbInvokeBKDashboardPlatformValidation; & $sbWaitBKDashboard }
+                "10" { & $sbShowBKDashboardCommands; & $sbWaitBKDashboard }
+                "11" { & $sbShowBKDashboardGraphConnection; & $sbWaitBKDashboard }
+                "12" { & $sbShowBKDashboardSettings; & $sbWaitBKDashboard }
+                "Q" { $exitDashboard = $true }
+                "QUIT" { $exitDashboard = $true }
+                "EXIT" { $exitDashboard = $true }
                 default {
                     Write-Host ""
-                    Write-Host (
-                        "[INVALID SELECTION] Enter a number from 1 " +
-                        "through 9, or Q to quit."
-                    ) -ForegroundColor Red
-
+                    Write-Host "[INVALID SELECTION] Enter a number from 1 through 12, or Q to quit." -ForegroundColor Red
                     Start-Sleep -Seconds 2
                 }
             }
@@ -1157,7 +1482,7 @@ function Show-BKDashboard {
                 -ForegroundColor Red
 
             if (
-                Test-BKDashboardCommand `
+                & $sbTestBKDashboardCommand `
                     -Name "Write-BKLog"
             ) {
                 Write-BKLog `
@@ -1168,11 +1493,11 @@ function Show-BKDashboard {
                     -Level Error
             }
 
-            Wait-BKDashboard
+            & $sbWaitBKDashboard
         }
     }
 
-    Write-BKDashboardHeader
+    & $sbWriteBKDashboardHeader
     Write-Host "Blackknight One dashboard closed." `
         -ForegroundColor Cyan
     Write-Host ""
