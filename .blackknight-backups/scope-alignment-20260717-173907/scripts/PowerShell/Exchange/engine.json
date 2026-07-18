@@ -1,0 +1,52 @@
+{
+  "Name": "Exchange",
+  "DisplayName": "Exchange",
+  "Version": "0.1.0",
+  "SchemaVersion": "2.1",
+  "Category": "Messaging",
+  "Description": "Assesses Exchange Online configuration and security.",
+  "SupportsDashboard": true,
+  "SupportsJson": true,
+  "SupportsPassThru": true,
+  "SupportsGraph": true,
+  "EntryPoint": "Invoke-BKExchangeAssessment.ps1",
+  "EntryPoints": {
+    "Assessment": "Invoke-BKExchangeAssessment.ps1",
+    "Discovery": "Invoke-BKExchangeDiscovery.ps1",
+    "Analyzer": "Invoke-BKExchangeAnalyzer.ps1"
+  },
+  "PublicCommands": "Invoke-BKExchangeAssessment",
+  "Dependencies": [],
+  "RequiredScopes": [
+    "Exchange.ManageAsApp"
+  ],
+  "Operations": [
+    "Assessment",
+    "Discovery",
+    "Analysis"
+  ],
+  "OperationParameters": {
+    "Assessment": {
+      "ExportJson": {
+        "Type": "SwitchParameter",
+        "Required": false
+      },
+      "IncludeObjects": {
+        "Type": "SwitchParameter",
+        "Required": false
+      },
+      "OutputPath": {
+        "Type": "String",
+        "Required": false
+      },
+      "PassThru": {
+        "Type": "SwitchParameter",
+        "Required": false
+      }
+    }
+  },
+  "Generator": {
+    "Name": "Blackknight Framework",
+    "Version": "0.8.2"
+  }
+}

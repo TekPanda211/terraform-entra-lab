@@ -463,18 +463,128 @@ function Invoke-BKCorrelation {
             "Healthy"
         }
 
-        $result = New-BKResult `
-            -Engine "Correlation Engine" `
-            -Version "0.5.0-alpha" `
-            -Status "Integrated" `
-            -Health $health `
+        $correlatedFindings = [System.Collections.Generic.List[object]]::new()
+
+        foreach ($identity in $attentionRequired) {
+            $reasons = @($identity.AttentionReasons | Where-Object { -not [string]::IsNullOrWhiteSpace([string]$_) })
+            $severity = if ($identity.IsPrivileged -and $identity.IsMfaRegistered -ne $true) {
+                "Critical"
+            }
+            elseif ($identity.IsPrivileged -or $identity.IsAdmin) {
+                "High"
+            }
+            elseif ($identity.IsMfaRegistered -ne $true) {
+                "Medium"
+            }
+            else {
+                "Low"
+            }
+
+            $finding = New-BKFinding `
+                -Severity $severity `
+                -Category "Identity Correlation" `
+                -Title ("Identity requires attention: {0}" -f $identity.DisplayName) `
+                -Details ($reasons -join "; ") `
+                -Resource ([string]$identity.UserPrincipalName) `
+                -Recommendation "Review the identity's authentication registration, privilege, and account state." `
+                -Source "Correlation Engine" `
+                -RuleId "BK-CORR-IDENTITY-001" `
+                -Metadata @{
+                    ObjectId              = [string]$identity.Id
+                    UserPrincipalName     = [string]$identity.UserPrincipalName
+                    IsAdmin               = [bool]$identity.IsAdmin
+                    IsPrivileged          = [bool]$identity.IsPrivileged
+                    IsMfaRegistered       = $identity.IsMfaRegistered
+                    IsPasswordlessCapable = $identity.IsPasswordlessCapable
+                    AttentionReasons      = $reasons
+                }
+
+            [void]$correlatedFindings.Add($finding)
+        }
+
+        foreach ($assignment in $roleAssignmentsRequiringReview) {
+            $reviewReasons = @($assignment.ReviewReasons | Where-Object { -not [string]::IsNullOrWhiteSpace([string]$_) })
+            $severity = if ([string]$assignment.Severity -in @("Critical", "High", "Medium", "Low")) {
+                [string]$assignment.Severity
+            }
+            else {
+                "Medium"
+            }
+
+            $finding = New-BKFinding `
+                -Severity $severity `
+                -Category "Authorization Correlation" `
+                -Title ("Role assignment requires review: {0}" -f $assignment.RoleName) `
+                -Details ($reviewReasons -join "; ") `
+                -Resource ([string]$assignment.PrincipalName) `
+                -Recommendation "Validate business need, assignment duration, principal type, and least-privilege alternatives." `
+                -Source "Correlation Engine" `
+                -RuleId "BK-CORR-AUTHZ-001" `
+                -Metadata @{
+                    AssignmentId = [string]$assignment.Id
+                    RoleName     = [string]$assignment.RoleName
+                    PrincipalId  = [string]$assignment.PrincipalId
+                    PrincipalType= [string]$assignment.PrincipalType
+                    IsDeprecated = [bool]$assignment.IsDeprecated
+                    ReviewReasons= $reviewReasons
+                }
+
+            [void]$correlatedFindings.Add($finding)
+        }
+
+        $summary = [PSCustomObject]@{
+            Status                       = "Complete"
+            Health                       = $health
+            TotalIdentities              = $totalUsers
+            EnabledIdentities            = $enabledUsers.Count
+            DisabledIdentities           = $disabledUsers.Count
+            AdministrativeIdentities     = $administrativeUsers.Count
+            PrivilegedIdentities         = $privilegedUsers.Count
+            CorrelationCoverage          = $correlationCoverage
+            UsersWithoutMfa              = $usersWithoutMfa.Count
+            PrivilegedUsersWithoutMfa    = $privilegedUsersWithoutMfa.Count
+            ActiveRoleAssignments        = $directoryRoles.Count
+            AssignmentsRequiringReview   = $roleAssignmentsRequiringReview.Count
+            CorrelatedFindingCount       = $correlatedFindings.Count
+        }
+
+        $scores = [PSCustomObject]@{
+            Score      = $score
+            Health     = $health
+            Passed     = $passed
+            Warnings   = $warnings
+            Failed     = $failed
+            ChecksRun  = $checks.Count
+        }
+
+        $result = New-BKAssessmentResult `
+            -Engine "Correlation" `
+            -Operation "Assessment" `
+            -EngineVersion "0.6.0-alpha" `
+            -Category "Identity Intelligence" `
+            -Summary $summary `
+            -Scores $scores `
+            -Findings @($correlatedFindings) `
+            -Recommendations $recommendations `
             -Confidence $score `
-            -ChecksRun $checks.Count `
-            -Passed $passed `
-            -Warnings $warnings `
-            -Failed $failed `
-            -Evidence $evidence `
-            -Recommendations $recommendations
+            -Statistics @{
+                TotalIdentities                = $totalUsers
+                CorrelationCoverage            = $correlationCoverage
+                AttentionRequired              = $attentionRequired.Count
+                ActiveRoleAssignments          = $directoryRoles.Count
+                AssignmentsRequiringReview     = $roleAssignmentsRequiringReview.Count
+                HighSeverityAuthorization      = $highSeverityAuthorizationFindings.Count
+            } `
+            -Objects @{
+                Identities                     = @($identities)
+                DirectoryRoleAssignments       = @($directoryRoles)
+                IdentitiesRequiringAttention   = @($attentionRequired)
+                AssignmentsRequiringReview     = @($roleAssignmentsRequiringReview)
+            } `
+            -Metadata @{
+                Evidence = $evidence
+                Checks   = @($checks)
+            }
 
         Write-Host ""
         Write-Host "Identity Correlation"

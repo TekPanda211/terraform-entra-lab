@@ -1,14 +1,32 @@
 {
   "Name": "ConditionalAccess",
-  "Version": "0.2.0",
+  "DisplayName": "Conditional Access",
+  "Version": "0.3.0",
+  "SchemaVersion": "2.0",
+  "Category": "Identity and Security",
+  "Description": "Assesses Microsoft Entra Conditional Access policy coverage, configuration, security hygiene, and simulated sign-in behavior.",
+  "SupportsDashboard": true,
+  "SupportsJson": true,
+  "SupportsPassThru": true,
+  "SupportsGraph": true,
   "EntryPoint": "Invoke-BKConditionalAccessAssessment.ps1",
-  "Description": "Assesses Microsoft Entra Conditional Access policy coverage, configuration, and security hygiene.",
+  "EntryPoints": {
+    "Assessment": "Invoke-BKConditionalAccessAssessment.ps1",
+    "WhatIf": "Invoke-BKConditionalAccessWhatIf.ps1"
+  },
+  "PublicCommands": [
+    "Invoke-BKConditionalAccessAssessment",
+    "Invoke-BKConditionalAccessWhatIf"
+  ],
   "Dependencies": [
     "Get-MgContext",
-    "Invoke-MgGraphRequest"
+    "Invoke-MgGraphRequest",
+    "Test-MgIdentityConditionalAccess"
   ],
   "RequiredScopes": [
-    "Policy.Read.All"
+    "Policy.Read.All",
+    "Policy.Read.ConditionalAccess",
+    "User.Read.All"
   ],
   "Operations": [
     "ConditionalAccessAssessment",

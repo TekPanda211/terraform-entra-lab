@@ -4,31 +4,35 @@
 
 # BlackKnight One
 
-Infrastructure Assessment Platform for Terraform, Microsoft Graph, Identity, and Security
+Identity-First Security Engineering for Microsoft Entra, Microsoft Graph, Terraform, Azure, and GDAP
 
 ---
 
 ## Overview
 
-BlackKnight One is an enterprise PowerShell platform designed to assess, analyze, and validate modern cloud infrastructure.
+BlackKnight One is an identity-first security engineering platform for Microsoft Entra, Microsoft Graph, Terraform, Azure governance, and GDAP-based MSP operations.
 
-The platform combines Terraform engineering, Microsoft Graph discovery, identity analysis, and security assessments into a single dashboard-driven experience with standardized reporting and executive scoring.
+It discovers tenant and infrastructure evidence, evaluates identity and access posture, correlates findings across domains, and produces standardized risk and executive reporting.
 
 ## North Star
 
-BlackKnight One exists to become the definitive assessment platform for Microsoft cloud, identity, infrastructure, and security engineering.
-
-The vision is to provide a single, consistent platform capable of assessing, validating, and correlating infrastructure across Terraform, Microsoft Graph, Azure, Microsoft 365, and future cloud technologies.
-
-Every assessment engine should answer three fundamental questions:
+BlackKnight One exists to help security engineers and MSPs answer three questions across every supported tenant:
 
 1. What exists?
-2. Is it healthy, secure, and compliant?
-3. What should be done next?
+2. Is identity, access, and infrastructure secure and correctly governed?
+3. What should be remediated first?
 
-BlackKnight One is designed around a common assessment model so that every engine—regardless of technology—produces standardized findings, confidence scoring, executive summaries, and actionable recommendations.
+The active product focus is intentionally narrow:
 
-The long-term objective is to provide engineers, architects, consultants, and security professionals with a single platform capable of evaluating an organization's cloud posture from infrastructure to identity.
+- Microsoft Entra identity and privileged access
+- Microsoft Graph as the primary data-acquisition layer
+- Conditional Access and authentication security
+- Terraform and infrastructure-as-code assurance
+- Azure governance, RBAC, and policy
+- GDAP and multi-tenant MSP assessment workflows
+- Cross-domain correlation, risk scoring, and reporting
+
+Exchange, SharePoint, Teams, and other Microsoft 365 workload assessments are not part of the active v1.0 roadmap. The engine SDK remains extensible so workload-specific plugins can be added later without changing the core platform.
 
 ## Vision
 
@@ -296,12 +300,12 @@ BlackKnight-One
 
 ## Future Releases
 
-- Exchange Online Assessment
-- SharePoint Assessment
-- Intune Assessment
-- Azure Subscription Assessment
-- Microsoft Defender Assessment
-- Microsoft 365 Security Assessment
+- GDAP relationship discovery and customer inventory
+- Multi-tenant MSP assessment orchestration
+- Azure RBAC, Policy, and management-group assessment
+- Privileged Identity Management assessment
+- Workload identity and application-permission assessment
+- Cross-tenant risk ranking and executive reporting
 
 ---
 

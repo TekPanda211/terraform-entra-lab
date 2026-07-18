@@ -9,7 +9,7 @@
     # Semantic version for Blackknight One
     #
 
-    ModuleVersion = "0.7.0"
+    ModuleVersion = "0.9.3"
 
     #
     # Stable module identifier
@@ -34,13 +34,13 @@
     #
 
     Description = @"
-Blackknight One is a dashboard-driven infrastructure, identity, and security
-assessment platform for Terraform and Microsoft Graph.
+Blackknight One is an identity-first security engineering platform for
+Microsoft Entra, Microsoft Graph, Terraform, Azure, and GDAP-based MSP
+operations.
 
-The platform provides interactive assessment workflows, Terraform HCL
-discovery, Terraform security analysis, plan analysis, two-phase drift
-confirmation, Microsoft Graph tenant discovery, standardized scoring,
-findings, recommendations, and JSON reporting.
+The platform provides manifest-driven assessment workflows, tenant discovery,
+Conditional Access analysis, Terraform security engineering, cross-domain
+correlation, risk scoring, and standardized reporting.
 "@
 
     #
@@ -219,7 +219,7 @@ Fixed:
 
         PlatformName = "Blackknight One"
 
-        PlatformVersion = "0.7.0"
+        PlatformVersion = "0.9.3"
 
         ReleaseChannel = "Stable"
 
@@ -227,13 +227,15 @@ Fixed:
 
         SupportedDomains = @(
             "Platform"
-            "Terraform"
+            "MicrosoftEntra"
             "MicrosoftGraph"
-            "Identity"
+            "ConditionalAccess"
+            "Terraform"
+            "Azure"
+            "GDAP"
             "Governance"
-            "Trust"
             "Correlation"
-            "Operations"
+            "Risk"
             "Reporting"
         )
 

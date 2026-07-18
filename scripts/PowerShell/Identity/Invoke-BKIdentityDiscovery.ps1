@@ -178,7 +178,8 @@ function Invoke-BKIdentityDiscovery {
     Export-BKJsonReport -Data $report -Path $jsonPath
 }
 
-    Write-BKSection "Identity Discovery Complete"
+    Write-BKSection "Identity Discovery Complete"
+    return $result
 }
 
 Invoke-BKIdentityDiscovery

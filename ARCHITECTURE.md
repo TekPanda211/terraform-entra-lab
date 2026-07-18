@@ -319,12 +319,13 @@ The following engines are planned as the platform continues to grow.
 - Privileged Identity Management Assessment
 - Application Permissions Assessment
 
-## Microsoft 365
+## MSP and Delegated Administration
 
-- Exchange Online Assessment
-- SharePoint Online Assessment
-- Teams Assessment
-- Intune Assessment
+- GDAP Relationship Discovery
+- GDAP Role and Scope Validation
+- Multi-Tenant Customer Assessment
+- Partner Customer Risk Ranking
+- Cross-Tenant Reporting
 
 ## Azure
 
@@ -337,6 +338,6 @@ The following engines are planned as the platform continues to grow.
 
 # Long-Term Vision
 
-BlackKnight One is designed to become a unified assessment platform for infrastructure, identity, security, and Microsoft cloud services.
+BlackKnight One is designed to become an identity-first security engineering platform for Microsoft Entra, Microsoft Graph, Terraform, Azure, and MSP operations.
 
-Rather than focusing on a single technology, the platform provides a consistent assessment experience across multiple domains while producing standardized reporting suitable for engineering teams, consultants, managed service providers, and enterprise environments.
+The platform intentionally prioritizes identity, access, delegated administration, infrastructure as code, and security correlation. Workload-specific Microsoft 365 assessment engines are outside the active product scope unless later delivered as optional community plugins.

@@ -1525,6 +1525,100 @@ foreach ($stateFile in $localStateFiles) {
         }
 
         #
+        # Shared Framework readiness
+        #
+
+        $sharedFrameworkManifest = Join-Path `
+            -Path $repoRoot `
+            -ChildPath "scripts\PowerShell\Shared\shared.json"
+
+        if (
+            Test-Path `
+                -LiteralPath $sharedFrameworkManifest `
+                -PathType Leaf
+        ) {
+            try {
+                $sharedFrameworkMetadata = Get-Content `
+                    -LiteralPath $sharedFrameworkManifest `
+                    -Raw `
+                    -ErrorAction Stop |
+                    ConvertFrom-Json `
+                        -ErrorAction Stop
+
+                Add-BKValidationResult `
+                    -Category "Shared Framework" `
+                    -Check "Shared Framework Manifest" `
+                    -Status "PASS" `
+                    -Domain "Repository" `
+                    -Severity "Informational" `
+                    -Details "Shared Framework manifest is valid. Version: $($sharedFrameworkMetadata.Version)" `
+                    -Path $sharedFrameworkManifest
+            }
+            catch {
+                Add-BKValidationResult `
+                    -Category "Shared Framework" `
+                    -Check "Shared Framework Manifest" `
+                    -Status "FAIL" `
+                    -Domain "Repository" `
+                    -Severity "High" `
+                    -Details "Shared Framework manifest is invalid: $($_.Exception.Message)" `
+                    -Path $sharedFrameworkManifest `
+                    -Recommendation "Correct shared.json before release."
+            }
+        }
+        else {
+            Add-BKValidationResult `
+                -Category "Shared Framework" `
+                -Check "Shared Framework Manifest" `
+                -Status "FAIL" `
+                -Domain "Repository" `
+                -Severity "High" `
+                -Details "Shared Framework manifest is missing." `
+                -Path $sharedFrameworkManifest `
+                -Recommendation "Install the finalized Shared Framework package."
+        }
+
+        $sharedFrameworkValidationCommand = Get-Command `
+            -Name "Test-BKSharedFramework" `
+            -ErrorAction SilentlyContinue
+
+        if ($null -ne $sharedFrameworkValidationCommand) {
+            $sharedFrameworkValidation = Test-BKSharedFramework `
+                -Quiet `
+                -PassThru
+
+            if ($sharedFrameworkValidation.Status -eq "PASS") {
+                Add-BKValidationResult `
+                    -Category "Shared Framework" `
+                    -Check "Shared Helpers Loaded" `
+                    -Status "PASS" `
+                    -Domain "Operational" `
+                    -Severity "Informational" `
+                    -Details "$($sharedFrameworkValidation.Passed) shared helpers loaded successfully."
+            }
+            else {
+                Add-BKValidationResult `
+                    -Category "Shared Framework" `
+                    -Check "Shared Helpers Loaded" `
+                    -Status "FAIL" `
+                    -Domain "Operational" `
+                    -Severity "High" `
+                    -Details "$($sharedFrameworkValidation.Failed) required shared helpers are missing." `
+                    -Recommendation "Reload the Blackknight-Platform module and review Shared Framework loader errors."
+            }
+        }
+        else {
+            Add-BKValidationResult `
+                -Category "Shared Framework" `
+                -Check "Shared Framework Validation Command" `
+                -Status "FAIL" `
+                -Domain "Operational" `
+                -Severity "High" `
+                -Details "Test-BKSharedFramework is not loaded." `
+                -Recommendation "Confirm the public wrapper and module bootstrap are installed."
+        }
+
+        #
         # Domain summaries
         #
 

@@ -1,0 +1,35 @@
+{
+  "Name": "Blackknight Shared Framework",
+  "Version": "0.8.2",
+  "SchemaVersion": "1.0",
+  "MinimumPowerShellVersion": "7.4",
+  "Loader": "Import-BKSharedFramework.ps1",
+  "LoadOrder": [
+    "Utilities",
+    "Findings",
+    "Scoring",
+    "Reporting",
+    "Export",
+    "Graph",
+    "Validation",
+    "Engines"
+  ],
+  "RequiredHelpers": [
+    "ConvertTo-BKArray",
+    "Get-BKPropertyValue",
+    "New-BKFinding",
+    "Measure-BKScore",
+    "New-BKAssessmentResult",
+    "Export-BKJson",
+    "Invoke-BKGraphPagedRequest",
+    "Test-BKRequiredGraphScopes",
+    "Test-BKEngineManifest",
+    "Get-BKEngineRegistry",
+    "Invoke-BKEngine",
+    "Write-BKAssessmentHeader",
+    "Write-BKAssessmentSummary",
+    "Write-BKAssessmentFindings",
+    "Write-BKAssessmentFooter"
+  ],
+  "Description": "Shared findings, scoring, reporting, export, Graph, validation, and utility functions for Blackknight One engines."
+}

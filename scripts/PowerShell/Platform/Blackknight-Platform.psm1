@@ -29,12 +29,34 @@ if (
     . $sharedFrameworkLoader
 }
 else {
-    Write-Verbose (
+    throw (
         "Blackknight Shared Framework loader was not found: " +
         $sharedFrameworkLoader
     )
 }
 
+# ---------------------------------------------------------------------------
+# Build engine registry
+# ---------------------------------------------------------------------------
+
+$script:BKEngineRegistry = [PSCustomObject]@{
+    PowerShellRoot = $powerShellRoot
+    RefreshedAt    = $null
+    Engines        = @()
+}
+
+try {
+    $null = Get-BKEngineRegistry `
+        -PowerShellRoot $powerShellRoot `
+        -Refresh `
+        -IncludeInvalid
+}
+catch {
+    Write-Warning (
+        "Blackknight engine registry initialization failed: " +
+        $_.Exception.Message
+    )
+}
 # ---------------------------------------------------------------------------
 # Load engine-private helpers
 # ---------------------------------------------------------------------------

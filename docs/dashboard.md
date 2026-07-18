@@ -492,13 +492,13 @@ Future dashboard capabilities include:
 
 \- Conditional Access Assessment
 
-\- Exchange Online Assessment
+\- Privileged Identity Management Assessment
 
-\- SharePoint Online Assessment
+\- GDAP Relationship Assessment
 
-\- Intune Assessment
+\- Multi-Tenant MSP Assessment
 
-\- Azure Assessment
+\- Azure RBAC and Policy Assessment
 
 \- HTML report viewer
 

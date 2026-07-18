@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.9.3 - Engine Registry and Scope Alignment
+
+### Added
+- `Get-BKEngineCategory` for category-based engine discovery.
+- `Get-BKEngineStatus` for registry health and capability reporting.
+- Registry metadata for enabled state, assessment availability, operations, capabilities, and reporting support.
+- Category-grouped dynamic dashboard with an engine-status view.
+
+### Changed
+- Refocused the platform mission on Entra, Graph, Conditional Access, Terraform, Azure, and GDAP/MSP operations.
+- Updated the module metadata and dashboard wording for the identity-first product direction.
+- Legacy engine manifests are normalized by the registry without requiring immediate manifest rewrites.
+
+### Removed
+- Experimental Exchange engine scaffold and public wrapper.
+
 All notable changes to BlackKnight One are documented in this file.
 
 The project follows the principles of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and uses Semantic Versioning.
